@@ -23,8 +23,11 @@ const NavBar = () => {
           <NavLink className="nav-item nav-link" to="/about">
             About
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/projects">
-            Projects
+          <NavLink className="nav-item nav-link" to="/songs-project">
+            Songs Project
+          </NavLink>
+          <NavLink className="nav-item nav-link" to="/weather-api">
+            Weather API
           </NavLink>
           <NavLink className="nav-item nav-link" to="/contact">
             Contact

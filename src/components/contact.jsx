@@ -2,7 +2,17 @@ import React from "react";
 
 class Contact extends React.Component {
   render() {
-    return <h1>Contact Me (create form)</h1>;
+    return (
+      <div>
+        <h1>Contact Form</h1>
+        <ul>
+          <li>Name</li>
+          <li>Email</li>
+          <li>Message</li>
+          <li>Submit Button</li>
+        </ul>
+      </div>
+    );
   }
 }
 

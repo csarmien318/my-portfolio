@@ -5,5 +5,5 @@ export const artists = [
 ];
 
 export function getArtists() {
-  return genres.filter((g) => g);
+  return artists.filter((a) => a);
 }
