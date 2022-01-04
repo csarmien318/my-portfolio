@@ -2,7 +2,16 @@ import React from "react";
 
 class About extends React.Component {
   render() {
-    return <h1>About Me Page</h1>;
+    return (
+      <div>
+        <h1>About</h1>
+        <ul>
+          <li>Resume</li>
+          <li>Cover Letter</li>
+          <li>Hobbies/Interests</li>
+        </ul>
+      </div>
+    );
   }
 }
 

@@ -2,7 +2,16 @@ import React, { Component } from "react";
 
 class Home extends Component {
   render() {
-    return <h1>Homepage (welcome stuff)</h1>;
+    return (
+      <div>
+        <h1>Home</h1>
+        <ul>
+          <li>Welcome message</li>
+          <li>Headshot</li>
+          <li>Website overview</li>
+        </ul>
+      </div>
+    );
   }
 }
 

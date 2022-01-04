@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+h1 {
+  padding: 0 0 20px 0;
+}
+
 .navbar {
   margin-bottom: 30px;
 }
