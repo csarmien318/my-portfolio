@@ -1,20 +1,19 @@
 import React from "react";
 
-const ListGroup = ({
-  items,
-  textProperty,
-  valueProperty,
-  selectedItem,
-  onItemSelect,
-}) => {
+const ListGroup = (props) => {
+  const { items, textProperty, valueProperty, selectedItem, onItemSelect } =
+    props;
+
   return (
-    <ul className="list-group clickable">
+    <ul className="list-group">
       {items.map((item) => (
         <li
           onClick={() => onItemSelect(item)}
           key={item[valueProperty]}
           className={
-            item === selectedItem ? "list-group-item active" : "list-group-item"
+            item === selectedItem
+              ? "list-group-item active"
+              : "list-group-item clickable"
           }
         >
           {item[textProperty]}
@@ -30,3 +29,32 @@ ListGroup.defaultProps = {
 };
 
 export default ListGroup;
+
+// const ListGroup = ({
+//   items,
+//   textProperty,
+//   valueProperty,
+//   selectedItem,
+//   onItemSelect,
+// }) => {
+//   return (
+//     <ul className="list-group clickable">
+//       {items.map((item) => (
+//         <li
+//           onClick={() => onItemSelect(item)}
+//           key={item[valueProperty]}
+//           className={
+//             item === selectedItem ? "list-group-item active" : "list-group-item"
+//           }
+//         >
+//           {item[textProperty]}
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// };
+
+// ListGroup.defaultProps = {
+//   textProperty: "name",
+//   valueProperty: "_id",
+// };

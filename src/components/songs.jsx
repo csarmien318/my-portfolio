@@ -1,10 +1,11 @@
 import React from "react";
-import Like from "./common/like";
 import ListGroup from "./common/listGroup";
+import SongsTable from "./songsTable";
 import Pagination from "./common/pagination";
 import { getSongs } from "../services/songService";
 import { getArtists } from "../services/artistService";
 import { paginate } from "../utils/paginate";
+import _ from "lodash";
 
 class Songs extends React.Component {
   state = {
@@ -12,10 +13,13 @@ class Songs extends React.Component {
     artists: [],
     currentPage: 1,
     pageSize: 4,
+    sortColumn: { path: "", order: "asc" },
   };
 
   componentDidMount() {
-    this.setState({ songs: getSongs(), artists: getArtists() });
+    const artists = [{ _id: "", name: "All Artists" }, ...getArtists()];
+
+    this.setState({ songs: getSongs(), artists });
   }
 
   handleLike = (song) => {
@@ -30,13 +34,34 @@ class Songs extends React.Component {
     this.setState({ currentPage: page });
   };
 
+  handleArtistSelect = (artist) => {
+    this.setState({ selectedArtist: artist, currentPage: 1 });
+  };
+
+  handleSort = (sortColumn) => {
+    this.setState({ sortColumn });
+  };
+
   render() {
     const { length: count } = this.state.songs;
-    const { pageSize, currentPage, songs: allSongs } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      sortColumn,
+      selectedArtist,
+      songs: allSongs,
+    } = this.state;
 
     if (count === 0) return <p>There are no songs in the database.</p>;
 
-    const songs = paginate(allSongs, currentPage, pageSize);
+    const filtered =
+      selectedArtist && selectedArtist._id
+        ? allSongs.filter((s) => s.artist._id === selectedArtist._id)
+        : allSongs;
+
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
+    const songs = paginate(sorted, currentPage, pageSize);
 
     return (
       <div className="row">
@@ -49,38 +74,15 @@ class Songs extends React.Component {
           />
         </div>
         <div className="col">
-          <p>There are {count} songs in the database.</p>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th>Length</th>
-                <th>Release Date</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {songs.map((song) => (
-                <tr key={song._id}>
-                  <td>{song.title}</td>
-                  <td>{song.artist.name}</td>
-                  <td>{song.album}</td>
-                  <td>{song.songLength}</td>
-                  <td>{song.releaseDate}</td>
-                  <td>
-                    <Like
-                      liked={song.liked}
-                      onClick={() => this.handleLike(song)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <p>Showing {filtered.length} song(s) in the database.</p>
+          <SongsTable
+            songs={songs}
+            sortColumn={sortColumn}
+            onLike={this.handleLike}
+            onSort={this.handleSort}
+          />
           <Pagination
-            itemsCount={count}
+            itemsCount={filtered.length}
             pageSize={pageSize}
             currentPage={currentPage}
             onPageChange={this.handlePageChange}
