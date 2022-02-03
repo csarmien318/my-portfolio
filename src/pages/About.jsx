@@ -1,18 +1,16 @@
 import React from "react";
+import { Page } from "../components/Page";
 
-class About extends React.Component {
-  render() {
-    return (
+export const About = () => {
+  return (
+    <Page title="About">
       <div>
-        <h1>About</h1>
         <ul>
           <li>Resume</li>
           <li>Cover Letter</li>
           <li>Hobbies/Interests</li>
         </ul>
       </div>
-    );
-  }
-}
-
-export default About;
+    </Page>
+  );
+};

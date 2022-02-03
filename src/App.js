@@ -1,34 +1,32 @@
-import React, { Component } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
-import Home from "./components/home";
-import About from "./components/about";
-import Songs from "./components/songs";
-import WeatherApi from "./components/weatherApi";
-import Contact from "./components/contact";
-import NotFound from "./components/notFound";
-import NavBar from "./components/navBar";
-import "./App.css";
+import React from "react";
+import { useRoutes } from "hookrouter";
+import { Header } from "./components/Header";
+import { Wrapper } from "./components/Wrapper";
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { Songs } from "./pages/Songs";
+import { Weather } from "./pages/Weather";
+import { Contact } from "./pages/Contact";
+import { NotFound } from "./pages/NotFound";
 
-class App extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <NavBar />
-        <main className="container">
-          <Switch>
-            <Route path="/home" component={Home}></Route>
-            <Route path="/about" component={About}></Route>
-            <Route path="/songs-project" component={Songs}></Route>
-            <Route path="/weather-api" component={WeatherApi}></Route>
-            <Route path="/contact" component={Contact}></Route>
-            <Route path="/not-found" component={NotFound}></Route>
-            <Redirect from="/" exact to="/home" />
-            <Redirect to="/not-found" />
-          </Switch>
-        </main>
-      </React.Fragment>
-    );
-  }
+const routes = {
+  "/": () => <Home />,
+  "/about*": () => <About />,
+  "/songs-project": () => <Songs />,
+  "/weather-api": () => <Weather />,
+  "/contact": () => <Contact />,
+};
+
+function App() {
+  const match = useRoutes(routes);
+  return (
+    <main>
+      <Wrapper>
+        <Header />
+        <div className="container-flex">{match || <NotFound />}</div>
+      </Wrapper>
+    </main>
+  );
 }
 
 export default App;
