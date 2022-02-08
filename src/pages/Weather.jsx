@@ -60,24 +60,19 @@ export const Weather = () => {
             {weather && (
               <div style={{ margin: "20px" }}>
                 <Card>
-                  <Card.Title as="h5">{`${weather.city}${
-                    weather.state && weather.city !== weather.state
-                      ? ", " + weather.state
-                      : ""
-                  }, ${weather.country}`}</Card.Title>
                   <Card.Body>
                     <Container>
                       <Row>
                         <Col xs={12} md={4}>
-                          <p>{`${weather.conditions}`}</p>
-                          <Card.Img src={weather.icon} alt="weather icon" />
+                          <div>{`${weather.city}, ${weather.state} ${weather.country}`}</div>
                         </Col>
                         <Col
                           xs={12}
                           md={8}
                           className="d-flex flex-column justify-content-between"
                         >
-                          <h1>{`${Math.round(weather.temperature)} \xB0F`}</h1>
+                          <span>{`${weather.temperature} F`}</span>
+                          <span>{weather.conditions}</span>
                         </Col>
                       </Row>
                     </Container>
