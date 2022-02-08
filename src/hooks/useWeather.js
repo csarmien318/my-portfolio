@@ -41,7 +41,6 @@ const useWeather = () => {
       country: data.location.country,
       temperature: data.current.temp_f,
       conditions: data.current.condition.text,
-      icon: data.current.condition.icon,
     });
     console.log(data);
     console.log(
