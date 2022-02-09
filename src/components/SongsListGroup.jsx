@@ -14,7 +14,7 @@ export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
           onClick={() => onArtistSelect(artist.name)}
           key={artist._id}
           as="li"
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", backgroundColor: "rgb(199, 190, 190)" }}
         >
           {artist.name}
         </ListGroup.Item>

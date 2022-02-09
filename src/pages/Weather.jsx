@@ -28,8 +28,8 @@ export const Weather = () => {
   return (
     <Page>
       <div className="container col-6">
-        <Card className="text-center">
-          <Card.Header as="h5">Weather App</Card.Header>
+        <Card className="text-center" bg="light">
+          <Card.Header as="h4">Weather App</Card.Header>
           <Card.Body>
             {!loader && (
               <Form className="text-center" onSubmit={onSubmit}>
@@ -48,18 +48,25 @@ export const Weather = () => {
               </Form>
             )}
             {error && (
-              <div className="error alert" role="alert">
+              <h5 className="error alert" role="alert">
                 {error}
-              </div>
+              </h5>
             )}
             {loader && (
               <Placeholder as="p" animation="glow">
                 <Placeholder xs={12} bg="primary" />
               </Placeholder>
             )}
-            {weather && (
+            {!error && weather && (
               <div style={{ margin: "20px" }}>
                 <Card>
+                  <Card.Title as="h5" style={{ margin: "15px" }}>{`${
+                    weather.city
+                  }${
+                    weather.state && weather.city !== weather.state
+                      ? ", " + weather.state
+                      : ""
+                  }, ${weather.country}`}</Card.Title>
                   <Card.Body>
                     <Container>
                       <Row>
@@ -73,6 +80,11 @@ export const Weather = () => {
                         >
                           <span>{`${weather.temperature} F`}</span>
                           <span>{weather.conditions}</span>
+                          <h1>
+                            <strong>{`${Math.round(
+                              weather.temperature
+                            )} \xB0F`}</strong>
+                          </h1>
                         </Col>
                       </Row>
                     </Container>

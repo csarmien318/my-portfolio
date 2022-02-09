@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useRoutes } from "hookrouter";
 import { Header } from "./components/Header";
 import { Wrapper } from "./components/Wrapper";
@@ -20,12 +20,10 @@ const routes = {
 function App() {
   const match = useRoutes(routes);
   return (
-    <main>
-      <Wrapper>
-        <Header />
-        <div className="container-flex">{match || <NotFound />}</div>
-      </Wrapper>
-    </main>
+    <Wrapper>
+      <Header />
+      {match || <NotFound />}
+    </Wrapper>
   );
 }
 
