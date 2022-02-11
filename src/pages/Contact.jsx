@@ -3,7 +3,7 @@ import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { Page } from "../components/Page";
 import { useContact } from "../hooks/useContact";
 
-export const Contact = () => {
+const Contact = () => {
   const formSubmit = () => {
     // console.log("Callback function executed upon form submission");
     console.log("Form Values ", values);
@@ -92,3 +92,5 @@ export const Contact = () => {
     </Page>
   );
 };
+
+export default Contact;

@@ -11,7 +11,7 @@ import {
   Row,
 } from "react-bootstrap";
 
-export const Weather = () => {
+const Weather = () => {
   const [location, setLocation] = useState("");
 
   const onSubmit = (e) => {
@@ -70,21 +70,19 @@ export const Weather = () => {
                   <Card.Body>
                     <Container>
                       <Row>
-                        <Col xs={12} md={4}>
-                          <div>{`${weather.city}, ${weather.state} ${weather.country}`}</div>
-                        </Col>
-                        <Col
-                          xs={12}
-                          md={8}
-                          className="d-flex flex-column justify-content-between"
-                        >
-                          <span>{`${weather.temperature} F`}</span>
-                          <span>{weather.conditions}</span>
+                        <Col xs={12} md={8}>
                           <h1>
                             <strong>{`${Math.round(
                               weather.temperature
                             )} \xB0F`}</strong>
                           </h1>
+                          <span>{`Feels like ${Math.round(
+                            weather.feelsLike
+                          )} \xB0F`}</span>
+                        </Col>
+                        <Col xs={12} md={4}>
+                          <Card.Img src={weather.icon} />
+                          <div>{`Humidity: ${weather.humidity}%`}</div>
                         </Col>
                       </Row>
                     </Container>
@@ -98,3 +96,5 @@ export const Weather = () => {
     </Page>
   );
 };
+
+export default Weather;
