@@ -41,13 +41,11 @@ const useWeather = () => {
       country: data.location.country,
       temperature: data.current.temp_f,
       conditions: data.current.condition.text,
+      icon: data.current.condition.icon,
+      humidity: data.current.humidity,
+      feelsLike: data.current.feelslike_f,
     });
     console.log(data);
-    console.log(
-      `Showing weather for ${data.location.name}, ${data.location.region}`
-    );
-    console.log("Temperature: ", data.current.temp_f, "degrees Fahrenheit");
-    console.log("Conditions: ", data.current.condition.text);
   };
 
   const submitRequest = async (location) => {

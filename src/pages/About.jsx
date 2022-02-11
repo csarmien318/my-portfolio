@@ -1,7 +1,7 @@
 import React from "react";
 import { Page } from "../components/Page";
 
-export const About = () => {
+const About = () => {
   return (
     <Page title="About">
       <div>
@@ -14,3 +14,5 @@ export const About = () => {
     </Page>
   );
 };
+
+export default About;
