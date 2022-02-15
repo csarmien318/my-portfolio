@@ -19,7 +19,7 @@ const useWeather = () => {
         setError("Enter a city");
         console.log(error);
       } else if (error.response && error.response.status >= "400") {
-        setError("City not found");
+        setError("Sorry, we couldn't find the city you entered.");
         console.log(error);
       } else {
         console.log("Logging error...", error);
@@ -44,6 +44,10 @@ const useWeather = () => {
       icon: data.current.condition.icon,
       humidity: data.current.humidity,
       feelsLike: data.current.feelslike_f,
+      windSpeed: data.current.wind_mph,
+      windDirection: data.current.wind_dir,
+      visibility: data.current.vis_miles,
+      uvIndex: data.current.uv,
     });
     console.log(data);
   };
