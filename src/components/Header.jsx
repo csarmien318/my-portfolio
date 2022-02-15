@@ -3,17 +3,18 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const storedTab = localStorage.getItem("tab");
-  const [tab, setTab] = useState(storedTab ? storedTab : "");
+  const path = window.location.pathname;
+  const storedPath = localStorage.getItem(path);
+  const [tab, setTab] = useState(storedPath ? storedPath : "");
   useEffect(() => {
-    localStorage.setItem("tab", tab);
+    localStorage.setItem("tab", path);
   }, [tab]);
 
   return (
     <Navbar variant="light">
       <Container fluid>
         <Navbar.Brand
-          className={tab === "home" ? "active" : ""}
+          className={tab === "home" || path === "/home" ? "active" : ""}
           as={Link}
           to="/"
           onClick={() => setTab("home")}
@@ -22,7 +23,7 @@ export const Header = () => {
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link
-            className={tab === "about" ? "active" : ""}
+            className={tab === "about" || path === "/about" ? "active" : ""}
             as={Link}
             to="/about"
             onClick={() => setTab("about")}
@@ -30,7 +31,7 @@ export const Header = () => {
             About
           </Nav.Link>
           <Nav.Link
-            className={tab === "songs" ? "active" : ""}
+            className={tab === "songs" || path === "/songs" ? "active" : ""}
             as={Link}
             to="/songs"
             onClick={() => setTab("songs")}
@@ -38,7 +39,7 @@ export const Header = () => {
             Songs
           </Nav.Link>
           <Nav.Link
-            className={tab === "weather" ? "active" : ""}
+            className={tab === "weather" || path === "/weather" ? "active" : ""}
             as={Link}
             to="/weather"
             onClick={() => setTab("weather")}
@@ -46,7 +47,7 @@ export const Header = () => {
             Weather
           </Nav.Link>
           <Nav.Link
-            className={tab === "contact" ? "active" : ""}
+            className={tab === "contact" || path === "/contact" ? "active" : ""}
             as={Link}
             to="/contact"
             onClick={() => setTab("contact")}
