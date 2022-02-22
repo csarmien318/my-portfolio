@@ -2,15 +2,8 @@ import React, { useState } from "react";
 import useWeather from "../hooks/useWeather";
 import { Page } from "../components/Page";
 import styles from "../css/Weather.module.css";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Placeholder,
-  Row,
-} from "react-bootstrap";
+import Moment from "moment";
+import { Button, Card, Container, Form, Placeholder } from "react-bootstrap";
 
 const Weather = () => {
   const [location, setLocation] = useState("");
@@ -28,9 +21,9 @@ const Weather = () => {
 
   return (
     <Page>
-      <div className="container col-6">
-        <Card className={styles.card} bsPrefix>
-          <Card.Header className={styles.header} as="h4" bsPrefix>
+      <Container className="col-6" style={{ width: "50%" }}>
+        <Card className={styles.card}>
+          <Card.Header className={styles.header} as="h5" bsPrefix>
             Weather App
           </Card.Header>
           <Card.Body>
@@ -42,12 +35,13 @@ const Weather = () => {
                     placeholder="Enter a city or zip code"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    style={{ fontSize: "1.2rem" }}
+                    style={{ fontSize: "1rem" }}
                     required
                   />
                 </Form.Group>
                 <Button
                   variant="primary"
+                  size="sm"
                   type="submit"
                   onClick={onSubmit}
                   disabled={!location ? true : false}
@@ -63,35 +57,57 @@ const Weather = () => {
             )}
             {loader && (
               <Placeholder as="p" animation="glow">
-                <Placeholder xs={12} bg="light" size="lg" />
+                <Placeholder xs={12} bg="dark" size="lg" />
               </Placeholder>
             )}
             {!error && weather && (
               <div style={{ margin: "20px" }}>
                 <Card className={styles.box} bsPrefix>
-                  <Card.Title as="h5" className={styles.boxTitle}>{`${
-                    weather.city
-                  }${
-                    weather.state && weather.city !== weather.state
-                      ? ", " + weather.state
-                      : ""
-                  }, ${weather.country}`}</Card.Title>
+                  <Card.Title className={styles.boxTitle}>
+                    <p>{`Weather for ${weather.city}${
+                      weather.state && weather.city !== weather.state
+                        ? ", " + weather.state
+                        : ""
+                    }, ${weather.country}`}</p>
+                    <i style={{ fontSize: "0.9rem" }}>
+                      {`(last updated on ${Moment(weather.date).format(
+                        "MMMM D, YYYY, h:mm A"
+                      )} - date & time in ${weather.city})`}
+                    </i>
+                  </Card.Title>
                   <Card.Body>
                     <Container className={styles.weatherBox} bsPrefix>
                       <div>
                         <h1>{`${Math.round(weather.temperature)} \xB0F `}</h1>
-                        <p>{`Feels like ${Math.round(
+                        <p
+                          style={{ fontSize: "1rem", fontStyle: "italic" }}
+                        >{`Feels like ${Math.round(
                           weather.feelsLike
                         )} \xB0F`}</p>
-                        <Card.Img src={weather.icon} />
+                        <Card.Img src={weather.icon} style={{ width: "70%" }} />
                       </div>
-                      <div style={{ textAlign: "left", fontSize: "1.5rem" }}>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          fontSize: "1rem",
+                          fontStyle: "italic",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                        }}
+                      >
                         <p>{`${weather.conditions}`}</p>
+                        {weather.precipitation ? (
+                          <p>{`Precipitation: ${weather.precipitation} in`}</p>
+                        ) : (
+                          ""
+                        )}
                         <p>{`Humidity: ${weather.humidity}%`}</p>
                         <p>{`Wind speed: ${weather.windSpeed} mph`}</p>
                         <p>{`Wind direction: ${weather.windDirection}`}</p>
+                        <p>{`Pressure: ${weather.pressure} inHg`}</p>
                         <p>{`Visibility: ${weather.visibility} mi`}</p>
-                        <p>{`UV Index: ${weather.uvIndex}`}</p>
+                        <p>{`UV index: ${weather.uvIndex}`}</p>
                       </div>
                     </Container>
                   </Card.Body>
@@ -100,7 +116,7 @@ const Weather = () => {
             )}
           </Card.Body>
         </Card>
-      </div>
+      </Container>
     </Page>
   );
 };

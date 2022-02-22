@@ -11,7 +11,7 @@ const Songs = () => {
   const [order, setOrder] = useState("ascending");
   const [sortColumn, setSortColumn] = useState({
     path: "",
-    order: "ascending",
+    order: "",
   });
 
   useEffect(() => {

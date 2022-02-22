@@ -41,13 +41,16 @@ const useWeather = () => {
       country: data.location.country,
       temperature: data.current.temp_f,
       conditions: data.current.condition.text,
+      precipitation: data.current.precip_in,
       icon: data.current.condition.icon,
       humidity: data.current.humidity,
       feelsLike: data.current.feelslike_f,
       windSpeed: data.current.wind_mph,
       windDirection: data.current.wind_dir,
+      pressure: data.current.pressure_in,
       visibility: data.current.vis_miles,
       uvIndex: data.current.uv,
+      date: data.current.last_updated,
     });
     console.log(data);
   };

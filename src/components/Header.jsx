@@ -11,7 +11,10 @@ export const Header = () => {
   }, [tab]);
 
   return (
-    <Navbar variant="light">
+    <Navbar
+      variant="dark"
+      style={{ backgroundColor: "#636464", width: "100%" }}
+    >
       <Container fluid>
         <Navbar.Brand
           className={tab === "home" || path === "/home" ? "active" : ""}
