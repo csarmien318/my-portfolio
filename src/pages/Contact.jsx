@@ -2,23 +2,35 @@ import React from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { Page } from "../components/Page";
 import { useContact } from "../hooks/useContact";
+import styles from "../css/Contact.module.css";
 
-export const Contact = () => {
+const Contact = () => {
   const formSubmit = () => {
-    // console.log("Callback function executed upon form submission");
     console.log("Form Values ", values);
   };
 
-  const { handleChange, handleSubmit, values, errors } = useContact(formSubmit);
+  const { handleChange, handleSubmit, values, errors, submitted } =
+    useContact(formSubmit);
 
   return (
     <Page>
       <div className="container col-5">
-        <Card>
+        <Card className={styles.header}>
           <Card.Header as="h5" className="text-center">
             Contact Me
           </Card.Header>
-          <Card.Body>
+          <Card.Body className={styles.body}>
+            {submitted && (
+              <div
+                style={{
+                  color: "green",
+                  paddingBottom: "20px",
+                  textAlign: "center",
+                }}
+              >
+                Your response was submitted.
+              </div>
+            )}
             <Form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <Row>
@@ -76,7 +88,6 @@ export const Contact = () => {
                   rows={3}
                 />
               </Form.Group>
-
               <Button
                 variant="primary"
                 type="submit"
@@ -92,3 +103,5 @@ export const Contact = () => {
     </Page>
   );
 };
+
+export default Contact;

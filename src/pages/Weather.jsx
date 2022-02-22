@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import useWeather from "../hooks/useWeather";
 import { Page } from "../components/Page";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  Placeholder,
-  Row,
-} from "react-bootstrap";
+import styles from "../css/Weather.module.css";
+import Moment from "moment";
+import { Button, Card, Container, Form, Placeholder } from "react-bootstrap";
 
-export const Weather = () => {
+const Weather = () => {
   const [location, setLocation] = useState("");
 
   const onSubmit = (e) => {
@@ -27,9 +21,11 @@ export const Weather = () => {
 
   return (
     <Page>
-      <div className="container col-6">
-        <Card className="text-center">
-          <Card.Header as="h5">Weather App</Card.Header>
+      <Container className="col-6" style={{ width: "50%" }}>
+        <Card className={styles.card}>
+          <Card.Header className={styles.header} as="h5" bsPrefix>
+            Weather App
+          </Card.Header>
           <Card.Body>
             {!loader && (
               <Form className="text-center" onSubmit={onSubmit}>
@@ -39,42 +35,80 @@ export const Weather = () => {
                     placeholder="Enter a city or zip code"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
+                    style={{ fontSize: "1rem" }}
                     required
                   />
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={onSubmit}>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  type="submit"
+                  onClick={onSubmit}
+                  disabled={!location ? true : false}
+                >
                   Get Weather
                 </Button>
               </Form>
             )}
             {error && (
-              <div className="error alert" role="alert">
+              <h5 className={styles.error} role="alert">
                 {error}
-              </div>
+              </h5>
             )}
             {loader && (
               <Placeholder as="p" animation="glow">
-                <Placeholder xs={12} bg="primary" />
+                <Placeholder xs={12} bg="dark" size="lg" />
               </Placeholder>
             )}
-            {weather && (
+            {!error && weather && (
               <div style={{ margin: "20px" }}>
-                <Card>
+                <Card className={styles.box} bsPrefix>
+                  <Card.Title className={styles.boxTitle}>
+                    <p>{`Weather for ${weather.city}${
+                      weather.state && weather.city !== weather.state
+                        ? ", " + weather.state
+                        : ""
+                    }, ${weather.country}`}</p>
+                    <i style={{ fontSize: "0.9rem" }}>
+                      {`(last updated on ${Moment(weather.date).format(
+                        "MMMM D, YYYY, h:mm A"
+                      )} - date & time in ${weather.city})`}
+                    </i>
+                  </Card.Title>
                   <Card.Body>
-                    <Container>
-                      <Row>
-                        <Col xs={12} md={4}>
-                          <div>{`${weather.city}, ${weather.state} ${weather.country}`}</div>
-                        </Col>
-                        <Col
-                          xs={12}
-                          md={8}
-                          className="d-flex flex-column justify-content-between"
-                        >
-                          <span>{`${weather.temperature} F`}</span>
-                          <span>{weather.conditions}</span>
-                        </Col>
-                      </Row>
+                    <Container className={styles.weatherBox} bsPrefix>
+                      <div>
+                        <h1>{`${Math.round(weather.temperature)} \xB0F `}</h1>
+                        <p
+                          style={{ fontSize: "1rem", fontStyle: "italic" }}
+                        >{`Feels like ${Math.round(
+                          weather.feelsLike
+                        )} \xB0F`}</p>
+                        <Card.Img src={weather.icon} style={{ width: "70%" }} />
+                      </div>
+                      <div
+                        style={{
+                          textAlign: "left",
+                          fontSize: "1rem",
+                          fontStyle: "italic",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <p>{`${weather.conditions}`}</p>
+                        {weather.precipitation ? (
+                          <p>{`Precipitation: ${weather.precipitation} in`}</p>
+                        ) : (
+                          ""
+                        )}
+                        <p>{`Humidity: ${weather.humidity}%`}</p>
+                        <p>{`Wind speed: ${weather.windSpeed} mph`}</p>
+                        <p>{`Wind direction: ${weather.windDirection}`}</p>
+                        <p>{`Pressure: ${weather.pressure} inHg`}</p>
+                        <p>{`Visibility: ${weather.visibility} mi`}</p>
+                        <p>{`UV index: ${weather.uvIndex}`}</p>
+                      </div>
                     </Container>
                   </Card.Body>
                 </Card>
@@ -82,7 +116,9 @@ export const Weather = () => {
             )}
           </Card.Body>
         </Card>
-      </div>
+      </Container>
     </Page>
   );
 };
+
+export default Weather;

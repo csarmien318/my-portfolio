@@ -4,14 +4,14 @@ import { SongsListGroup } from "../components/SongsListGroup";
 import { SongsTable } from "../components/SongsTable";
 import SongData from "../songService.json";
 
-export const Songs = () => {
+const Songs = () => {
   const [allSongs, setAllSongs] = useState(SongData);
   const [selectedArtist, setSelectedArtist] = useState("All Artists");
   const [pageNumber, setPageNumber] = useState(0);
   const [order, setOrder] = useState("ascending");
   const [sortColumn, setSortColumn] = useState({
     path: "",
-    order: "ascending",
+    order: "",
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const Songs = () => {
   }, [selectedArtist]);
 
   return (
-    <Page title="Songs Project">
+    <Page title="Songs Page">
       <div className="row">
         <div className="col-2">
           <SongsListGroup
@@ -47,3 +47,5 @@ export const Songs = () => {
     </Page>
   );
 };
+
+export default Songs;

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ListGroup } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
 import ArtistData from "../artistService.json";
 
 export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
@@ -10,11 +10,13 @@ export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
     <ListGroup as="ul">
       {artists.map((artist) => (
         <ListGroup.Item
+          action
+          variant="light"
           active={selectedArtist === artist.name ? true : false}
           onClick={() => onArtistSelect(artist.name)}
           key={artist._id}
-          as="li"
           style={{ cursor: "pointer" }}
+          as="li"
         >
           {artist.name}
         </ListGroup.Item>

@@ -19,7 +19,7 @@ const useWeather = () => {
         setError("Enter a city");
         console.log(error);
       } else if (error.response && error.response.status >= "400") {
-        setError("City not found");
+        setError("Sorry, we couldn't find the city you entered.");
         console.log(error);
       } else {
         console.log("Logging error...", error);
@@ -41,13 +41,18 @@ const useWeather = () => {
       country: data.location.country,
       temperature: data.current.temp_f,
       conditions: data.current.condition.text,
+      precipitation: data.current.precip_in,
+      icon: data.current.condition.icon,
+      humidity: data.current.humidity,
+      feelsLike: data.current.feelslike_f,
+      windSpeed: data.current.wind_mph,
+      windDirection: data.current.wind_dir,
+      pressure: data.current.pressure_in,
+      visibility: data.current.vis_miles,
+      uvIndex: data.current.uv,
+      date: data.current.last_updated,
     });
     console.log(data);
-    console.log(
-      `Showing weather for ${data.location.name}, ${data.location.region}`
-    );
-    console.log("Temperature: ", data.current.temp_f, "degrees Fahrenheit");
-    console.log("Conditions: ", data.current.condition.text);
   };
 
   const submitRequest = async (location) => {
