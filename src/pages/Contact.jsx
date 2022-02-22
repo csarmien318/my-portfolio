@@ -6,7 +6,7 @@ import styles from "../css/Contact.module.css";
 
 const Contact = () => {
   const formSubmit = () => {
-    console.log("Form Values ", values);
+    console.log("Form Values: ", values);
   };
 
   const { handleChange, handleSubmit, values, errors, submitted } =
