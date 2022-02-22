@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { omit } from "lodash";
 
 export const useContact = (callback) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    setSubmitted(false);
+  }, [values]);
 
   const validate = (event, name, value) => {
     switch (name) {
@@ -57,6 +62,7 @@ export const useContact = (callback) => {
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
     if (Object.keys(errors).length === 0) {
+      setSubmitted(true);
       callback();
     } else {
       alert(
@@ -68,6 +74,7 @@ export const useContact = (callback) => {
   return {
     values,
     errors,
+    submitted,
     handleChange,
     handleSubmit,
   };
