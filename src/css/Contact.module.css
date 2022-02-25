@@ -1,7 +1,3 @@
-.body {
-  background-color: rgb(219, 219, 219);
-}
-
-.header {
-  background-color: rgb(179, 179, 179) !important;
+.card {
+  width: 440px;
 }

@@ -1,7 +1,10 @@
 :root body {
+  min-width: 100%;
+  /* min-width: 910px; */
+
   margin: auto;
   font-family: sans-serif;
-  background-color: rgb(244, 244, 244);
+  background-color: rgb(236, 240, 243);
 }
 /* :root body {
   margin: 0;

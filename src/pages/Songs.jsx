@@ -11,7 +11,7 @@ const Songs = () => {
   const [order, setOrder] = useState("ascending");
   const [sortColumn, setSortColumn] = useState({
     path: "",
-    order: "",
+    order: "ascending",
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Songs = () => {
   }, [selectedArtist]);
 
   return (
-    <Page title="Songs Page">
+    <Page title="Tabled Data">
       <div className="row">
         <div className="col-2">
           <SongsListGroup
@@ -30,7 +30,7 @@ const Songs = () => {
             selectedArtist={selectedArtist}
           />
         </div>
-        <div className="col">
+        <div className="col table-responsive">
           <SongsTable
             allSongs={allSongs}
             setAllSongs={setAllSongs}

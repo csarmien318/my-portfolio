@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import styles from "../css/Header.module.css";
 
 export const Header = () => {
   const path = window.location.pathname;
@@ -11,10 +12,7 @@ export const Header = () => {
   }, [tab]);
 
   return (
-    <Navbar
-      variant="dark"
-      style={{ backgroundColor: "#636464", width: "100%" }}
-    >
+    <Navbar variant="dark" className={styles.bar}>
       <Container fluid>
         <Navbar.Brand
           className={tab === "home" || path === "/home" ? "active" : ""}

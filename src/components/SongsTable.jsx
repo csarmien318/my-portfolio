@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Paginate } from "./Paginate";
 import { Table } from "react-bootstrap";
 import { SongsTableHeader } from "./SongsTableHeader";
+import styles from "../css/Songs.module.css";
 
 export const SongsTable = ({
   selectedArtist,
@@ -40,9 +41,9 @@ export const SongsTable = ({
     ));
 
   return (
-    <div className="container col">
+    <>
       <p>Showing {songs.length} songs in the database.</p>
-      <Table striped hover>
+      <Table size="sm" striped hover>
         <SongsTableHeader
           songs={songs}
           setAllSongs={setAllSongs}
@@ -59,7 +60,7 @@ export const SongsTable = ({
         pageNumber={pageNumber}
         onPageChange={pageChange}
       />
-    </div>
+    </>
   );
 };
 

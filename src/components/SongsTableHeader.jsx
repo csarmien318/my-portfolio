@@ -47,7 +47,11 @@ export const SongsTableHeader = ({
     <thead>
       <tr style={{ cursor: "pointer" }}>
         {columns.map((column) => (
-          <th key={column.path} onClick={() => handleSort(column.path)}>
+          <th
+            scope="col"
+            key={column.path}
+            onClick={() => handleSort(column.path)}
+          >
             {column.label} {displaySortIcon(column)}
           </th>
         ))}

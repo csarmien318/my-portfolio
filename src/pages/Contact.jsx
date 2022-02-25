@@ -13,13 +13,13 @@ const Contact = () => {
     useContact(formSubmit);
 
   return (
-    <Page>
-      <div className="container col-5">
-        <Card className={styles.header}>
-          <Card.Header as="h5" className="text-center">
+    <Page title="Contact Me">
+      <div className="container-md col-4" style={{ width: "440px" }}>
+        <Card>
+          {/* <Card.Header as="h5" className="text-center">
             Contact Me
-          </Card.Header>
-          <Card.Body className={styles.body}>
+          </Card.Header> */}
+          <Card.Body>
             {submitted && (
               <div
                 style={{

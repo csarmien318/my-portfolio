@@ -7,7 +7,7 @@ export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
   const artists = ArtistData;
 
   return (
-    <ListGroup as="ul">
+    <ListGroup as="ul" style={{ minWidth: "fit-content" }}>
       {artists.map((artist) => (
         <ListGroup.Item
           action
