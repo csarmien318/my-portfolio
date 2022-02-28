@@ -23,9 +23,6 @@ const Weather = () => {
     <Page title="Weather">
       <Container className="col-6" style={{ width: "auto", maxWidth: "580px" }}>
         <Card className={styles.card}>
-          {/* <Card.Header className={styles.header} as="h5" bsPrefix>
-            Weather App
-          </Card.Header> */}
           <Card.Body className={styles.backdrop}>
             {!loader && (
               <Form className="text-center" onSubmit={onSubmit}>

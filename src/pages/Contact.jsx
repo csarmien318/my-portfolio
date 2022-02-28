@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { Page } from "../components/Page";
 import { useContact } from "../hooks/useContact";
-import styles from "../css/Contact.module.css";
 
 const Contact = () => {
   const formSubmit = () => {
@@ -16,9 +15,6 @@ const Contact = () => {
     <Page title="Contact Me">
       <div className="container-md col-4" style={{ width: "440px" }}>
         <Card>
-          {/* <Card.Header as="h5" className="text-center">
-            Contact Me
-          </Card.Header> */}
           <Card.Body>
             {submitted && (
               <div

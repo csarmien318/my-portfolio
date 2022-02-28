@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Paginate } from "./Paginate";
-import { Table } from "react-bootstrap";
 import { SongsTableHeader } from "./SongsTableHeader";
 import styles from "../css/Songs.module.css";
 
@@ -41,26 +40,30 @@ export const SongsTable = ({
     ));
 
   return (
-    <>
-      <p>Showing {songs.length} songs in the database.</p>
-      <Table size="sm" striped hover>
-        <SongsTableHeader
-          songs={songs}
-          setAllSongs={setAllSongs}
-          order={order}
-          setOrder={setOrder}
-          sortColumn={sortColumn}
-          setSortColumn={setSortColumn}
-        />
-        <tbody>{displaySongs}</tbody>
-      </Table>
+    <div>
+      <p style={{ padding: "12px 0 0 14px" }}>
+        Showing {songs.length} songs in the database.
+      </p>
+      <div className={`${styles.divBox}`}>
+        <table className={`table table-hover table-striped ${styles.tableBox}`}>
+          <SongsTableHeader
+            songs={songs}
+            setAllSongs={setAllSongs}
+            order={order}
+            setOrder={setOrder}
+            sortColumn={sortColumn}
+            setSortColumn={setSortColumn}
+          />
+          <tbody>{displaySongs}</tbody>
+        </table>
+      </div>
       <Paginate
         songs={songs}
         songsPerPage={songsPerPage}
         pageNumber={pageNumber}
         onPageChange={pageChange}
       />
-    </>
+    </div>
   );
 };
 

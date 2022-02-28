@@ -3,6 +3,7 @@ import { Page } from "../components/Page";
 import { SongsListGroup } from "../components/SongsListGroup";
 import { SongsTable } from "../components/SongsTable";
 import SongData from "../songService.json";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Songs = () => {
   const [allSongs, setAllSongs] = useState(SongData);
@@ -23,27 +24,29 @@ const Songs = () => {
 
   return (
     <Page title="Tabled Data">
-      <div className="row">
-        <div className="col-2">
-          <SongsListGroup
-            onArtistSelect={setSelectedArtist}
-            selectedArtist={selectedArtist}
-          />
-        </div>
-        <div className="col table-responsive">
-          <SongsTable
-            allSongs={allSongs}
-            setAllSongs={setAllSongs}
-            selectedArtist={selectedArtist}
-            pageNumber={pageNumber}
-            setPageNumber={setPageNumber}
-            order={order}
-            setOrder={setOrder}
-            sortColumn={sortColumn}
-            setSortColumn={setSortColumn}
-          />
-        </div>
-      </div>
+      <Container fluid style={{ maxWidth: "2000px" }}>
+        <Row>
+          <Col xs={3} md={2}>
+            <SongsListGroup
+              onArtistSelect={setSelectedArtist}
+              selectedArtist={selectedArtist}
+            />
+          </Col>
+          <Col xs={9} md={10}>
+            <SongsTable
+              allSongs={allSongs}
+              setAllSongs={setAllSongs}
+              selectedArtist={selectedArtist}
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              order={order}
+              setOrder={setOrder}
+              sortColumn={sortColumn}
+              setSortColumn={setSortColumn}
+            />
+          </Col>
+        </Row>
+      </Container>
     </Page>
   );
 };

@@ -22,7 +22,7 @@ export const Paginate = ({ pageNumber, songs, songsPerPage, onPageChange }) => {
   }
 
   const paginationBasic = (
-    <div>
+    <div style={{ paddingLeft: "15px" }}>
       <Pagination className={`${styles.pagination}`}>{items}</Pagination>
       <br />
     </div>

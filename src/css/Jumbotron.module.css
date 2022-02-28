@@ -9,15 +9,6 @@
 }
 
 .overlay {
-  /* background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(61, 61, 61, 0.25) 25%,
-    rgba(122, 122, 122, 0.5) 50%,
-    rgba(183, 183, 183, 0.75) 75%,
-    rgba(244, 244, 244, 1) 100%
-  );
-  opacity: 1; */
   background: #2f3b44;
   opacity: 0.35;
   position: absolute;
