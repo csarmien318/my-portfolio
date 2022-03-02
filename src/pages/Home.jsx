@@ -11,18 +11,23 @@ const Home = () => {
             A brief message...
           </p>
           <figure>
-            <blockquote class="blockquote">
+            <blockquote className="blockquote">
               <p className="lead">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit , sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                This website was created to serve as a portfolio showcasing my
+                full-stack software development capabilities. In case you're
+                wondering, I am the sole creator and contributor of everything
+                shown here - feel free to check out the code on{" "}
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="https://github.com/csarmien318/my-portfolio.git"
+                  target="_blank"
+                >
+                  my github
+                </a>
+                . Scroll down to get started!
               </p>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            <figcaption className="blockquote-footer">
               Christopher Sarmiento, <cite title="Source Title">Creator</cite>
             </figcaption>
           </figure>

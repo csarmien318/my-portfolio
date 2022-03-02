@@ -10,8 +10,6 @@ export const SongsTable = ({
   setPageNumber,
   allSongs,
   setAllSongs,
-  order,
-  setOrder,
   sortColumn,
   setSortColumn,
 }) => {
@@ -44,13 +42,11 @@ export const SongsTable = ({
       <p style={{ padding: "12px 0 0 14px" }}>
         Showing {songs.length} songs in the database.
       </p>
-      <div className={`${styles.divBox}`}>
+      <div className={`table-responsive ${styles.divBox}`}>
         <table className={`table table-hover table-striped ${styles.tableBox}`}>
           <SongsTableHeader
             songs={songs}
             setAllSongs={setAllSongs}
-            order={order}
-            setOrder={setOrder}
             sortColumn={sortColumn}
             setSortColumn={setSortColumn}
           />
@@ -73,8 +69,6 @@ SongsTable.propTypes = {
   setPageNumber: PropTypes.func.isRequired,
   allSongs: PropTypes.array.isRequired,
   setAllSongs: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  setOrder: PropTypes.func.isRequired,
   sortColumn: PropTypes.object.isRequired,
   setSortColumn: PropTypes.func.isRequired,
 };

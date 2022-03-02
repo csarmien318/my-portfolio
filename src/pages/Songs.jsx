@@ -9,7 +9,6 @@ const Songs = () => {
   const [allSongs, setAllSongs] = useState(SongData);
   const [selectedArtist, setSelectedArtist] = useState("All Artists");
   const [pageNumber, setPageNumber] = useState(0);
-  const [order, setOrder] = useState("ascending");
   const [sortColumn, setSortColumn] = useState({
     path: "",
     order: "ascending",
@@ -18,7 +17,6 @@ const Songs = () => {
   useEffect(() => {
     setPageNumber(0);
     setAllSongs(SongData);
-    setOrder("ascending");
     setSortColumn({ path: "", order: "ascending" });
   }, [selectedArtist]);
 
@@ -39,8 +37,6 @@ const Songs = () => {
               selectedArtist={selectedArtist}
               pageNumber={pageNumber}
               setPageNumber={setPageNumber}
-              order={order}
-              setOrder={setOrder}
               sortColumn={sortColumn}
               setSortColumn={setSortColumn}
             />
