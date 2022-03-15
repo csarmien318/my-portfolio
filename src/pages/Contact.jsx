@@ -13,7 +13,10 @@ const Contact = () => {
 
   return (
     <Page title="Contact Me">
-      <div className="container-md col-4" style={{ width: "440px" }}>
+      <div
+        className="container-md col-4"
+        style={{ width: "440px", marginBottom: "40px" }}
+      >
         <Card>
           <Card.Body>
             {submitted && (

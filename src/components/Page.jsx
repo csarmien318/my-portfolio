@@ -8,11 +8,11 @@ export const Page = ({ title, children }) => {
       <Jumbotron title={title} />
       <Container
         fluid="xxl"
-        style={{
-          width: "100vw",
-          maxHeight: "min-content",
-          height: "auto",
-        }}
+        // style={{
+        //   width: "100vw",
+        //   maxHeight: "min-content",
+        //   height: "auto",
+        // }}
       >
         {children}
       </Container>

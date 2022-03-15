@@ -1,0 +1,24 @@
+.cardText {
+  padding: 10px 20px;
+}
+
+.cardTitle {
+  text-align: center;
+  width: auto;
+}
+
+.boxPs {
+  margin: none !important;
+}
+
+.boxEdu {
+  margin-top: 40px !important;
+}
+
+.boxPro {
+  margin-top: 40px !important;
+}
+
+.boxSkill {
+  margin: 40px 0 20px 0 !important;
+}
