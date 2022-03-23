@@ -1,4 +1,8 @@
 import React from "react";
+<<<<<<< HEAD
+=======
+import axios from "axios";
+>>>>>>> d7b2cb2 (Integrated backend)
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { Page } from "../components/Page";
 import { useContact } from "../hooks/useContact";
@@ -6,6 +10,21 @@ import { useContact } from "../hooks/useContact";
 const Contact = () => {
   const formSubmit = () => {
     console.log("Form Values: ", values);
+<<<<<<< HEAD
+=======
+
+    axios({
+      url: "/api/save",
+      method: "POST",
+      data: values,
+    })
+      .then(() => {
+        console.log("Data has been sent to the server");
+      })
+      .catch(() => {
+        console.log("Internal server error");
+      });
+>>>>>>> d7b2cb2 (Integrated backend)
   };
 
   const { handleChange, handleSubmit, values, errors, submitted } =

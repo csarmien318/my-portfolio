@@ -50,11 +50,25 @@ const Home = () => {
             <div className={styles.box1}>
               <p className="display-5 fw-light">Introduction</p>
               <p>
+<<<<<<< HEAD
                 Exlculding the home page, this website contains four primary
                 routes: <strong>About, Songs, Weather,</strong> and{" "}
                 <strong>Contact</strong>. Each page aims to demonstrate the
                 implementation of important concepts in <strong>ReactJS</strong>
                 .
+=======
+                This project was built using the{" "}
+                <strong>
+                  <em>MERN Stack</em> (MongoDB, ExpressJS, ReactJS,
+                </strong>{" "}
+                and <strong>NodeJS)</strong> web development framework.
+                <br />
+              </p>
+              <p>
+                Excluding the home page, this website contains five primary
+                routes: <strong>About, Songs, Weather, Contact</strong> and a{" "}
+                <strong>Login</strong> page.
+>>>>>>> d7b2cb2 (Integrated backend)
                 <br />
               </p>
               <p>
@@ -68,9 +82,15 @@ const Home = () => {
           <Col md={8}>
             <p className="display-5 fw-light">About</p>
             <p>
+<<<<<<< HEAD
               Fairly self-explanatory - here you can find my personal statement,
               education, professional experience, and some miscellaneous things
               about me.
+=======
+              Fairly self-explanatory. Here you can find my personal statement,
+              education, professional experience, and some miscellaneous things
+              about me - all of which were styled using Bootstrap and CSS.
+>>>>>>> d7b2cb2 (Integrated backend)
             </p>
           </Col>
           <Col md={2}>
@@ -89,11 +109,17 @@ const Home = () => {
               alongside a list group and implements:
             </p>
             <ul>
+<<<<<<< HEAD
               <li>Sorting</li>
               <li>Paginating</li>
               <li>Creating JSON Files</li>
               <li>Bootstrap Styling</li>
               <li>Tabulating Data</li>
+=======
+              <li>Using Axios to perform CRUD operations</li>
+              <li>Tabulating, sorting, and paginating data</li>
+              <li>Bootstrap styling and CSS formatting</li>
+>>>>>>> d7b2cb2 (Integrated backend)
             </ul>
           </Col>
         </Row>
@@ -113,11 +139,17 @@ const Home = () => {
               implemented:
             </p>
             <ul>
+<<<<<<< HEAD
               <li>Using Axios</li>
               <li>Handling API Requests and Responses</li>
               <li>Logging and Handling Errors</li>
               <li>Creating Custom Hooks</li>
               <li>Bootstrap Styling</li>
+=======
+              <li>Using Axios to handle API requests and responses</li>
+              <li>Dynamically displaying data and handling errors</li>
+              <li>Bootstrap Styling and CSS formatting</li>
+>>>>>>> d7b2cb2 (Integrated backend)
             </ul>
           </Col>
           <Col md={4}>
@@ -130,6 +162,7 @@ const Home = () => {
           </Col>
           <Col md={4} lg={1} xl={1} />
           <Col md={6} lg={8} xl={9} style={{ marginBottom: "150px" }}>
+<<<<<<< HEAD
             <p className="display-5 fw-light">Contact</p>
             <p>
               Lastly, I included a contact form for anyone who would like to
@@ -138,6 +171,18 @@ const Home = () => {
             <ul>
               <li>Form Validation</li>
               <li>Storing Input Using MongoDB and Node.js</li>
+=======
+            <p className="display-5 fw-light">Contact and Login</p>
+            <p>
+              Lastly, I included a contact me section as well as an initial
+              login page to prevent unwanted users from entering this site. The
+              following was applied to either one or the other, or both:
+            </p>
+            <ul>
+              <li>Authenticating users and generating JSON web tokens</li>
+              <li>Using Axios to perform CRUD operations</li>
+              <li>Form validation and error handling</li>
+>>>>>>> d7b2cb2 (Integrated backend)
             </ul>
           </Col>
         </Row>
