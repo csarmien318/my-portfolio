@@ -1,0 +1,13 @@
+.bar {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(71, 81, 88, 0.25) 25%,
+    rgba(100, 114, 124, 0.5) 50%,
+    rgba(131, 147, 160, 0.75) 75%,
+    rgb(123, 137, 150) 100%
+  );
+  opacity: 1;
+  background-color: #2f3b44;
+  width: 100%;
+}

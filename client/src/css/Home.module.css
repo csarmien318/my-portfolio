@@ -1,0 +1,95 @@
+.cloudImg {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/5/56/Circle-icons-cloud.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: none;
+  /* margin: 15px 20px 10px 20px; */
+  min-width: 240px;
+  /* width: 240px; */
+  height: 240px;
+  position: relative;
+}
+
+.contactImg {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/d/d0/Circle-icons-email.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 20px 0 50px 60px;
+  min-width: 220px;
+  /* width: 220px; */
+  height: 220px;
+  position: relative;
+}
+
+.container {
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  /* overflow-y: auto;
+  overflow-x: auto; */
+  width: 100%;
+  max-width: fit-content;
+  /* min-width: auto; */
+  /* max-height: min-content; */
+}
+
+.logoImg {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 20px;
+  min-width: 220px;
+  height: 220px;
+  position: relative;
+}
+
+.musicImg {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/8/84/A-major_f-sharp-minor.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: none;
+  min-width: 220px;
+  height: 220px;
+  position: relative;
+}
+
+.personImg {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/a/ad/Person_information_icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: none;
+  /* margin: 15px 20px 10px 20px; */
+  min-width: 240px;
+  /* width: 240px; */
+  height: 240px;
+  position: relative;
+}
+
+.shardsImg {
+  background: url("https://upload.wikimedia.org/wikipedia/commons/b/b6/Smoky_quartz_WikiUral_icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: none;
+  min-width: 252px;
+  /* width: 252px; */
+  height: 252px;
+  position: relative;
+}
+
+.box1 {
+  min-width: fit-content;
+}
+
+@media (max-width: 767px) {
+  .cloudImg,
+  .contactImg,
+  .logoImg,
+  .musicImg,
+  .personImg {
+    margin: 25% 0 6% 24%;
+  }
+
+  .shardsImg {
+    margin: 0 -2px 0 12vw;
+  }
+}

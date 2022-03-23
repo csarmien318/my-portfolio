@@ -1,0 +1,20 @@
+.jumbotron {
+  background: url("../assets/grayCanvas.jpg");
+  background-size: cover;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  height: 175px;
+  position: relative;
+  z-index: -2;
+}
+
+.overlay {
+  background: #2f3b44;
+  opacity: 0.35;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
