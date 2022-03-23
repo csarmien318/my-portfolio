@@ -1,18 +1,11 @@
-<<<<<<< HEAD
-import React from "react";
-=======
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
->>>>>>> d7b2cb2 (Integrated backend)
 import { Page } from "../components/Page";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
-<<<<<<< HEAD
-const Login = () => {
-=======
 const Login = ({ authenticate }) => {
   const navigate = useNavigate();
 
@@ -72,7 +65,6 @@ const Login = ({ authenticate }) => {
     //   });
   };
 
->>>>>>> d7b2cb2 (Integrated backend)
   return (
     <Page title="Login">
       <div
@@ -85,21 +77,6 @@ const Login = ({ authenticate }) => {
               <em className="lead fs-6">
                 To view this website, please enter the credentials provided.
               </em>
-<<<<<<< HEAD
-            </Card.Text>
-            <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="email" placeholder="Enter username" />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-=======
               {errorMsg && (
                 <p
                   className="text-danger text-center"
@@ -139,7 +116,6 @@ const Login = ({ authenticate }) => {
                   Submit
                 </Button>
               </div>
->>>>>>> d7b2cb2 (Integrated backend)
             </Form>
           </Card.Body>
         </Card>

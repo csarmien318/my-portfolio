@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-=======
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -9,7 +5,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
->>>>>>> d7b2cb2 (Integrated backend)
 import { Header } from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -20,8 +15,6 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 function App() {
-<<<<<<< HEAD
-=======
   const [auth, setAuth] = useState(null);
 
   // useEffect(() => {
@@ -33,22 +26,10 @@ function App() {
   //   localStorage.setItem("user", auth);
   // }, [auth]);
 
->>>>>>> d7b2cb2 (Integrated backend)
   return (
     <Router>
       <Header />
       <Routes>
-<<<<<<< HEAD
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/songs" element={<Songs />} />
-        <Route path="/weather" element={<Weather />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
-=======
         {!auth && (
           <Route
             path="/login"
@@ -90,7 +71,6 @@ function App() {
     //     )}
     //   </Routes>
     // </Router>
->>>>>>> d7b2cb2 (Integrated backend)
   );
 }
 

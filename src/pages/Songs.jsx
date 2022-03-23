@@ -1,14 +1,4 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-import { Page } from "../components/Page";
-import { SongsListGroup } from "../components/SongsListGroup";
-import { SongsTable } from "../components/SongsTable";
-import SongData from "../songService.json";
-import { Col, Container, Row } from "react-bootstrap";
-
-const Songs = () => {
-  const [allSongs, setAllSongs] = useState(SongData);
-=======
 import axios from "axios";
 import { Page } from "../components/Page";
 import { SongsListGroup } from "../components/SongsListGroup";
@@ -18,7 +8,6 @@ import { Col, Container, Row } from "react-bootstrap";
 const Songs = () => {
   const [getApiSongs, setApiSongs] = useState([]);
   const [allSongs, setAllSongs] = useState([]);
->>>>>>> d7b2cb2 (Integrated backend)
   const [selectedArtist, setSelectedArtist] = useState("All Artists");
   const [pageNumber, setPageNumber] = useState(0);
   const [sortColumn, setSortColumn] = useState({
@@ -27,13 +16,6 @@ const Songs = () => {
   });
 
   useEffect(() => {
-<<<<<<< HEAD
-    setPageNumber(0);
-    setAllSongs(SongData);
-    setSortColumn({ path: "", order: "ascending" });
-  }, [selectedArtist]);
-
-=======
     getSongsData();
   }, []);
 
@@ -59,7 +41,6 @@ const Songs = () => {
       });
   };
 
->>>>>>> d7b2cb2 (Integrated backend)
   return (
     <Page title="Tabled Data">
       <Container fluid style={{ maxWidth: "2000px" }}>
