@@ -26,6 +26,12 @@ function App() {
   //   localStorage.setItem("user", auth);
   // }, [auth]);
 
+  // const prev = () => {
+  //   window.onpopstate = () => {
+  //     return window.location.reload();
+  //   };
+  // }
+
   return (
     <Router>
       <Header />

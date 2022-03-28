@@ -8,11 +8,10 @@ const Contact = () => {
   const formSubmit = () => {
     console.log("Form Values: ", values);
 
-    axios({
-      url: "/api/save",
-      method: "POST",
-      data: values,
-    })
+    axios
+      .post("/api/save", values, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then(() => {
         console.log("Data has been sent to the server");
       })

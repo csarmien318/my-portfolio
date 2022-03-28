@@ -16,12 +16,12 @@ const Songs = mongoose.model("Songs", SongsSchema);
 
 // Saving data to our mongo database
 const songsData = {
-  _id: "dsfg",
-  title: "sdfgdfg",
-  artist: "dfgfdg",
-  album: "gfdgfgd",
-  songLength: "gddd",
-  releaseYear: "ssfdg",
+  _id: "",
+  title: "",
+  artist: "",
+  album: "",
+  songLength: "",
+  releaseYear: "",
 };
 
 // .save(); which saves data into MongoDB

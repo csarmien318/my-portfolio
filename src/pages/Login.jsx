@@ -15,10 +15,6 @@ const Login = ({ authenticate }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // let values = {
-    //   username: username,
-    //   password: password,
-    // };
 
     try {
       const response = await axios.post(
@@ -29,16 +25,17 @@ const Login = ({ authenticate }) => {
           withCredentials: true,
         }
       );
-      // console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
-      console.log(JSON.stringify(accessToken));
-      // const roles = response?.data?.roles;
-      // setAuth({ username, password, accessToken });
+      const refreshToken = response?.data?.refreshToken;
+
+      axios.post("/api/token", JSON.stringify({ username, refreshToken }), {
+        headers: { "Content-Type": "application/json" },
+      });
+
       setUsername("");
       setPassword("");
       authenticate();
       navigate("/");
-      // navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrorMsg("No Server Response");

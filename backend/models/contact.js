@@ -20,15 +20,6 @@ const data = {
   message: "This is a test message from John Smith.",
 };
 
-// .save(); which saves data into MongoDB
-// newContact.save((error) => {
-//   if (error) {
-//     console.log("Oops, something happend...");
-//   } else {
-//     console.log("Data has been saved!");
-//   }
-// });
-
 const newContact = new Contact(data); // instance of the model
 
 module.exports = Contact;
