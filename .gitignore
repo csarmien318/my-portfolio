@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-/requests.rest
+.rest
 
 # production
 /build
