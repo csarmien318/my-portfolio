@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useWeather from "../hooks/useWeather";
-import { Page } from "../components/Page";
+import Page from "../components/Page";
 import styles from "../css/Weather.module.css";
 import Moment from "moment";
 import { Button, Card, Container, Form, Placeholder } from "react-bootstrap";

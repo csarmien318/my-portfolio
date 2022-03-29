@@ -87,6 +87,7 @@ router.delete("/logout", async (req, res) => {
   await Token.deleteOne(req.body.username)
     .then(() => {
       res.status(204).json("Deleted user");
+      res.json();
     })
     .catch((err) => {
       console.log("Error: " + err);
@@ -94,7 +95,7 @@ router.delete("/logout", async (req, res) => {
 });
 
 // Get song data
-router.get("/songs", authenticateToken, (req, res) => {
+router.get("/songs", (req, res) => {
   Songs.find({})
     .then((songsData) => {
       console.log("songsData: ", songsData);

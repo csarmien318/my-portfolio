@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { Page } from "../components/Page";
+import Page from "../components/Page";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
-const Login = ({ authenticate }) => {
+const Login = ({ authenticate, user, setUser }) => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -17,6 +18,8 @@ const Login = ({ authenticate }) => {
     e.preventDefault();
 
     try {
+      // const user = { username, password };
+      // const response = await axios.post("/api/login", user);
       const response = await axios.post(
         "/api/login",
         JSON.stringify({ username, password }),
@@ -25,17 +28,26 @@ const Login = ({ authenticate }) => {
           withCredentials: true,
         }
       );
+      console.log(JSON.stringify(response.data));
+      setUser(response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
       const accessToken = response?.data?.accessToken;
       const refreshToken = response?.data?.refreshToken;
+      // setUser({ username: username, token: refreshToken });
 
-      axios.post("/api/token", JSON.stringify({ username, refreshToken }), {
-        headers: { "Content-Type": "application/json" },
-      });
+      await axios.post(
+        "/api/token",
+        JSON.stringify({ username, refreshToken }),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       setUsername("");
       setPassword("");
-      authenticate();
+      // authenticate();
       navigate("/");
+      // window.location.reload();
     } catch (err) {
       if (!err?.response) {
         setErrorMsg("No Server Response");
@@ -47,19 +59,8 @@ const Login = ({ authenticate }) => {
       } else {
         setErrorMsg("Login Failed");
       }
+      // setUser({ username: "", token: "" });
     }
-
-    // await axios({
-    //   url: "/api/login",
-    //   method: "POST",
-    //   data: values,
-    // })
-    //   .then(() => {
-    //     console.log("Data has been sent to the server");
-    //   })
-    //   .catch(() => {
-    //     console.log("Internal server error - Login.jsx");
-    //   });
   };
 
   return (
@@ -122,3 +123,9 @@ const Login = ({ authenticate }) => {
 };
 
 export default Login;
+
+Login.propTypes = {
+  authenticate: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};

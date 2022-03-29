@@ -1,5 +1,5 @@
 import React from "react";
-import { Page } from "../components/Page";
+import Page from "../components/Page";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Col, Container, Nav, Row } from "react-bootstrap";

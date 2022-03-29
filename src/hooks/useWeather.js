@@ -1,8 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+// import API_KEY from "../backend/.env";
 
 const baseUrl = "https://api.weatherapi.com/v1/current.json";
-const apiKey = "***REMOVED***";
+// const API_KEY = "***REMOVED***";
 
 const useWeather = () => {
   const [error, setError] = useState(false);
@@ -12,7 +13,7 @@ const useWeather = () => {
   const getData = async (location) => {
     try {
       await axios(`${baseUrl}`, {
-        params: { key: apiKey, q: location },
+        params: { key: process.env.REACT_APP_API_KEY, q: location },
       });
     } catch (error) {
       if (location === "") {
@@ -29,7 +30,7 @@ const useWeather = () => {
       return;
     }
     return await axios(`${baseUrl}`, {
-      params: { key: apiKey, q: location },
+      params: { key: process.env.REACT_APP_API_KEY, q: location },
     });
   };
 

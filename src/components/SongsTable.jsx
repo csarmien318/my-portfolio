@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Paginate } from "./Paginate";
-import { SongsTableHeader } from "./SongsTableHeader";
+import Paginate from "./Paginate";
+import SongsTableHeader from "./SongsTableHeader";
 import styles from "../css/Songs.module.css";
 
-export const SongsTable = ({
+const SongsTable = ({
   selectedArtist,
   pageNumber,
   setPageNumber,
@@ -62,6 +62,8 @@ export const SongsTable = ({
     </div>
   );
 };
+
+export default SongsTable;
 
 SongsTable.propTypes = {
   selectedArtist: PropTypes.string.isRequired,

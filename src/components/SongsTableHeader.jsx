@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const SongsTableHeader = ({
+const SongsTableHeader = ({
   songs,
   setAllSongs,
   sortColumn,
@@ -66,6 +66,8 @@ export const SongsTableHeader = ({
     </thead>
   );
 };
+
+export default SongsTableHeader;
 
 SongsTableHeader.propTypes = {
   songs: PropTypes.array.isRequired,

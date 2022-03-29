@@ -4,7 +4,7 @@ import Pagination from "react-bootstrap/Pagination";
 import PageItem from "react-bootstrap/PageItem";
 import styles from "../css/Pagination.module.css";
 
-export const Paginate = ({ pageNumber, songs, songsPerPage, onPageChange }) => {
+const Paginate = ({ pageNumber, songs, songsPerPage, onPageChange }) => {
   const pageCount = Math.ceil(songs.length / songsPerPage);
   if (pageCount === 1) return null;
   let active = pageNumber;
@@ -30,6 +30,8 @@ export const Paginate = ({ pageNumber, songs, songsPerPage, onPageChange }) => {
 
   return paginationBasic;
 };
+
+export default Paginate;
 
 Paginate.propTypes = {
   pageNumber: PropTypes.number.isRequired,

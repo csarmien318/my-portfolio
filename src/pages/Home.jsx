@@ -1,5 +1,5 @@
 import React from "react";
-import { Page } from "../components/Page";
+import Page from "../components/Page";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "../css/Home.module.css";
 

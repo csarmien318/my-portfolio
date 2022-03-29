@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Jumbotron from "../components/Jumbotron";
 
-export const Page = ({ title, children }) => {
+const Page = ({ title, children }) => {
   return (
     <React.Fragment>
       <Jumbotron title={title} />
@@ -19,3 +19,5 @@ export const Page = ({ title, children }) => {
     </React.Fragment>
   );
 };
+
+export default Page;

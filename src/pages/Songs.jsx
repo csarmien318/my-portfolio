@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Page } from "../components/Page";
-import { SongsListGroup } from "../components/SongsListGroup";
-import { SongsTable } from "../components/SongsTable";
+import Page from "../components/Page";
+import SongsListGroup from "../components/SongsListGroup";
+import SongsTable from "../components/SongsTable";
 import { Col, Container, Row } from "react-bootstrap";
 
 const Songs = () => {

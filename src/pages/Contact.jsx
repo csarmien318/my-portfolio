@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
+import Page from "../components/Page";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { Page } from "../components/Page";
 import { useContact } from "../hooks/useContact";
 
 const Contact = () => {

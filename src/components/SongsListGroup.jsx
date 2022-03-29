@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ListGroup from "react-bootstrap/ListGroup";
 import ArtistData from "../artistService.json";
 
-export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
+const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
   const artists = ArtistData;
 
   return (
@@ -31,6 +31,8 @@ export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
     </ListGroup>
   );
 };
+
+export default SongsListGroup;
 
 SongsListGroup.propTypes = {
   onArtistSelect: PropTypes.func.isRequired,
