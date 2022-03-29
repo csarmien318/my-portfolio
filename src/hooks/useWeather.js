@@ -1,9 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-// import API_KEY from "../backend/.env";
 
 const baseUrl = "https://api.weatherapi.com/v1/current.json";
-// const API_KEY = "***REMOVED***";
 
 const useWeather = () => {
   const [error, setError] = useState(false);
