@@ -10,6 +10,7 @@
     "@types/hookrouter": "^2.2.5",
     "axios": "^0.25.0",
     "bootstrap": "^5.1.3",
+    "dotenv": "^16.0.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

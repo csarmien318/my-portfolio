@@ -23,10 +23,8 @@ function App() {
     if (checkUser) {
       const currentUser = JSON.parse(checkUser);
       setUser(currentUser);
-      console.log(currentUser);
     } else {
       setUser();
-      // window.location.reload();
     }
   }, []);
   // useEffect(() => {

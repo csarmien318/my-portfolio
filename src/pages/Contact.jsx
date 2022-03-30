@@ -13,6 +13,8 @@ const Contact = () => {
         headers: { "Content-Type": "application/json" },
       })
       .then(() => {
+        alert("Your response was submitted, thank you for reaching out!");
+        window.location.reload();
         console.log("Data has been sent to the server");
       })
       .catch(() => {
@@ -31,17 +33,6 @@ const Contact = () => {
       >
         <Card>
           <Card.Body>
-            {submitted && (
-              <div
-                style={{
-                  color: "green",
-                  paddingBottom: "20px",
-                  textAlign: "center",
-                }}
-              >
-                Your response was submitted.
-              </div>
-            )}
             <Form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <Row>
