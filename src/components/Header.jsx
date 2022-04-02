@@ -1,39 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "../css/Header.module.css";
 
-const Header = ({ user, setUser, handleLogout }) => {
+const Header = ({ user, setUser }) => {
   const [tab, setTab] = useState("");
-  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   window.onpopstate = () => {
-  //     window.location.reload();
-  //   };
-  // });
+  useEffect(() => {
+    window.onpopstate = () => {
+      window.location.reload();
+    };
+  });
 
-  // const handleLogout = () => {
+  const handleLogout = () => {
+    axios
+      .delete("/api/logout", user, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {
+        localStorage.clear();
+        console.log("Logged out successfully.");
+      })
+      .catch(() => {
+        console.log("An internal server error has occurred.");
+      });
 
-  //   if (user) {
-  //     axios
-  //       .delete("/api/logout", user, {
-  //         headers: { "Content-Type": "application/json" },
-  //       })
-  //       .then(() => {
-  //         localStorage.clear();
-  //         console.log("Logged out successfully.");
-  //       })
-  //       .catch(() => {
-  //         console.log("An internal server error has occurred.");
-  //       });
-  //   }
-  //   // setUser({ username: "", token: "" });
-  //   // window.location.reload();
-  // };
+    localStorage.clear();
+    // setUser();
+    setUser(false);
+  };
 
   return (
     <Navbar
@@ -119,6 +116,11 @@ const Header = ({ user, setUser, handleLogout }) => {
 export default Header;
 
 Header.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.any.isRequired,
   setUser: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  user: {},
+  setUser: "",
 };

@@ -32,7 +32,6 @@ const Songs = () => {
         const songsData = response.data;
         setAllSongs(songsData);
         setApiSongs(songsData);
-        console.log("Songs data successfully retrieved.");
       })
       .catch(() => {
         alert(

@@ -23,7 +23,6 @@ const SongsTableHeader = ({
       );
       setAllSongs(sorted);
       setSortColumn({ path: column, order: "descending" });
-      console.log(column, sortColumn, "1.1");
     }
     if (order === "descending") {
       const sorted = [...songs].sort((a, b) =>
@@ -31,7 +30,6 @@ const SongsTableHeader = ({
       );
       setAllSongs(sorted);
       setSortColumn({ path: column, order: "ascending" });
-      console.log(column, sortColumn, "1.2");
     }
   };
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,68 +12,44 @@ import Songs from "./pages/Songs";
 import Weather from "./pages/Weather";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
+
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [isUser, setIsUser] = useState(false || localStorage.getItem("user"));
+  const [user, setUser] = useState(() => {
+    if (!isUser) return "";
+    return localStorage.getItem("user");
+  });
 
   useEffect(() => {
     const checkUser = localStorage.getItem("user");
     if (checkUser) {
+      console.log("checkUser: ", checkUser);
       const currentUser = JSON.parse(checkUser);
       setUser(currentUser);
+      setIsUser(true);
     } else {
       setUser();
+      setIsUser(false);
     }
   }, []);
-  // useEffect(() => {
-  //   const response = axios
-  //     .post("/api/token", user)
-  //     .then(() => {
-  //       axios.post("/api/auth", user);
-  //     })
-  //     .catch((err) => console.log(err + ": Authorization error occurred."));
-  //   console.log(response.status);
-  //   if (response?.status) {
-  //     const checkUser = localStorage.getItem("user");
-  //     if (checkUser) {
-  //       const currentUser = JSON.parse(checkUser);
-  //       setUser(currentUser);
-  //       console.log(currentUser);
-  //     }
-  //   } else {
-  //     setUser();
-  //   }
-  // }, []);
 
-  const handleLogout = () => {
-    axios
-      .delete("/api/logout", user, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then(() => {
-        localStorage.clear();
-        console.log("Logged out successfully.");
-      })
-      .catch(() => {
-        console.log("An internal server error has occurred.");
-      });
+  useEffect(() => {
+    const activeUser = user;
+    console.log("Logged in user: ", activeUser);
+  }, [user]);
 
-    setUser();
-    localStorage.clear();
-  };
   return (
     <Router>
-      <Header user={user} handleLogout={handleLogout} />
+      <Header user={user} setUser={setUser} />
       <Routes>
-        {!user && (
-          <Route
-            path="/login"
-            element={<Login user={user} setUser={setUser} />}
-          />
+        {!isUser && (
+          <Route path="/login" element={<Login setUser={setIsUser} />} />
         )}
 
-        {user && (
+        {isUser && (
           <>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -83,7 +58,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
           </>
         )}
-        <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
+        <Route path="*" element={<Navigate to={isUser ? "/" : "/login"} />} />
       </Routes>
     </Router>
   );

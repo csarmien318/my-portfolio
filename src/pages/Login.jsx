@@ -1,53 +1,47 @@
 import React, { useState } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
+import PropTypes, { number } from "prop-types";
 import { useNavigate } from "react-router-dom";
 import Page from "../components/Page";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
-const Login = ({ authenticate, user, setUser }) => {
+const Login = ({ setIsUser, setUser }) => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // TODO:
+    // const isValid = validateInput(username, password);
+    // if (!isValid) setErrorMsg("Incorrect username or password");
+    // else {
+    //   ...make api call...
+    // }
+
     try {
-      // const user = { username, password };
-      // const response = await axios.post("/api/login", user);
       const response = await axios.post(
         "/api/login",
         JSON.stringify({ username, password }),
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(JSON.stringify(response.data));
-      setUser(response.data);
-      localStorage.setItem("user", JSON.stringify(response.data));
-      const accessToken = response?.data?.accessToken;
-      const refreshToken = response?.data?.refreshToken;
-      // setUser({ username: username, token: refreshToken });
-
-      await axios.post(
-        "/api/token",
-        JSON.stringify({ username, refreshToken }),
-        {
-          headers: { "Content-Type": "application/json" },
         }
       );
 
+      window.location.reload();
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      setUser(response.data.user);
+      setIsUser(true);
       setUsername("");
       setPassword("");
-      // authenticate();
+
       navigate("/");
-      // window.location.reload();
     } catch (err) {
       if (!err?.response) {
         setErrorMsg("No Server Response");
@@ -59,9 +53,20 @@ const Login = ({ authenticate, user, setUser }) => {
       } else {
         setErrorMsg("Login Failed");
       }
-      // setUser({ username: "", token: "" });
     }
   };
+
+  // TODO: Make a function validateInput that checks
+  // const validateInput = (username, password) => {
+  //   if (!(username has a number && lowercase letters)) {
+  //     return false;
+  //   }
+  //   if (!(password has numbers && has uppercase letters && lowercase letters)) {
+  //     return false;
+  //   }
+  //
+  //   return true;
+  // }
 
   return (
     <Page title="Login">
@@ -84,7 +89,7 @@ const Login = ({ authenticate, user, setUser }) => {
                 </p>
               )}
             </Card.Text>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -108,7 +113,7 @@ const Login = ({ authenticate, user, setUser }) => {
                   className="col-3"
                   variant="primary"
                   type="submit"
-                  onClick={onSubmit}
+                  onClick={handleSubmit}
                   disabled={username && password ? false : true}
                 >
                   Submit
@@ -125,7 +130,9 @@ const Login = ({ authenticate, user, setUser }) => {
 export default Login;
 
 Login.propTypes = {
-  authenticate: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+};
+
+Login.defaultProps = {
+  setUser: "",
 };

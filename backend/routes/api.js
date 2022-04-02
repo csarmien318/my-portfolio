@@ -4,16 +4,17 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 const jwt = require("jsonwebtoken");
-const axios = require("axios");
+const cookieParser = require("cookie-parser");
 
 app.use(express.json());
+app.use(cookieParser());
 
 const Contact = require("../models/contact");
 const Songs = require("../models/songs");
 const Users = require("../models/users");
 const Token = require("../models/token");
 
-// Login
+// Login and save refreshToken in MongoDB
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -21,19 +22,47 @@ router.post("/login", async (req, res) => {
 
   if (isUser && (await isUser.password) === password) {
     const user = { username: username };
+
     const accessToken = generateAccessToken(user);
     const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN);
-    res.json({
-      username,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
+
+    const saveToken = { username: username, refreshToken: refreshToken };
+    const newToken = new Token(saveToken);
+    await newToken.save((error) => {
+      if (error) {
+        res
+          .status(500)
+          .json({ msg: "Sorry, an internal server error has occurred." });
+      }
     });
+    res
+      .status(202)
+      .cookie("accessToken", accessToken, {
+        expires: new Date(new Date().getTime() + 30 * 1000),
+        sameSite: "strict",
+        httpOnly: true,
+      })
+      .cookie("refreshToken", refreshToken, {
+        expires: new Date(new Date().getTime() + 31557600000),
+        sameSite: "strict",
+        httpOnly: true,
+      })
+      .cookie("authedSession", true, {
+        expires: new Date(new Date().getTime() + 30 * 1000),
+        sameSite: "strict",
+      })
+      .cookie("authedToken", true, {
+        expires: new Date(new Date().getTime() + 31557600000),
+        sameSite: "strict",
+      })
+      .json({ user });
   } else {
     res.status(401).send("Invalid Email or Password");
   }
 });
 
-// Save user refresh token in MongoDB
+// Update refresh token in MongoDB
+// TODO: Update below to update refresh token generated when token expires
 router.post("/token", async (req, res) => {
   const { username, refreshToken } = req.body;
   const user = await Token.findOne({ username });
@@ -86,8 +115,13 @@ router.post("/auth", async (req, res) => {
 router.delete("/logout", async (req, res) => {
   await Token.deleteOne(req.body.username)
     .then(() => {
-      res.status(204).json("Deleted user");
-      res.json();
+      res
+        .clearCookie("accessToken")
+        .clearCookie("refreshToken")
+        .clearCookie("authedSession")
+        .clearCookie("authedToken")
+        .status(204)
+        .json("Logged out user");
     })
     .catch((err) => {
       console.log("Error: " + err);
