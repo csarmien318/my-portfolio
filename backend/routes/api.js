@@ -36,7 +36,6 @@ router.post("/login", async (req, res) => {
       }
     });
     res
-      .status(202)
       .cookie("accessToken", accessToken, {
         expires: new Date(new Date().getTime() + 30 * 1000),
         sameSite: "strict",
@@ -55,10 +54,32 @@ router.post("/login", async (req, res) => {
         expires: new Date(new Date().getTime() + 31557600000),
         sameSite: "strict",
       })
+      .status(202)
       .json({ user });
   } else {
     res.status(401).send("Invalid Email or Password");
   }
+});
+
+// Logout
+router.get("/logout", async (req, res) => {
+  await Token.deleteOne(req.body.username)
+    .then(() => {
+      res.json("Logout successful");
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+  res;
+});
+
+router.delete("/clear-cookies", (req, res) => {
+  res
+    .clearCookie("accessToken")
+    .clearCookie("refreshToken")
+    .clearCookie("authedSession")
+    .clearCookie("authedToken")
+    .send("logout");
 });
 
 // Update refresh token in MongoDB
@@ -109,23 +130,6 @@ router.post("/auth", async (req, res) => {
     const accessToken = generateAccessToken(user);
     res.json({ accessToken: accessToken });
   });
-});
-
-// Logout
-router.delete("/logout", async (req, res) => {
-  await Token.deleteOne(req.body.username)
-    .then(() => {
-      res
-        .clearCookie("accessToken")
-        .clearCookie("refreshToken")
-        .clearCookie("authedSession")
-        .clearCookie("authedToken")
-        .status(204)
-        .json("Logged out user");
-    })
-    .catch((err) => {
-      console.log("Error: " + err);
-    });
 });
 
 // Get song data

@@ -12,42 +12,19 @@ import Songs from "./pages/Songs";
 import Weather from "./pages/Weather";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import useAuth from "./hooks/useAuth";
 
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 function App() {
-  const [isUser, setIsUser] = useState(false || localStorage.getItem("user"));
-  const [user, setUser] = useState(() => {
-    if (!isUser) return "";
-    return localStorage.getItem("user");
-  });
-
-  useEffect(() => {
-    const checkUser = localStorage.getItem("user");
-    if (checkUser) {
-      console.log("checkUser: ", checkUser);
-      const currentUser = JSON.parse(checkUser);
-      setUser(currentUser);
-      setIsUser(true);
-    } else {
-      setUser();
-      setIsUser(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const activeUser = user;
-    console.log("Logged in user: ", activeUser);
-  }, [user]);
+  const { isUser } = useAuth();
 
   return (
     <Router>
-      <Header user={user} setUser={setUser} />
+      <Header />
       <Routes>
-        {!isUser && (
-          <Route path="/login" element={<Login setUser={setIsUser} />} />
-        )}
+        {!isUser && <Route path="/login" element={<Login />} />}
 
         {isUser && (
           <>

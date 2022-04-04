@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import PropTypes from "prop-types";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styles from "../css/Header.module.css";
 
-const Header = ({ user, setUser }) => {
+import Cookies from "universal-cookie";
+import useAuth from "../hooks/useAuth";
+const cookies = new Cookies();
+
+const Header = () => {
   const [tab, setTab] = useState("");
 
   useEffect(() => {
@@ -14,23 +16,7 @@ const Header = ({ user, setUser }) => {
     };
   });
 
-  const handleLogout = () => {
-    axios
-      .delete("/api/logout", user, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then(() => {
-        localStorage.clear();
-        console.log("Logged out successfully.");
-      })
-      .catch(() => {
-        console.log("An internal server error has occurred.");
-      });
-
-    localStorage.clear();
-    // setUser();
-    setUser(false);
-  };
+  const { user, handleLogout } = useAuth();
 
   return (
     <Navbar
@@ -114,13 +100,3 @@ const Header = ({ user, setUser }) => {
 };
 
 export default Header;
-
-Header.propTypes = {
-  user: PropTypes.any.isRequired,
-  setUser: PropTypes.func.isRequired,
-};
-
-Header.defaultProps = {
-  user: {},
-  setUser: "",
-};
