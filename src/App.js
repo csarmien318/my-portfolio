@@ -14,9 +14,6 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import useAuth from "./hooks/useAuth";
 
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
-
 function App() {
   const { isUser } = useAuth();
 

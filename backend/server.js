@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const path = require("path");
+const cors = require("cors");
 
 const app = express();
 
@@ -20,6 +21,12 @@ mongoose.connection.on("connected", () => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://api.weatherapi.com"],
+    credentials: true,
+  })
+);
 
 // HTTP request logger
 app.use(morgan("tiny"));

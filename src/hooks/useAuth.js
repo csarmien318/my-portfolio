@@ -4,7 +4,8 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 const authedSession = cookies.get("authedSession");
-// const authedToken = cookies.get("authedToken");
+
+axios.defaults.withCredentials = true;
 
 const useAuth = () => {
   const [isUser, setIsUser] = useState(authedSession);
@@ -13,30 +14,43 @@ const useAuth = () => {
   const checkUser = localStorage.getItem("user");
 
   useEffect(() => {
-    console.log("mounting event");
     if (checkUser) {
       console.log("checkUser: ", checkUser);
       const currentUser = JSON.parse(checkUser);
       setUser(currentUser);
-      setIsUser(authedSession);
+      // setIsUser(authedSession);
     } else {
       setUser();
       setIsUser(false);
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (!authedSession) {
-  //   }
-  // });
+  useEffect(() => {
+    console.log("User: ", user);
+    async function getData() {
+      if (!authedSession && checkUser) {
+        try {
+          const response = await axios.post("http://localhost:8080/api/auth", {
+            withCredentials: true,
+          });
+          window.location.reload();
+          console.log(response.data);
+        } catch (err) {
+          console.log("Error: " + err);
+        }
+      }
+    }
+    getData();
+  });
 
   const handleLogin = async (username, password) => {
     try {
       const response = await axios.post(
-        "/api/login",
+        "http://localhost:8080/api/login",
         JSON.stringify({ username, password }),
         {
           headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
 
@@ -60,10 +74,11 @@ const useAuth = () => {
   };
 
   const handleLogout = () => {
-    axios.delete("/api/clear-cookies");
+    axios.delete("http://localhost:8080/api/clear-cookies");
     axios
-      .get("/api/logout", {
+      .get("http://localhost:8080/api/logout", {
         headers: { "Content-Type": "application/json" },
+        withCredential: true,
       })
       .then(() => {
         localStorage.clear();

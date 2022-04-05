@@ -27,7 +27,7 @@ const Songs = () => {
 
   const getSongsData = () => {
     axios
-      .get("/api/songs")
+      .get("http://localhost:8080/api/songs")
       .then((response) => {
         const songsData = response.data;
         setAllSongs(songsData);
@@ -35,7 +35,7 @@ const Songs = () => {
       })
       .catch(() => {
         alert(
-          "The table was not populated with songs because there was an error retrieving the data."
+          "The table was not populated because your session may have expired. Please try refreshing the page or logout then login again."
         );
       });
   };

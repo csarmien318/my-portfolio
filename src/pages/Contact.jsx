@@ -9,16 +9,21 @@ const Contact = () => {
     console.log("Form Values: ", values);
 
     axios
-      .post("/api/save", values, {
+      .post("http://localhost:8080/api/save", values, {
         headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       })
       .then(() => {
         alert("Your response was submitted, thank you for reaching out!");
         window.location.reload();
         console.log("Data has been sent to the server");
       })
-      .catch(() => {
-        console.log("Internal server error");
+      .catch((err) => {
+        if (err)
+          alert(
+            "Expired session. Try refreshing the page or logging in to submit the form."
+          );
+        else console.log("Internal server error");
       });
   };
 

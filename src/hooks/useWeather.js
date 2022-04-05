@@ -1,8 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 
-// require("dotenv").config();
-
 const baseUrl = "https://api.weatherapi.com/v1/current.json";
 const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -14,6 +12,7 @@ const useWeather = () => {
   const getData = async (location) => {
     try {
       await axios(`${baseUrl}`, {
+        withCredentials: false,
         params: { key: apiKey, q: location },
       });
     } catch (error) {
@@ -31,6 +30,7 @@ const useWeather = () => {
       return;
     }
     return await axios(`${baseUrl}`, {
+      withCredentials: false,
       params: { key: apiKey, q: location },
     });
   };

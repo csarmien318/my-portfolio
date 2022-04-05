@@ -13,6 +13,7 @@ const Contact = require("../models/contact");
 const Songs = require("../models/songs");
 const Users = require("../models/users");
 const Token = require("../models/token");
+const { application } = require("express");
 
 // Login and save refreshToken in MongoDB
 router.post("/login", async (req, res) => {
@@ -37,23 +38,31 @@ router.post("/login", async (req, res) => {
     });
     res
       .cookie("accessToken", accessToken, {
-        expires: new Date(new Date().getTime() + 30 * 1000),
-        sameSite: "strict",
+        expires: new Date(new Date().getTime() + 86400 * 1000),
+        origin: "http://localhost:3000",
+        sameSite: "none",
+        secure: true,
         httpOnly: true,
       })
       .cookie("refreshToken", refreshToken, {
         expires: new Date(new Date().getTime() + 31557600000),
-        sameSite: "strict",
+        origin: "http://localhost:3000",
+        sameSite: "none",
+        secure: true,
         httpOnly: true,
       })
       .cookie("authedSession", true, {
-        expires: new Date(new Date().getTime() + 30 * 1000),
-        sameSite: "strict",
+        expires: new Date(new Date().getTime() + 86400 * 1000),
+        origin: "http://localhost:3000",
+        sameSite: "none",
+        secure: true,
       })
-      .cookie("authedToken", true, {
-        expires: new Date(new Date().getTime() + 31557600000),
-        sameSite: "strict",
-      })
+      // .cookie("refreshTokenID", true, {
+      //   expires: new Date(new Date().getTime() + 31557600000),
+      //   origin: "http://localhost:3000",
+      //   sameSite: "none",
+      //   secure: true,
+      // })
       .status(202)
       .json({ user });
   } else {
@@ -120,20 +129,38 @@ router.post("/token", async (req, res) => {
 
 // Generate new access token upon expiration
 router.post("/auth", async (req, res) => {
-  const refreshToken = req.body.refreshToken;
-  if (refreshToken == null) return res.sendStatus(401);
+  const tokens = req.headers.cookie;
+  const refreshToken = tokens.split("=")[1];
+  console.log(refreshToken);
+  if (refreshToken == undefined) return res.sendStatus(401);
   if (!(await Token.findOne({ refreshToken }))) return res.sendStatus(403);
+  console.log("Refresh token was found in mongoDB: " + refreshToken);
 
   jwt.verify(refreshToken, process.env.REFRESH_SECRET_TOKEN, (err, user) => {
     if (err) return res.sendStatus(403);
     user = { username: req.body.username };
     const accessToken = generateAccessToken(user);
-    res.json({ accessToken: accessToken });
+    res
+      .cookie("accessToken", accessToken, {
+        expires: new Date(new Date().getTime() + 86400 * 1000),
+        origin: "http://localhost:3000",
+        sameSite: "none",
+        secure: true,
+        httpOnly: true,
+      })
+      .cookie("authedSession", true, {
+        expires: new Date(new Date().getTime() + 86400 * 1000),
+        origin: "http://localhost:3000",
+        sameSite: "none",
+        secure: true,
+      })
+      .status(200)
+      .json({ accessToken: accessToken });
   });
 });
 
 // Get song data
-router.get("/songs", (req, res) => {
+router.get("/songs", authenticateToken, (req, res) => {
   Songs.find({})
     .then((songsData) => {
       console.log("songsData: ", songsData);
@@ -145,8 +172,9 @@ router.get("/songs", (req, res) => {
 });
 
 // Save contact info
-router.post("/save", (req, res) => {
+router.post("/save", authenticateToken, (req, res) => {
   const data = req.body;
+  console.log(data);
 
   const newContact = new Contact(data);
 
@@ -179,21 +207,27 @@ router.get("/", (req, res) => {
 // Generate new access token and set expiration on token
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {
-    expiresIn: "120s",
+    expiresIn: "86400s",
   });
 }
 
 // Require authentication router.get("/route", authenticateToken, (req, res) => {...})
 async function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  const user = await Token.findOne(req.body);
-  if (token == null || !user) {
+  console.log(req.body);
+  const accessToken = req.headers.cookie.split("accessToken=")[1];
+  const refreshToken = req.headers.cookie
+    .split("refreshToken=")[1]
+    .split(";")[0];
+  if (accessToken == undefined || refreshToken == undefined)
     return res.sendStatus(401);
+  const token = accessToken.split(";")[0];
+  const user = await Token.findOne({ refreshToken: refreshToken });
+  if (token == null || !user) {
+    return res.sendStatus(401).json({ msg: "Unauthorized" });
   }
 
   jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, (err, user) => {
-    console.log(err);
+    console.log("Logging error: ", err);
     if (err) return res.sendStatus(403);
     req.user = user;
     next();
