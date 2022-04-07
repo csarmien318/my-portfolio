@@ -3,12 +3,13 @@ import axios from "axios";
 import Page from "../components/Page";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useContact } from "../hooks/useContact";
+import useAuth from "../hooks/useAuth";
 
 const Contact = () => {
-  const formSubmit = () => {
+  const formSubmit = async () => {
     console.log("Form Values: ", values);
 
-    axios
+    await axios
       .post("http://localhost:8080/api/save", values, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -19,14 +20,24 @@ const Contact = () => {
         console.log("Data has been sent to the server");
       })
       .catch((err) => {
-        if (err)
+        const { status } = err?.response;
+        if (status === 401) {
+          window.location.reload();
           alert(
-            "Expired session. Try refreshing the page or logging in to submit the form."
+            "Your session expired before submitting the form - reauthentication successful. Please resubmit the form."
           );
-        else console.log("Internal server error");
+          return;
+        }
+        if (status === 403) {
+          alert("Forbidden");
+        } else {
+          alert("An internal server error occurred.");
+        }
+        window.location.reload();
       });
   };
 
+  const {} = useAuth();
   const { handleChange, handleSubmit, values, errors, submitted } =
     useContact(formSubmit);
 

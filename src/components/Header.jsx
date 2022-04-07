@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import styles from "../css/Header.module.css";
-
-import Cookies from "universal-cookie";
 import useAuth from "../hooks/useAuth";
-const cookies = new Cookies();
+import styles from "../css/Header.module.css";
 
 const Header = () => {
   const [tab, setTab] = useState("");

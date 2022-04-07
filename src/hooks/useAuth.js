@@ -3,45 +3,52 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-const authedSession = cookies.get("authedSession");
+const isAuthed = cookies.get("isAuthed");
 
 axios.defaults.withCredentials = true;
 
 const useAuth = () => {
-  const [isUser, setIsUser] = useState(authedSession);
+  const [isUser, setIsUser] = useState(isAuthed);
   const [user, setUser] = useState(localStorage.getItem("user"));
-
   const checkUser = localStorage.getItem("user");
 
   useEffect(() => {
-    if (checkUser) {
-      console.log("checkUser: ", checkUser);
-      const currentUser = JSON.parse(checkUser);
-      setUser(currentUser);
-      // setIsUser(authedSession);
-    } else {
-      setUser();
-      setIsUser(false);
+    async function getData() {
+      let mounted = true;
+      await axios
+        .post("http://localhost:8080/api/auth", {
+          withCredentials: true,
+        })
+        .then((response) => {
+          if (mounted && response) {
+            setUser(checkUser);
+            setIsUser(true);
+            // return response.data;
+          }
+          // return handleLogout();
+        });
+      return () => {
+        mounted = false;
+      };
     }
+    getData();
   }, []);
 
   useEffect(() => {
-    console.log("User: ", user);
-    async function getData() {
-      if (!authedSession && checkUser) {
-        try {
-          const response = await axios.post("http://localhost:8080/api/auth", {
-            withCredentials: true,
-          });
-          window.location.reload();
-          console.log(response.data);
-        } catch (err) {
-          console.log("Error: " + err);
-        }
+    let mounted = true;
+    if (mounted) {
+      if (checkUser) {
+        console.log("checkUser: ", checkUser);
+        const currentUser = JSON.parse(checkUser);
+        setUser(currentUser);
+      } else {
+        setUser();
       }
     }
-    getData();
-  });
+    return () => {
+      mounted = false;
+    };
+  }, [isUser]);
 
   const handleLogin = async (username, password) => {
     try {

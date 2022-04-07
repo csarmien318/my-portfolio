@@ -7,6 +7,7 @@ export const useContact = (callback) => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    console.log("COMING FROM useContact");
     setSubmitted(false);
   }, [values]);
 

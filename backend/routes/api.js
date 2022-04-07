@@ -13,21 +13,28 @@ const Contact = require("../models/contact");
 const Songs = require("../models/songs");
 const Users = require("../models/users");
 const Token = require("../models/token");
-const { application } = require("express");
 
 // Login and save refreshToken in MongoDB
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   const isUser = await Users.findOne({ username });
+  if (Token.findOne({ username })) {
+    await Token.deleteOne({ username }).then(() => {
+      res;
+    });
+  }
 
   if (isUser && (await isUser.password) === password) {
     const user = { username: username };
 
     const accessToken = generateAccessToken(user);
-    const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN);
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN);
 
     const saveToken = { username: username, refreshToken: refreshToken };
+
+    // add update refreshtoken here
+
     const newToken = new Token(saveToken);
     await newToken.save((error) => {
       if (error) {
@@ -39,6 +46,7 @@ router.post("/login", async (req, res) => {
     res
       .cookie("accessToken", accessToken, {
         expires: new Date(new Date().getTime() + 86400 * 1000),
+        // expires: new Date(new Date().getTime() + 86400 * 1000),
         origin: "http://localhost:3000",
         sameSite: "none",
         secure: true,
@@ -46,6 +54,7 @@ router.post("/login", async (req, res) => {
       })
       .cookie("refreshToken", refreshToken, {
         expires: new Date(new Date().getTime() + 31557600000),
+        // expires: new Date(new Date().getTime() + 31557600000),
         origin: "http://localhost:3000",
         sameSite: "none",
         secure: true,
@@ -53,16 +62,18 @@ router.post("/login", async (req, res) => {
       })
       .cookie("authedSession", true, {
         expires: new Date(new Date().getTime() + 86400 * 1000),
+        // expires: new Date(new Date().getTime() + 86400 * 1000),
         origin: "http://localhost:3000",
         sameSite: "none",
         secure: true,
       })
-      // .cookie("refreshTokenID", true, {
-      //   expires: new Date(new Date().getTime() + 31557600000),
-      //   origin: "http://localhost:3000",
-      //   sameSite: "none",
-      //   secure: true,
-      // })
+      .cookie("isAuthed", true, {
+        expires: new Date(new Date().getTime() + 31557600000),
+        // expires: new Date(new Date().getTime() + 31557600000),
+        origin: "http://localhost:3000",
+        sameSite: "none",
+        secure: true,
+      })
       .status(202)
       .json({ user });
   } else {
@@ -87,7 +98,7 @@ router.delete("/clear-cookies", (req, res) => {
     .clearCookie("accessToken")
     .clearCookie("refreshToken")
     .clearCookie("authedSession")
-    .clearCookie("authedToken")
+    .clearCookie("isAuthed")
     .send("logout");
 });
 
@@ -130,13 +141,14 @@ router.post("/token", async (req, res) => {
 // Generate new access token upon expiration
 router.post("/auth", async (req, res) => {
   const tokens = req.headers.cookie;
-  const refreshToken = tokens.split("=")[1];
+  if (tokens == undefined || tokens == null) return console.log("DAMN");
+  const refreshToken = tokens.split("refreshToken=")[1]?.split(";")[0];
   console.log(refreshToken);
   if (refreshToken == undefined) return res.sendStatus(401);
-  if (!(await Token.findOne({ refreshToken }))) return res.sendStatus(403);
+  if (!(await Token.findOne(req.body))) return res.sendStatus(403);
   console.log("Refresh token was found in mongoDB: " + refreshToken);
 
-  jwt.verify(refreshToken, process.env.REFRESH_SECRET_TOKEN, (err, user) => {
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, user) => {
     if (err) return res.sendStatus(403);
     user = { username: req.body.username };
     const accessToken = generateAccessToken(user);
@@ -160,7 +172,7 @@ router.post("/auth", async (req, res) => {
 });
 
 // Get song data
-router.get("/songs", authenticateToken, (req, res) => {
+router.get("/songs", (req, res) => {
   Songs.find({})
     .then((songsData) => {
       console.log("songsData: ", songsData);
@@ -183,7 +195,6 @@ router.post("/save", authenticateToken, (req, res) => {
       res
         .status(500)
         .json({ msg: "Sorry, an internal server error has occurred" });
-      // return;
     }
 
     res.json({
@@ -206,7 +217,7 @@ router.get("/", (req, res) => {
 
 // Generate new access token and set expiration on token
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {
+  return jwt.sign(user, process.env.ACCESS_TOKEN, {
     expiresIn: "86400s",
   });
 }
@@ -214,19 +225,22 @@ function generateAccessToken(user) {
 // Require authentication router.get("/route", authenticateToken, (req, res) => {...})
 async function authenticateToken(req, res, next) {
   console.log(req.body);
-  const accessToken = req.headers.cookie.split("accessToken=")[1];
-  const refreshToken = req.headers.cookie
-    .split("refreshToken=")[1]
+  const accessToken = req.headers?.cookie
+    ?.split("accessToken=")[1]
+    ?.split(";")[0];
+  const refreshToken = req.headers?.cookie
+    ?.split("refreshToken=")[1]
     .split(";")[0];
-  if (accessToken == undefined || refreshToken == undefined)
-    return res.sendStatus(401);
-  const token = accessToken.split(";")[0];
+  if (refreshToken == undefined && accessToken == undefined)
+    return res.sendStatus(403); // changed from 401
+  const token = accessToken;
   const user = await Token.findOne({ refreshToken: refreshToken });
   if (token == null || !user) {
-    return res.sendStatus(401).json({ msg: "Unauthorized" });
+    console.log("authenticateToken error");
+    return res.sendStatus(401);
   }
 
-  jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, (err, user) => {
+  jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
     console.log("Logging error: ", err);
     if (err) return res.sendStatus(403);
     req.user = user;
