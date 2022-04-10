@@ -13,7 +13,7 @@ const Header = () => {
     };
   });
 
-  const { user, handleLogout } = useAuth();
+  const { activeUser, handleLogout } = useAuth();
 
   return (
     <Navbar
@@ -76,10 +76,10 @@ const Header = () => {
               </Nav.Link>
             </LinkContainer>
           </Nav>
-          {user?.username && (
+          {activeUser?.username && (
             <Nav>
               <NavDropdown
-                title={user.username}
+                title={activeUser.username}
                 id="collapsible-nav-dropdown"
                 // style={{ marginRight: "28px" }}
                 style={{ marginRight: "28px", width: "32%" }}

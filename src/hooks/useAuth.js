@@ -1,54 +1,29 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-const cookies = new Cookies();
 
+const cookies = new Cookies();
 const isAuthed = cookies.get("isAuthed");
+const activeUser = cookies.get("user");
 
 axios.defaults.withCredentials = true;
 
 const useAuth = () => {
-  const [isUser, setIsUser] = useState(isAuthed);
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [isUser, setUser] = useState(isAuthed);
   const checkUser = localStorage.getItem("user");
 
   useEffect(() => {
     async function getData() {
-      let mounted = true;
-      await axios
-        .post("http://localhost:8080/api/auth", {
-          withCredentials: true,
-        })
-        .then((response) => {
-          if (mounted && response) {
-            setUser(checkUser);
-            setIsUser(true);
-            // return response.data;
-          }
-          // return handleLogout();
-        });
-      return () => {
-        mounted = false;
-      };
+      await axios.post("http://localhost:8080/api/auth").catch(() => {
+        if (checkUser || activeUser) {
+          handleLogout();
+          window.location.reload();
+          alert("Unauthorized");
+        }
+      });
     }
     getData();
   }, []);
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) {
-      if (checkUser) {
-        console.log("checkUser: ", checkUser);
-        const currentUser = JSON.parse(checkUser);
-        setUser(currentUser);
-      } else {
-        setUser();
-      }
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [isUser]);
 
   const handleLogin = async (username, password) => {
     try {
@@ -60,12 +35,10 @@ const useAuth = () => {
           withCredentials: true,
         }
       );
-
+      let name = JSON.stringify(response.data.user);
+      localStorage.setItem("user", name);
       window.location.reload();
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-
-      setUser(response.data.user);
-      setIsUser(true);
+      setUser(true);
     } catch (err) {
       if (!err?.response) {
         alert("An unexpected error occurred. Please try again later.");
@@ -89,36 +62,22 @@ const useAuth = () => {
       })
       .then(() => {
         localStorage.clear();
-        console.log("Logged out successfully.");
       })
       .catch(() => {
         console.log("An internal server error has occurred.");
       });
 
     localStorage.clear();
-    setUser(false);
+    window.location.reload();
   };
 
   return {
-    user,
     isUser,
+    activeUser,
     setUser,
-    setIsUser,
     handleLogin,
     handleLogout,
   };
 };
 
 export default useAuth;
-
-// TODO: Make a function validateInput that checks
-// const validateInput = (username, password) => {
-//   if (!(username has a number && lowercase letters)) {
-//     return false;
-//   }
-//   if (!(password has numbers && has uppercase letters && lowercase letters)) {
-//     return false;
-//   }
-//
-//   return true;
-// }

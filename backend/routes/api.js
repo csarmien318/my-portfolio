@@ -26,8 +26,19 @@ router.post("/login", async (req, res) => {
   }
 
   if (isUser && (await isUser.password) === password) {
-    const user = { username: username };
+    // const query = { username: username };
+    // const update = {
+    //   $inc: { numLogins: 1 },
+    // };
+    const specUser = isUser.username;
+    await Users.updateOne(
+      { username: specUser },
+      { $inc: { numLogins: 1 } }
+    ).then(() => {
+      res;
+    });
 
+    const user = { username: username };
     const accessToken = generateAccessToken(user);
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN);
 
@@ -44,11 +55,16 @@ router.post("/login", async (req, res) => {
       }
     });
     res
+      .cookie("user", user, {
+        origin: "http://localhost:3000",
+        sameSite: "strict",
+        secure: true,
+      })
       .cookie("accessToken", accessToken, {
-        expires: new Date(new Date().getTime() + 86400 * 1000),
+        expires: new Date(new Date().getTime() + 1800 * 1000),
         // expires: new Date(new Date().getTime() + 86400 * 1000),
         origin: "http://localhost:3000",
-        sameSite: "none",
+        sameSite: "strict",
         secure: true,
         httpOnly: true,
       })
@@ -56,22 +72,22 @@ router.post("/login", async (req, res) => {
         expires: new Date(new Date().getTime() + 31557600000),
         // expires: new Date(new Date().getTime() + 31557600000),
         origin: "http://localhost:3000",
-        sameSite: "none",
+        sameSite: "strict",
         secure: true,
         httpOnly: true,
       })
       .cookie("authedSession", true, {
-        expires: new Date(new Date().getTime() + 86400 * 1000),
+        expires: new Date(new Date().getTime() + 1800 * 1000),
         // expires: new Date(new Date().getTime() + 86400 * 1000),
         origin: "http://localhost:3000",
-        sameSite: "none",
+        sameSite: "strict",
         secure: true,
       })
       .cookie("isAuthed", true, {
         expires: new Date(new Date().getTime() + 31557600000),
         // expires: new Date(new Date().getTime() + 31557600000),
         origin: "http://localhost:3000",
-        sameSite: "none",
+        sameSite: "strict",
         secure: true,
       })
       .status(202)
@@ -95,6 +111,7 @@ router.get("/logout", async (req, res) => {
 
 router.delete("/clear-cookies", (req, res) => {
   res
+    .clearCookie("user")
     .clearCookie("accessToken")
     .clearCookie("refreshToken")
     .clearCookie("authedSession")
@@ -104,66 +121,64 @@ router.delete("/clear-cookies", (req, res) => {
 
 // Update refresh token in MongoDB
 // TODO: Update below to update refresh token generated when token expires
-router.post("/token", async (req, res) => {
-  const { username, refreshToken } = req.body;
-  const user = await Token.findOne({ username });
-  console.log(user);
+// router.post("/token", async (req, res) => {
+//   const { username, refreshToken } = req.body;
+//   const user = await Token.findOne({ username });
+//   console.log(user);
 
-  if (!user) {
-    const newToken = new Token(req.body);
-    newToken.save((error) => {
-      if (error) {
-        res
-          .status(500)
-          .json({ msg: "Sorry, an internal server error has occurred." });
-      }
+//   if (!user) {
+//     const newToken = new Token(req.body);
+//     newToken.save((error) => {
+//       if (error) {
+//         res
+//           .status(500)
+//           .json({ msg: "Sorry, an internal server error has occurred." });
+//       }
 
-      res.json({
-        msg: "User authenticated",
-      });
-    });
-  } else {
-    const query = { username: username };
-    const update = {
-      $set: { username: username, refreshToken: refreshToken },
-    };
-    const options = {};
-    Token.updateOne(query, update, options)
-      .then(() => {
-        res.status(200).json("Renew auth success");
-      })
-      .catch((err) => {
-        console.log("Error: " + err);
-      });
-  }
-});
+//       res.json({
+//         msg: "User authenticated",
+//       });
+//     });
+//   } else {
+//     const query = { username: username };
+//     const update = {
+//       $set: { username: username, refreshToken: refreshToken },
+//     };
+//     const options = {};
+//     Token.updateOne(query, update, options)
+//       .then(() => {
+//         res.status(200).json("Renew auth success");
+//       })
+//       .catch((err) => {
+//         console.log("Error: " + err);
+//       });
+//   }
+// });
 
 // Generate new access token upon expiration
 router.post("/auth", async (req, res) => {
   const tokens = req.headers.cookie;
-  if (tokens == undefined || tokens == null) return console.log("DAMN");
-  const refreshToken = tokens.split("refreshToken=")[1]?.split(";")[0];
-  console.log(refreshToken);
-  if (refreshToken == undefined) return res.sendStatus(401);
-  if (!(await Token.findOne(req.body))) return res.sendStatus(403);
-  console.log("Refresh token was found in mongoDB: " + refreshToken);
+  if (!tokens) res.status(401).send();
+  const refreshToken = tokens?.split("refreshToken=")[1]?.split(";")[0];
+  if (!refreshToken) res.status(403).send();
+  if (!(await Token.findOne({ refreshToken }))) res.status(403);
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, user) => {
-    if (err) return res.sendStatus(403);
+    if (err) return res.status(403);
     user = { username: req.body.username };
     const accessToken = generateAccessToken(user);
     res
       .cookie("accessToken", accessToken, {
-        expires: new Date(new Date().getTime() + 86400 * 1000),
+        expires: new Date(new Date().getTime() + 1800 * 1000),
         origin: "http://localhost:3000",
-        sameSite: "none",
+        sameSite: "strict",
         secure: true,
         httpOnly: true,
       })
       .cookie("authedSession", true, {
-        expires: new Date(new Date().getTime() + 86400 * 1000),
+        expires: new Date(new Date().getTime() + 1800 * 1000),
         origin: "http://localhost:3000",
-        sameSite: "none",
+        sameSite: "strict",
         secure: true,
       })
       .status(200)
@@ -224,7 +239,6 @@ function generateAccessToken(user) {
 
 // Require authentication router.get("/route", authenticateToken, (req, res) => {...})
 async function authenticateToken(req, res, next) {
-  console.log(req.body);
   const accessToken = req.headers?.cookie
     ?.split("accessToken=")[1]
     ?.split(";")[0];

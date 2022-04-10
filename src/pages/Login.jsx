@@ -5,16 +5,13 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import useAuth from "../hooks/useAuth";
+import useLogin from "../hooks/useLogin";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    handleLogin(username, password);
+  const formSubmit = async () => {
+    await handleLogin(username, password);
 
     setUsername("");
     setPassword("");
@@ -22,6 +19,14 @@ const Login = () => {
     navigate("/");
   };
 
+  const {
+    username,
+    password,
+    setUsername,
+    setPassword,
+    handleChange,
+    handleSubmit,
+  } = useLogin(formSubmit);
   const { handleLogin } = useAuth();
 
   return (
@@ -36,40 +41,35 @@ const Login = () => {
               <em className="lead fs-6">
                 To view this website, please enter the credentials provided.
               </em>
-              {/* {errorMsg && (
-                <p
-                  className="text-danger text-center"
-                  style={{ paddingTop: "10px" }}
-                >
-                  {errorMsg}
-                </p>
-              )} */}
             </Card.Text>
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
-                  value={username}
+                  // value={username}
                   type="text"
+                  name="username"
                   placeholder="Enter username"
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  value={password}
+                  // value={password}
+                  name="password"
                   type="password"
                   placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <div className="d-flex justify-content-center">
                 <Button
-                  className="col-3"
+                  className="submit col-3"
                   variant="primary"
                   type="submit"
-                  onClick={handleSubmit}
+                  value="Submit"
+                  // onClick={handleSubmit}
                   disabled={username && password ? false : true}
                 >
                   Submit

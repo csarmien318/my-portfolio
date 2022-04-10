@@ -7,11 +7,10 @@ export const useContact = (callback) => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    console.log("COMING FROM useContact");
     setSubmitted(false);
   }, [values]);
 
-  const validate = (event, name, value) => {
+  const validate = (name, value) => {
     switch (name) {
       case "username":
         if (value.length <= 1) {
@@ -46,13 +45,13 @@ export const useContact = (callback) => {
     }
   };
 
-  const handleChange = (event) => {
-    event.persist();
+  const handleChange = (e) => {
+    e.persist();
 
-    let name = event.target.name;
-    let val = event.target.value;
+    let name = e.target.name;
+    let val = e.target.value;
 
-    validate(event, name, val);
+    validate(name, val);
 
     setValues({
       ...values,
@@ -60,8 +59,8 @@ export const useContact = (callback) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    if (event) event.preventDefault();
+  const handleSubmit = (e) => {
+    if (e) e.preventDefault();
     if (Object.keys(errors).length === 0) {
       setSubmitted(true);
       callback();
