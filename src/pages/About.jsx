@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Page from "../components/Page";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 import styles from "../css/About.module.css";
 import ResumeModal from "../components/ResumeModal";
+import useAuth from "../hooks/useAuth";
 
 const About = () => {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const {} = useAuth();
 
   return (
     <Page title="About Me">
       <Container className="lead">
         <Row>
           <Col md={6}>
-            <Card className={styles.boxPs} style={{ width: "auto" }}>
+            <Card className={styles.cardBox} style={{ margin: "none" }}>
               <Card.Body>
                 <Card.Title className={`lead fs-2 ${styles.cardTitle}`}>
                   Personal Statement
@@ -26,12 +28,12 @@ const About = () => {
                 </Card.Text>
               </Card.Body>
             </Card>
-            <Card className={styles.boxPro} style={{ width: "auto" }}>
+            <Card className={styles.cardBox} style={{ marginTop: "40px" }}>
               <Card.Body>
                 <Card.Title className={`lead fs-2 ${styles.cardTitle}`}>
                   Professional Experience
                 </Card.Title>
-                <Card.Text className={styles.cardText}>
+                <div className={styles.cardText}>
                   <strong>Mater Academy Charter High School</strong>
                   <ul>
                     <li>Advanced Placement Chemistry Teacher</li>
@@ -42,32 +44,35 @@ const About = () => {
                     <li>Contractor Services Manager</li>
                     <li>May 2013 - February 2015</li>
                   </ul>
-                </Card.Text>
+                </div>
               </Card.Body>
             </Card>
           </Col>
           <Col md={6}>
-            <Card className={styles.boxEdu} style={{ width: "auto" }}>
+            <Card className={styles.cardBox} style={{ marginTop: "40px" }}>
               <Card.Body>
                 <Card.Title className={`lead fs-2 ${styles.cardTitle}`}>
                   Education
                 </Card.Title>
-                <Card.Text className={styles.cardText}>
+                <div className={styles.cardText}>
                   <strong>University of Florida</strong>
                   <ul>
                     <li>Bachelor of Science in Chemistry</li>
                     <li>Awarded Cum Laude - GPA: 3.81 of 4.00</li>
                     <li>Graduation Date: December 2018</li>
                   </ul>
-                </Card.Text>
+                </div>
               </Card.Body>
             </Card>
-            <Card className={styles.boxSkill} style={{ width: "auto" }}>
+            <Card
+              className={styles.cardBox}
+              style={{ margin: "40px 0 20px 0" }}
+            >
               <Card.Body>
                 <Card.Title className={`lead fs-2 ${styles.cardTitle}`}>
                   Skills
                 </Card.Title>
-                <Card.Text className={styles.cardText}>
+                <div className={styles.cardText}>
                   <ul>
                     <li>Strong analytical and problem-solving skills</li>
                     <li>
@@ -76,7 +81,7 @@ const About = () => {
                     </li>
                     <li>Fluent in Spanish</li>
                   </ul>
-                </Card.Text>
+                </div>
               </Card.Body>
             </Card>
           </Col>
@@ -85,7 +90,7 @@ const About = () => {
           <Button
             variant="primary"
             onClick={() => setModalShow(true)}
-            style={{ margin: "10px 5px 30px 0", width: "126px" }}
+            style={{ margin: "30px 5px 30px 0", width: "126px" }}
           >
             View Resume
           </Button>

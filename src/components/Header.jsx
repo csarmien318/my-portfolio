@@ -79,10 +79,9 @@ const Header = () => {
           {activeUser?.username && (
             <Nav>
               <NavDropdown
-                title={activeUser.username}
                 id="collapsible-nav-dropdown"
-                // style={{ marginRight: "28px" }}
-                style={{ marginRight: "28px", width: "32%" }}
+                title={activeUser.username}
+                align="end"
               >
                 <NavDropdown.Item onClick={handleLogout} href="/login">
                   Logout

@@ -9,15 +9,24 @@ const activeUser = cookies.get("user");
 axios.defaults.withCredentials = true;
 
 const useAuth = () => {
-  const [isUser, setUser] = useState(isAuthed);
-  const checkUser = localStorage.getItem("user");
+  const [isUser, setUser] = useState(() => {
+    if (activeUser || isAuthed) return true;
+    return false;
+  });
 
+  const checkUser = localStorage.getItem("user");
   useEffect(() => {
+    let mounted = true;
     async function getData() {
-      await axios.post("http://localhost:8080/api/auth").catch(() => {
-        if (checkUser || activeUser) {
+      await axios.post("http://localhost:8080/api/auth").catch((err) => {
+        if (!err?.response) {
+          alert("Internal server error. Try again later.");
+          return setUser(false);
+        }
+        if (mounted && (checkUser || activeUser)) {
           handleLogout();
           window.location.reload();
+          mounted = false;
           alert("Unauthorized");
         }
       });
@@ -37,8 +46,8 @@ const useAuth = () => {
       );
       let name = JSON.stringify(response.data.user);
       localStorage.setItem("user", name);
-      window.location.reload();
       setUser(true);
+      window.location.reload();
     } catch (err) {
       if (!err?.response) {
         alert("An unexpected error occurred. Please try again later.");
@@ -60,13 +69,14 @@ const useAuth = () => {
         headers: { "Content-Type": "application/json" },
         withCredential: true,
       })
-      .then(() => {
-        localStorage.clear();
-      })
+      // .then(() => {
+      //   localStorage.clear();
+      // })
       .catch(() => {
         console.log("An internal server error has occurred.");
       });
 
+    setUser(false);
     localStorage.clear();
     window.location.reload();
   };
@@ -74,6 +84,7 @@ const useAuth = () => {
   return {
     isUser,
     activeUser,
+    checkUser,
     setUser,
     handleLogin,
     handleLogout,

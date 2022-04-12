@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useAuth from "../hooks/useAuth";
 import useWeather from "../hooks/useWeather";
 import Page from "../components/Page";
 import styles from "../css/Weather.module.css";
@@ -18,6 +19,7 @@ const Weather = () => {
   };
 
   const { error, loader, weather, submitRequest } = useWeather();
+  const {} = useAuth();
 
   return (
     <Page title="Weather">

@@ -33,9 +33,12 @@ const Login = () => {
     <Page title="Login">
       <div
         className="container-md col-4"
-        style={{ width: "480px", marginBottom: "40px" }}
+        style={{
+          width: "480px",
+          marginBottom: "40px",
+        }}
       >
-        <Card>
+        <Card style={{ boxShadow: "-8px 7px 20px 0px grey" }}>
           <Card.Body>
             <Card.Text>
               <em className="lead fs-6">
@@ -46,7 +49,6 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
-                  // value={username}
                   type="text"
                   name="username"
                   placeholder="Enter username"
@@ -56,7 +58,6 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  // value={password}
                   name="password"
                   type="password"
                   placeholder="Password"
@@ -69,7 +70,6 @@ const Login = () => {
                   variant="primary"
                   type="submit"
                   value="Submit"
-                  // onClick={handleSubmit}
                   disabled={username && password ? false : true}
                 >
                   Submit

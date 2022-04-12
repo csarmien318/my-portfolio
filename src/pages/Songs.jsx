@@ -33,7 +33,6 @@ const Songs = () => {
             setAllSongs(data);
             setApiSongs(data);
             setLoader(false);
-            // return data;
           }
         })
         .catch((err) => {
@@ -43,19 +42,15 @@ const Songs = () => {
             console.log(err);
             if (status === 401 || status === 403) {
               alert("Unauthorized");
-              // window.location.reload();
             }
             if (status === 400) {
               alert("Unauthorized");
-              // window.location.reload();
               handleLogout();
             } else {
-              // window.location.reload();
               alert("An internal server error occurred.");
               handleLogout();
             }
           }
-          // return status;
         });
       return () => {
         mounted = false;
@@ -69,32 +64,6 @@ const Songs = () => {
     setPageNumber(0);
     setSortColumn({ path: "", order: "ascending" });
   }, [selectedArtist]);
-
-  // const getSongsData = async () => {
-  //   await axios
-  //     .get("http://localhost:8080/api/songs")
-  //     .then((response) => {
-  //       const songsData = response.data;
-  //       setAllSongs(songsData);
-  //       setApiSongs(songsData);
-  //     })
-  //     .catch((err) => {
-  //       const { status } = err.response;
-  //       console.log(err);
-  //       if (status === 401 || status === 403) {
-  //         window.location.reload();
-  //       }
-  //       if (status === 400) {
-  //         alert("Unauthorized");
-  //         window.location.reload();
-  //         handleLogout();
-  //       } else {
-  //         window.location.reload();
-  //         alert("An internal server error occurred.");
-  //         handleLogout();
-  //       }
-  //     });
-  // };
 
   return (
     <Page title="Tabled Data">

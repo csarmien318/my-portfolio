@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useAuth from "../hooks/useAuth";
 import Page from "../components/Page";
 import { Col, Container, Row } from "react-bootstrap";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import styles from "../css/Home.module.css";
 
 const Home = () => {
+  const {} = useAuth();
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true });
+  }, []);
+
   return (
     <Page title="Welcome">
       <Container fluid="md" className={`lead ${styles.container}`}>
         <Row
           style={{
-            minHeight: "92vh",
+            marginBottom: "60%",
             flexWrap: "wrap-reverse",
           }}
         >
@@ -41,7 +49,7 @@ const Home = () => {
             <div className={styles.shardsImg}></div>
           </Col>
         </Row>
-        <Row style={{ minHeight: "92vh" }}>
+        <Row data-aos="fade-up" style={{ marginBottom: "30%" }}>
           <Col md={2} lg={3} xl={2}>
             <div className={styles.logoImg} />
           </Col>
@@ -54,7 +62,10 @@ const Home = () => {
                 <strong>
                   <em>MERN Stack</em> (MongoDB, ExpressJS, ReactJS,
                 </strong>{" "}
-                and <strong>NodeJS)</strong> web development framework.
+                and <strong>NodeJS)</strong> web development framework. In
+                addition, <strong>Mongoose, Axios, CORS, dotenv,</strong> and
+                implementation of <strong>middleware</strong> were used to
+                create server-side functionality.
                 <br />
               </p>
               <p>
@@ -70,7 +81,13 @@ const Home = () => {
             </div>
           </Col>
         </Row>
-        <Row style={{ flexWrap: "wrap-reverse", minHeight: "92vh" }}>
+        <Row
+          data-aos="fade-up"
+          style={{
+            flexWrap: "wrap-reverse",
+            marginBottom: "30%",
+          }}
+        >
           <Col md={8}>
             <p className="display-5 fw-light">About</p>
             <p>
@@ -83,7 +100,7 @@ const Home = () => {
             <div className={styles.personImg} />
           </Col>
         </Row>
-        <Row style={{ minHeight: "92vh" }}>
+        <Row data-aos="fade-up" style={{ marginBottom: "30%" }}>
           <Col md={2} lg={3} xl={2}>
             <div className={styles.musicImg}></div>
           </Col>
@@ -95,13 +112,16 @@ const Home = () => {
               alongside a list group and implements:
             </p>
             <ul>
-              <li>Using Axios to perform CRUD operations</li>
+              <li>Performing API calls to read data stored in MongoDB</li>
               <li>Tabulating, sorting, and paginating data</li>
               <li>Bootstrap styling and CSS formatting</li>
             </ul>
           </Col>
         </Row>
-        <Row style={{ flexWrap: "wrap-reverse", minHeight: "92vh" }}>
+        <Row
+          data-aos="fade-up"
+          style={{ flexWrap: "wrap-reverse", marginBottom: "30%" }}
+        >
           <Col md={8}>
             <p className="display-5 fw-light">Weather</p>
             <p>
@@ -117,8 +137,10 @@ const Home = () => {
               implemented:
             </p>
             <ul>
-              <li>Using Axios to handle API requests and responses</li>
-              <li>Dynamically displaying data and handling errors</li>
+              <li>
+                API requests, query parameters, responses, and error handling
+              </li>
+              <li>Organizing and dynamically displaying received data</li>
               <li>Bootstrap Styling and CSS formatting</li>
             </ul>
           </Col>
@@ -126,12 +148,12 @@ const Home = () => {
             <div className={styles.cloudImg} />
           </Col>
         </Row>
-        <Row style={{ minHeight: "92vh" }}>
+        <Row data-aos="fade-up" style={{ marginBottom: "10%" }}>
           <Col md={2} lg={3} xl={2}>
             <div className={styles.contactImg} />
           </Col>
           <Col md={4} lg={1} xl={1} />
-          <Col md={6} lg={8} xl={9} style={{ marginBottom: "150px" }}>
+          <Col md={6} lg={8} xl={9}>
             <p className="display-5 fw-light">Contact and Login</p>
             <p>
               Lastly, I included a contact me section as well as an initial
@@ -139,10 +161,25 @@ const Home = () => {
               following was applied to either one or the other, or both:
             </p>
             <ul>
-              <li>Authenticating users and generating JSON web tokens</li>
-              <li>Using Axios to perform CRUD operations</li>
-              <li>Form validation and error handling</li>
+              <li>
+                Defining API endpoints and applying CRUD operations on data in
+                MongoDB
+              </li>
+              <li>
+                Form validation, error handling, user authentication and
+                authorization
+              </li>
+              <li>
+                Generating access and refresh JSON web tokens stored as httpOnly
+                cookies
+              </li>
             </ul>
+            <p className="fw-bolder fst-italic text-muted">
+              <br />
+              <br />
+              So, now that you've had a brief walkthrough, feel free to click on
+              any of the routes above!
+            </p>
           </Col>
         </Row>
       </Container>

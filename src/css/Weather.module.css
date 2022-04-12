@@ -21,6 +21,7 @@
   text-align: center;
   background-color: rgb(219, 219, 219) !important;
   border-radius: 0.25rem;
+  box-shadow: -8px 7px 20px 0px grey;
 }
 
 .error {
@@ -51,6 +52,7 @@
   border: 1px #ccc solid;
   padding: 8px;
   border-radius: 0.25rem;
+  box-shadow: -8px 7px 20px 0px grey;
 }
 
 .weatherBox h1 {

@@ -47,7 +47,7 @@ const Contact = () => {
         className="container-md col-4"
         style={{ width: "440px", marginBottom: "40px" }}
       >
-        <Card>
+        <Card style={{ boxShadow: "-8px 7px 20px 0 grey" }}>
           <Card.Body>
             <Form onSubmit={handleSubmit}>
               <div className="mb-3">

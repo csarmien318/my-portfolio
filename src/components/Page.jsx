@@ -6,16 +6,7 @@ const Page = ({ title, children }) => {
   return (
     <React.Fragment>
       <Jumbotron title={title} />
-      <Container
-        fluid="xxl"
-        // style={{
-        //   width: "100vw",
-        //   maxHeight: "min-content",
-        //   height: "auto",
-        // }}
-      >
-        {children}
-      </Container>
+      <Container fluid="xxl">{children}</Container>
     </React.Fragment>
   );
 };

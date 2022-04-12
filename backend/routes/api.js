@@ -26,13 +26,8 @@ router.post("/login", async (req, res) => {
   }
 
   if (isUser && (await isUser.password) === password) {
-    // const query = { username: username };
-    // const update = {
-    //   $inc: { numLogins: 1 },
-    // };
-    const specUser = isUser.username;
     await Users.updateOne(
-      { username: specUser },
+      { username: isUser.username },
       { $inc: { numLogins: 1 } }
     ).then(() => {
       res;
@@ -62,7 +57,6 @@ router.post("/login", async (req, res) => {
       })
       .cookie("accessToken", accessToken, {
         expires: new Date(new Date().getTime() + 1800 * 1000),
-        // expires: new Date(new Date().getTime() + 86400 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
@@ -70,7 +64,6 @@ router.post("/login", async (req, res) => {
       })
       .cookie("refreshToken", refreshToken, {
         expires: new Date(new Date().getTime() + 31557600000),
-        // expires: new Date(new Date().getTime() + 31557600000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
@@ -78,14 +71,12 @@ router.post("/login", async (req, res) => {
       })
       .cookie("authedSession", true, {
         expires: new Date(new Date().getTime() + 1800 * 1000),
-        // expires: new Date(new Date().getTime() + 86400 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
       })
       .cookie("isAuthed", true, {
         expires: new Date(new Date().getTime() + 31557600000),
-        // expires: new Date(new Date().getTime() + 31557600000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
@@ -237,7 +228,7 @@ function generateAccessToken(user) {
   });
 }
 
-// Require authentication router.get("/route", authenticateToken, (req, res) => {...})
+// Require authentication
 async function authenticateToken(req, res, next) {
   const accessToken = req.headers?.cookie
     ?.split("accessToken=")[1]
