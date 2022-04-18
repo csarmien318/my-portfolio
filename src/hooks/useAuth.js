@@ -16,22 +16,21 @@ const useAuth = () => {
 
   const checkUser = localStorage.getItem("user");
   useEffect(() => {
-    let mounted = true;
-    async function getData() {
-      await axios.post("http://localhost:8080/api/auth").catch((err) => {
+    (async () => {
+      try {
+        await axios.post("http://localhost:8080/api/auth");
+      } catch (err) {
         if (!err?.response) {
           alert("Internal server error. Try again later.");
           return setUser(false);
         }
-        if (mounted && (checkUser || activeUser)) {
+        if (checkUser || activeUser) {
           handleLogout();
-          window.location.reload();
-          mounted = false;
           alert("Unauthorized");
+          window.location.reload();
         }
-      });
-    }
-    getData();
+      }
+    })();
   }, []);
 
   const handleLogin = async (username, password) => {

@@ -11,12 +11,20 @@ const About = () => {
   const [modalShow, setModalShow] = useState(false);
   const {} = useAuth();
 
+  const handleClick = () => {
+    setModalShow(true);
+  };
+
   return (
     <Page title="About Me">
       <Container className="lead">
         <Row>
           <Col md={6}>
-            <Card className={styles.cardBox} style={{ margin: "none" }}>
+            <Card
+              data-testid="aboutMeCards"
+              className={styles.cardBox}
+              style={{ margin: "none" }}
+            >
               <Card.Body>
                 <Card.Title className={`lead fs-2 ${styles.cardTitle}`}>
                   Personal Statement
@@ -28,7 +36,11 @@ const About = () => {
                 </Card.Text>
               </Card.Body>
             </Card>
-            <Card className={styles.cardBox} style={{ marginTop: "40px" }}>
+            <Card
+              data-testid="aboutMeCards"
+              className={styles.cardBox}
+              style={{ marginTop: "40px" }}
+            >
               <Card.Body>
                 <Card.Title className={`lead fs-2 ${styles.cardTitle}`}>
                   Professional Experience
@@ -49,7 +61,11 @@ const About = () => {
             </Card>
           </Col>
           <Col md={6}>
-            <Card className={styles.cardBox} style={{ marginTop: "40px" }}>
+            <Card
+              data-testid="aboutMeCards"
+              className={styles.cardBox}
+              style={{ marginTop: "40px" }}
+            >
               <Card.Body>
                 <Card.Title className={`lead fs-2 ${styles.cardTitle}`}>
                   Education
@@ -65,6 +81,7 @@ const About = () => {
               </Card.Body>
             </Card>
             <Card
+              data-testid="aboutMeCards"
               className={styles.cardBox}
               style={{ margin: "40px 0 20px 0" }}
             >
@@ -89,12 +106,12 @@ const About = () => {
         <Row className="justify-content-center">
           <Button
             variant="primary"
-            onClick={() => setModalShow(true)}
+            onClick={handleClick}
             style={{ margin: "30px 5px 30px 0", width: "126px" }}
           >
             View Resume
           </Button>
-          <ResumeModal show={modalShow} onHide={() => setModalShow(false)} />
+          <ResumeModal modalShow={modalShow} setModalShow={setModalShow} />
         </Row>
       </Container>
     </Page>

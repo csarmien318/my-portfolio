@@ -30,6 +30,7 @@ const Weather = () => {
               <Form className="text-center" onSubmit={onSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Control
+                    data-testid="weatherSearchBar" // <---- HERE
                     type="text"
                     placeholder="Enter a city or zip code"
                     value={location}
@@ -39,6 +40,7 @@ const Weather = () => {
                   />
                 </Form.Group>
                 <Button
+                  data-testid="getWeatherBtn" // <---- HERE
                   variant="primary"
                   size="sm"
                   type="submit"
