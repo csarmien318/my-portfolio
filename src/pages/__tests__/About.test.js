@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import About from "../About";
 
 window.alert = jest.fn();
@@ -11,15 +11,14 @@ describe("About Page", () => {
     expect(button).toBeEnabled();
   });
 
-  it("should be truthy when fireEvent called", async () => {
+  it("View Resume btn should be truthy when clicked", async () => {
     window.alert.mockClear();
-    // const handleClick = jest.fn();
     const { getByRole } = render(<About />);
     const click = fireEvent.click(getByRole("button", { name: "View Resume" }));
     expect(click).toBeTruthy();
   });
 
-  it("should test Card visibility", () => {
+  it("Cards should be truthy", () => {
     window.alert.mockClear();
     const { getAllByTestId } = render(<About />);
     const card = getAllByTestId("aboutMeCards");

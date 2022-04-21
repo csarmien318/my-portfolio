@@ -37,7 +37,7 @@ const Songs = () => {
         })
         .catch((err) => {
           if (mounted) {
-            const { status } = err?.response;
+            const status = err?.response.status;
             setLoader(false);
             console.log(err);
             if (status === 401 || status === 403) {
@@ -78,12 +78,14 @@ const Songs = () => {
             <>
               <Col xs={3} md={2}>
                 <SongsListGroup
+                  data-testid="songsListGroup"
                   onArtistSelect={setSelectedArtist}
                   selectedArtist={selectedArtist}
                 />
               </Col>
               <Col xs={9} md={10}>
                 <SongsTable
+                  data-testid="songsTable"
                   allSongs={allSongs}
                   setAllSongs={setAllSongs}
                   selectedArtist={selectedArtist}

@@ -181,7 +181,7 @@ router.post("/auth", async (req, res) => {
 router.get("/songs", (req, res) => {
   Songs.find({})
     .then((songsData) => {
-      console.log("songsData: ", songsData);
+      console.log(songsData);
       res.json(songsData);
     })
     .catch((error) => {
@@ -190,13 +190,13 @@ router.get("/songs", (req, res) => {
 });
 
 // Save contact info
-router.post("/save", authenticateToken, (req, res) => {
+router.post("/save", async (req, res) => {
   const data = req.body;
   console.log(data);
 
   const newContact = new Contact(data);
 
-  newContact.save((error) => {
+  await newContact.save((error) => {
     if (error) {
       res
         .status(500)
@@ -236,18 +236,24 @@ async function authenticateToken(req, res, next) {
   const refreshToken = req.headers?.cookie
     ?.split("refreshToken=")[1]
     .split(";")[0];
-  if (refreshToken == undefined && accessToken == undefined)
-    return res.sendStatus(403); // changed from 401
+  if (refreshToken == undefined && accessToken == undefined) {
+    res.sendStatus(403); // changed from 401
+    return;
+  }
   const token = accessToken;
   const user = await Token.findOne({ refreshToken: refreshToken });
   if (token == null || !user) {
     console.log("authenticateToken error");
-    return res.sendStatus(401);
+    res.sendStatus(401);
+    return;
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
     console.log("Logging error: ", err);
-    if (err) return res.sendStatus(403);
+    if (err) {
+      res.sendStatus(403);
+      return;
+    }
     req.user = user;
     next();
   });

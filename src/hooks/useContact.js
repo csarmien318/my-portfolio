@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { omit } from "lodash";
+import Cookies from "universal-cookie";
 
-export const useContact = (callback) => {
+const cookies = new Cookies();
+const isAuthed = cookies.get("isAuthed");
+
+export const useContact = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -22,7 +27,6 @@ export const useContact = (callback) => {
           let newObj = omit(errors, "username");
           setErrors(newObj);
         }
-
         break;
 
       case "email":
@@ -40,8 +44,8 @@ export const useContact = (callback) => {
           setErrors(newObj);
         }
         break;
-      default:
-        break;
+      // default:
+      // break;
     }
   };
 
@@ -59,11 +63,37 @@ export const useContact = (callback) => {
     });
   };
 
-  const handleSubmit = (e) => {
-    if (e) e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (Object.keys(errors).length === 0) {
       setSubmitted(true);
-      callback();
+      console.log("Form Values: ", values);
+      try {
+        axios.post("http://localhost:8080/api/auth");
+        axios.post("http://localhost:8080/api/save", values, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        });
+        alert("Your response was submitted, thank you for reaching out!");
+        window.location.reload();
+        console.log("Data has been sent to the server");
+      } catch (error) {
+        setErrors(error.message);
+        // if (error.response.status === 401) {
+        //   window.location.reload();
+        //   alert(
+        //     "Your session expired before submitting the form - reauthentication successful. Please resubmit the form."
+        //   );
+        //   return;
+        // }
+        // if (error.response.status === 403) {
+        //   alert("Forbidden");
+        //   window.location.reload();
+        // } else {
+        //   alert("An internal server error occurred.");
+        //   window.location.reload();
+        // }
+      }
     } else {
       alert(
         "Form was not submitted. Make sure required fields were filled correctly."
@@ -75,6 +105,8 @@ export const useContact = (callback) => {
     values,
     errors,
     submitted,
+    validate,
+    setValues,
     handleChange,
     handleSubmit,
   };

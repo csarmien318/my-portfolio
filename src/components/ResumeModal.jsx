@@ -6,7 +6,6 @@ import resume from "../assets/ChristophersResume.png";
 const ResumeModal = ({ modalShow, setModalShow }) => {
   return (
     <Modal
-      data-testid="modalVisibility"
       show={modalShow}
       onHide={() => setModalShow(false)}
       size="lg"
@@ -27,7 +26,7 @@ const ResumeModal = ({ modalShow, setModalShow }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button data-testid="btnInModal" onClick={() => setModalShow(false)}>
-          Close
+          Back
         </Button>
       </Modal.Footer>
     </Modal>

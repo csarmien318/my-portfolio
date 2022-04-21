@@ -111,7 +111,11 @@ const About = () => {
           >
             View Resume
           </Button>
-          <ResumeModal modalShow={modalShow} setModalShow={setModalShow} />
+          <ResumeModal
+            data-testid="modalInAbout"
+            modalShow={modalShow}
+            setModalShow={setModalShow}
+          />
         </Row>
       </Container>
     </Page>
