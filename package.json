@@ -40,7 +40,7 @@
     "client": "react-scripts start",
     "build": "react-scripts build",
     "install-client": "npm install",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true npm run install-client && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-client && npm run build",
     "test": "react-scripts test --coverage a",
     "eject": "react-scripts eject"
   },
