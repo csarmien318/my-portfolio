@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import useAuth from "../hooks/useAuth";
-import useWeather from "../hooks/useWeather";
+import { Button, Card, Container, Form, Placeholder } from "react-bootstrap";
+import Moment from "moment";
 import Page from "../components/Page";
 import styles from "../css/Weather.module.css";
-import Moment from "moment";
-import { Button, Card, Container, Form, Placeholder } from "react-bootstrap";
+import useAuth from "../hooks/useAuth";
+import useWeather from "../hooks/useWeather";
 
 const Weather = () => {
   const [location, setLocation] = useState("");

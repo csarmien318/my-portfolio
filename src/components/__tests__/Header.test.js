@@ -1,7 +1,9 @@
-import { act, render, fireEvent, waitFor } from "@testing-library/react";
-import React from "react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
+import { server } from "../../mocks/server";
+import { rest } from "msw";
+import React from "react";
 import Header from "../Header";
 import Home from "../../pages/Home";
 import About from "../../pages/About";
@@ -9,9 +11,6 @@ import Songs from "../../pages/Songs";
 import Weather from "../../pages/Weather";
 import Contact from "../../pages/Contact";
 import useAuth from "../../hooks/useAuth";
-import moment from "moment";
-import { server } from "../../mocks/server";
-import { rest } from "msw";
 
 const MockAppRoutes = ({ isUser }) => {
   return (

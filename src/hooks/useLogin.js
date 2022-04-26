@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { omit } from "lodash";
 
 const useLogin = (callback) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-  // useEffect(() => {
-  //   console.log("useLogin errors: ", errors);
-  // }, [errors]);
 
   const validate = (name, value) => {
     switch (name) {

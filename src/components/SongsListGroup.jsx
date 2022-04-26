@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import ListGroup from "react-bootstrap/ListGroup";
 import ArtistData from "../artistService.json";
+import ListGroup from "react-bootstrap/ListGroup";
+import PropTypes from "prop-types";
 
 const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
   const artists = ArtistData;

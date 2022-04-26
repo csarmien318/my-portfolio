@@ -48,29 +48,3 @@ export const AppRoutes = ({ isUser }) => {
 };
 
 export default App;
-
-// const App = () => {
-//   const { isUser } = useAuth();
-
-//   return (
-//     <Router>
-//       <Header />
-//       <Routes>
-//         {!isUser && <Route path="/login" element={<Login />} />}
-
-//         {isUser && (
-//           <>
-//             <Route path="/" element={<Home />} />
-//             <Route path="/about" element={<About />} />
-//             <Route path="/songs" element={<Songs />} />
-//             <Route path="/weather" element={<Weather />} />
-//             <Route path="/contact" element={<Contact />} />
-//           </>
-//         )}
-//         <Route path="*" element={<Navigate to={isUser ? "/" : "/login"} />} />
-//       </Routes>
-//     </Router>
-//   );
-// };
-
-// export default App;

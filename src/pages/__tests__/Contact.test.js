@@ -1,7 +1,7 @@
-import { act, fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { server } from "../../mocks/server";
-import Contact from "../../pages/Contact";
 import { rest } from "msw";
+import Contact from "../../pages/Contact";
 
 window.alert = jest.fn();
 console.error = jest.fn();

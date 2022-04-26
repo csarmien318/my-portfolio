@@ -105,17 +105,17 @@ export const handlers = [
       const data = {
         location: {
           name: "Test",
-          region: "Testing",
-          country: "United States of America",
+          region: "Test",
+          country: "Test",
           lat: 25.77,
           lon: -80.19,
-          tz_id: "America/Kentucky/Monticello",
+          tz_id: "Test",
           localtime_epoch: 1650921761,
-          localtime: "2022-04-25 00:00",
+          localtime: "9999-99-99 00:00",
         },
         current: {
           last_updated_epoch: 1650921300,
-          last_updated: "2022-04-25 00:00",
+          last_updated: "9999-99-99 00:00",
           temp_c: 28.3,
           temp_f: 82.9,
           is_day: 1,
@@ -127,7 +127,7 @@ export const handlers = [
           wind_mph: 13.6,
           wind_kph: 22.0,
           wind_degree: 100,
-          wind_dir: "E",
+          wind_dir: "Test",
           pressure_mb: 1019.0,
           pressure_in: 30.09,
           precip_mm: 0.0,
@@ -252,157 +252,3 @@ export const handlers = [
     );
   }),
 ];
-
-// export const handlers = [
-//   rest.post("http://localhost:8080/api/save", async (req, res, ctx) => {
-//     return res(
-//       ctx.delay(500),
-//       ctx.json({
-//         msg: "Data has been saved!",
-//       })
-//     );
-//   }),
-//   rest.post("http://localhost:8080/api/save", (req, res, ctx) => {
-//     return res(
-//       ctx.status(500),
-//       ctx.json({
-//         msg: "Sorry, an internal server error has occurred",
-//       })
-//     );
-//   }),
-//   rest.post("http://localhost:8080/api/auth", (req, res, ctx) => {
-//     return res(ctx.status(200), ctx.json({ mockToken: "mockToken" }));
-//   }),
-//   rest.post("http://localhost:8080/api/auth", (req, res, ctx) => {
-//     return res(ctx.status(401));
-//   }),
-//   rest.post("http://localhost:8080/api/login", (req, res, ctx) => {
-//     const mockToken = "mockToken";
-//     const user = {
-//       username: "mockUsername",
-//     };
-//     return res(
-//       ctx.cookie("mockToken", mockToken, {
-//         expires: new Date(new Date().getTime() + 31557600000),
-//         origin: "http://localhost:3000",
-//         sameSite: "strict",
-//         secure: true,
-//         httpOnly: true,
-//       }),
-//       ctx.status(202),
-//       ctx.json({ user })
-//     );
-//   }),
-//   rest.post("http://localhost:8080/api/logout", (req, res, ctx) => {
-//     return res(ctx.json("mockLogout Success"));
-//   }),
-//   rest.post("http://localhost:8080/api/clear-cookies", (req, res, ctx) => {
-//     return res(ctx.json("mockLogout Success"));
-//   }),
-//   rest.get("http://localhost:8080/api/songs", (req, res, ctx) => {
-//     return res(
-//       ctx.status(200),
-//       ctx.json([
-//         {
-//           _id: "5b21ca3eeb7f6fbccd47182b",
-//           title: "House Of Cards",
-//           artist: "Radiohead",
-//           album: "In Rainbows",
-//           songLength: "5:28",
-//           releaseYear: "2007",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd471816",
-//           title: "Money",
-//           artist: "Pink Floyd",
-//           album: "The Dark Side of the Moon",
-//           songLength: "6:22",
-//           releaseYear: "1973",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd47181e",
-//           title: "What Difference Does It Make?",
-//           artist: "The Smiths",
-//           album: "Hatful of Hollow",
-//           songLength: "3:51",
-//           releaseYear: "1984",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd471817",
-//           title: "Have a Cigar",
-//           artist: "Pink Floyd",
-//           album: "Wish You Were Here",
-//           songLength: "5:07",
-//           releaseYear: "1975",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd471822",
-//           title: "Morning Bell",
-//           artist: "Radiohead",
-//           album: "Kid A",
-//           songLength: "4:35",
-//           releaseYear: "2000",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd471819",
-//           title: "Wish You Were Here",
-//           artist: "Pink Floyd",
-//           album: "Wish You Were Here",
-//           songLength: "5:41",
-//           releaseYear: "1975",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd47181a",
-//           title: "Bigmouth Strikes Again",
-//           artist: "The Smiths",
-//           album: "The Queen Is Dead",
-//           songLength: "3:12",
-//           releaseYear: "1986",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd47182a",
-//           title: "Weird Fishes/Arpeggi",
-//           artist: "Radiohead",
-//           album: "In Rainbows",
-//           songLength: "5:18",
-//           releaseYear: "2007",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd471815",
-//           title: "Time",
-//           artist: "Pink Floyd",
-//           album: "The Dark Side of the Moon",
-//           songLength: "6:52",
-//           releaseYear: "1973",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd47181f",
-//           title: "Heaven Knows I'm Miserable Now",
-//           artist: "The Smiths",
-//           album: "Hatful of Hollow",
-//           songLength: "3:35",
-//           releaseYear: "1984",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd471821",
-//           title: "Optimistic",
-//           artist: "Radiohead",
-//           album: "Kid A",
-//           songLength: "5:15",
-//           releaseYear: "2000",
-//         },
-//         {
-//           _id: "5b21ca3eeb7f6fbccd47181b",
-//           title: "There Is a Light That Never Goes Out",
-//           artist: "The Smiths",
-//           album: "The Queen Is Dead",
-//           songLength: "4:02",
-//           releaseYear: "1986",
-//         },
-//       ])
-//     );
-//   }),
-//   rest.get("http://localhost:8080/api/songs", (req, res, ctx) => {
-//     return res(ctx.status(500), ctx.json({ msg: "Error retrieving songs" }));
-//   }),
-// ];

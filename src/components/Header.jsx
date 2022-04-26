@@ -24,9 +24,6 @@ const Header = () => {
       className={styles.bar}
     >
       <Container fluid>
-        {/* <Navbar.Brand href="/" onClick={() => setTab("home")}>
-          Home
-        </Navbar.Brand> */}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -35,11 +32,7 @@ const Header = () => {
               to="/"
               style={{ marginTop: "-4px" }}
             >
-              <Nav.Link
-                active
-                // className={tab === "home" ? "active" : ""}
-                onClick={() => setTab("home")}
-              >
+              <Nav.Link active onClick={() => setTab("home")}>
                 Home
               </Nav.Link>
             </LinkContainer>

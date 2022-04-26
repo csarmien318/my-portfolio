@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Page from "../components/Page";
+import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Col, Container, Nav, Row } from "react-bootstrap";
-import styles from "../css/About.module.css";
+import Page from "../components/Page";
 import ResumeModal from "../components/ResumeModal";
+import styles from "../css/About.module.css";
 import useAuth from "../hooks/useAuth";
 
 const About = () => {

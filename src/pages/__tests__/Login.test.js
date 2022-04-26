@@ -1,15 +1,13 @@
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
 import App from "../../App";
-import { server } from "../../mocks/server";
-import { rest } from "msw";
 
 window.alert = jest.fn();
 console.warn = jest.fn();
 console.error = jest.fn();
 
 describe("Login page functionality", () => {
-  it("should 1. handle onChange event and 2. call window.alert", async () => {
+  it("should...", async () => {
     const { getByPlaceholderText, getByRole, getByTestId, getByText } = render(
       <App />
     );
@@ -30,7 +28,7 @@ describe("Login page functionality", () => {
     await waitFor(() => expect(form).toBeTruthy());
   });
 
-  it("should 1. handle onChange event and 2. call window.alert", async () => {
+  it("should...", async () => {
     const { getByPlaceholderText, getByRole, getByTestId, getByText } = render(
       <App />
     );

@@ -1,6 +1,6 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import Jumbotron from "../components/Jumbotron";
+import { Container } from "react-bootstrap";
 
 const Page = ({ title, children }) => {
   return (

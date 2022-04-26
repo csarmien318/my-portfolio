@@ -40,8 +40,6 @@ export const useContact = () => {
           setErrors(newObj);
         }
         break;
-      // default:
-      // break;
     }
   };
 

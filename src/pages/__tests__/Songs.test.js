@@ -1,8 +1,8 @@
-import { act, render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { server } from "../../mocks/server";
-import Songs from "../Songs";
-import React from "react";
 import { rest } from "msw";
+import React from "react";
+import Songs from "../Songs";
 
 window.alert = jest.fn();
 console.log = jest.fn();

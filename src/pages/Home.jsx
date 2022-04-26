@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import useAuth from "../hooks/useAuth";
-import Page from "../components/Page";
 import { Col, Container, Row } from "react-bootstrap";
 import Aos from "aos";
-import "aos/dist/aos.css";
+import Page from "../components/Page";
+import useAuth from "../hooks/useAuth";
 import styles from "../css/Home.module.css";
+import "aos/dist/aos.css";
 
 const Home = () => {
   const {} = useAuth();
@@ -63,9 +63,11 @@ const Home = () => {
                   <em>MERN Stack</em> (MongoDB, ExpressJS, ReactJS,
                 </strong>{" "}
                 and <strong>NodeJS)</strong> web development framework. In
-                addition, <strong>Mongoose, Axios, CORS, dotenv,</strong> and
+                addition, <strong>Mongoose, Axios, CORS, </strong> and
                 implementation of <strong>middleware</strong> were used to
-                create server-side functionality.
+                create server-side functionality. All code was tested using{" "}
+                <strong>React Testing Library, Jest</strong> and{" "}
+                <strong>Mock Service Worker</strong> to mock API calls.
                 <br />
               </p>
               <p>

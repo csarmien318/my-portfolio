@@ -1,7 +1,7 @@
 import React from "react";
-import Page from "../components/Page";
-import { useContact } from "../hooks/useContact";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { useContact } from "../hooks/useContact";
+import Page from "../components/Page";
 import useAuth from "../hooks/useAuth";
 
 const Contact = () => {
@@ -92,59 +92,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-// const formSubmit = async () => {
-//   console.log("Form Values: ", values);
-
-//   try {
-//     await axios.post("http://localhost:8080/api/save", values, {
-//       headers: { "Content-Type": "application/json" },
-//       withCredentials: true,
-//     });
-//     alert("Your response was submitted, thank you for reaching out!");
-//     window.location.reload();
-//     console.log("Data has been sent to the server");
-//   } catch (error) {
-//     if (error.response.status === 401) {
-//       window.location.reload();
-//       alert(
-//         "Your session expired before submitting the form - reauthentication successful. Please resubmit the form."
-//       );
-//       return;
-//     }
-//     if (error.response.status === 403) {
-//       alert("Forbidden");
-//       window.location.reload();
-//     } else {
-//       alert("An internal server error occurred.");
-//       window.location.reload();
-//     }
-//   }
-// await axios
-//   .post("http://localhost:8080/api/save", values, {
-//     headers: { "Content-Type": "application/json" },
-//     withCredentials: true,
-//   })
-//   .then(() => {
-//     alert("Your response was submitted, thank you for reaching out!");
-//     window.location.reload();
-//     console.log("Data has been sent to the server");
-//   })
-//   .catch((error) => {
-//     if (error.response.status === 401) {
-//       window.location.reload();
-//       alert(
-//         "Your session expired before submitting the form - reauthentication successful. Please resubmit the form."
-//       );
-//       return;
-//     }
-//     if (error.response.status === 403) {
-//       alert("Forbidden");
-//     } else {
-//       alert("An internal server error occurred.");
-//     }
-//     window.location.reload();
-//   });
-// };
-//
-// const { handleChange, handleSubmit, values, errors } = useContact(formSubmit);
