@@ -1,17 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Paginate } from "./Paginate";
-import { Table } from "react-bootstrap";
-import { SongsTableHeader } from "./SongsTableHeader";
+import Paginate from "./Paginate";
+import SongsTableHeader from "./SongsTableHeader";
+import styles from "../css/Songs.module.css";
 
-export const SongsTable = ({
+const SongsTable = ({
   selectedArtist,
   pageNumber,
   setPageNumber,
   allSongs,
   setAllSongs,
-  order,
-  setOrder,
   sortColumn,
   setSortColumn,
 }) => {
@@ -40,19 +38,21 @@ export const SongsTable = ({
     ));
 
   return (
-    <div className="container col">
-      <p>Showing {songs.length} songs in the database.</p>
-      <Table striped hover>
-        <SongsTableHeader
-          songs={songs}
-          setAllSongs={setAllSongs}
-          order={order}
-          setOrder={setOrder}
-          sortColumn={sortColumn}
-          setSortColumn={setSortColumn}
-        />
-        <tbody>{displaySongs}</tbody>
-      </Table>
+    <div>
+      <p style={{ padding: "12px 0 0 14px" }}>
+        Showing {songs.length} songs in the database.
+      </p>
+      <div className={`table-responsive ${styles.divBox}`}>
+        <table className={`table table-hover table-striped ${styles.tableBox}`}>
+          <SongsTableHeader
+            songs={songs}
+            setAllSongs={setAllSongs}
+            sortColumn={sortColumn}
+            setSortColumn={setSortColumn}
+          />
+          <tbody>{displaySongs}</tbody>
+        </table>
+      </div>
       <Paginate
         songs={songs}
         songsPerPage={songsPerPage}
@@ -63,14 +63,14 @@ export const SongsTable = ({
   );
 };
 
+export default SongsTable;
+
 SongsTable.propTypes = {
   selectedArtist: PropTypes.string.isRequired,
   pageNumber: PropTypes.number.isRequired,
   setPageNumber: PropTypes.func.isRequired,
   allSongs: PropTypes.array.isRequired,
   setAllSongs: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  setOrder: PropTypes.func.isRequired,
   sortColumn: PropTypes.object.isRequired,
   setSortColumn: PropTypes.func.isRequired,
 };

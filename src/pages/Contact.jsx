@@ -1,37 +1,23 @@
 import React from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { Page } from "../components/Page";
 import { useContact } from "../hooks/useContact";
-import styles from "../css/Contact.module.css";
+import Page from "../components/Page";
+import useAuth from "../hooks/useAuth";
 
 const Contact = () => {
-  const formSubmit = () => {
-    console.log("Form Values ", values);
-  };
-
-  const { handleChange, handleSubmit, values, errors, submitted } =
-    useContact(formSubmit);
+  const {} = useAuth();
+  const { handleChange, handleSubmit, errors, submitted } = useContact();
 
   return (
-    <Page>
-      <div className="container col-5">
-        <Card className={styles.header}>
-          <Card.Header as="h5" className="text-center">
-            Contact Me
-          </Card.Header>
-          <Card.Body className={styles.body}>
-            {submitted && (
-              <div
-                style={{
-                  color: "green",
-                  paddingBottom: "20px",
-                  textAlign: "center",
-                }}
-              >
-                Your response was submitted.
-              </div>
-            )}
-            <Form onSubmit={handleSubmit}>
+    <Page title="Contact Me">
+      <div
+        className="container-md col-4"
+        style={{ width: "440px", marginBottom: "40px" }}
+      >
+        <Card style={{ boxShadow: "-8px 7px 20px 0 grey" }}>
+          <Card.Body>
+            {submitted && <p>sending...</p>}
+            <Form data-testid="contactForm" onSubmit={handleSubmit}>
               <div className="mb-3">
                 <Row>
                   <Col>
@@ -89,6 +75,7 @@ const Contact = () => {
                 />
               </Form.Group>
               <Button
+                data-testid="contactBtn"
                 variant="primary"
                 type="submit"
                 value="Submit"

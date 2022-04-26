@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const baseUrl = "https://api.weatherapi.com/v1/current.json";
-const apiKey = "***REMOVED***";
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const useWeather = () => {
   const [error, setError] = useState(false);
@@ -12,6 +12,7 @@ const useWeather = () => {
   const getData = async (location) => {
     try {
       await axios(`${baseUrl}`, {
+        withCredentials: false,
         params: { key: apiKey, q: location },
       });
     } catch (error) {
@@ -22,13 +23,14 @@ const useWeather = () => {
         setError("Sorry, we couldn't find the city you entered.");
         console.log(error);
       } else {
-        console.log("Logging error...", error);
-        alert("An unexpected error occurred.");
+        setError("An unexpected error occurred.");
+        console.log(error);
       }
       setLoader(false);
       return;
     }
     return await axios(`${baseUrl}`, {
+      withCredentials: false,
       params: { key: apiKey, q: location },
     });
   };

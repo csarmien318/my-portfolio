@@ -1,10 +1,14 @@
 import React from "react";
+import Jumbotron from "../components/Jumbotron";
+import { Container } from "react-bootstrap";
 
-export const Page = ({ title, children }) => {
+const Page = ({ title, children }) => {
   return (
-    <div style={{ padding: "15px 20px" }}>
-      <h2>{title}</h2>
-      {children}
-    </div>
+    <React.Fragment>
+      <Jumbotron title={title} />
+      <Container fluid="xxl">{children}</Container>
+    </React.Fragment>
   );
 };
+
+export default Page;

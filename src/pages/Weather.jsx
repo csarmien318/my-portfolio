@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import useWeather from "../hooks/useWeather";
-import { Page } from "../components/Page";
-import styles from "../css/Weather.module.css";
-import Moment from "moment";
 import { Button, Card, Container, Form, Placeholder } from "react-bootstrap";
+import Moment from "moment";
+import Page from "../components/Page";
+import styles from "../css/Weather.module.css";
+import useAuth from "../hooks/useAuth";
+import useWeather from "../hooks/useWeather";
 
 const Weather = () => {
   const [location, setLocation] = useState("");
@@ -18,19 +19,22 @@ const Weather = () => {
   };
 
   const { error, loader, weather, submitRequest } = useWeather();
+  const {} = useAuth();
 
   return (
-    <Page>
-      <Container className="col-6" style={{ width: "50%" }}>
+    <Page title="Weather">
+      <Container className="col-6" style={{ width: "auto", maxWidth: "580px" }}>
         <Card className={styles.card}>
-          <Card.Header className={styles.header} as="h5" bsPrefix>
-            Weather App
-          </Card.Header>
-          <Card.Body>
+          <Card.Body className={styles.backdrop}>
             {!loader && (
-              <Form className="text-center" onSubmit={onSubmit}>
+              <Form
+                data-testid="weatherForm"
+                className="text-center"
+                onSubmit={onSubmit}
+              >
                 <Form.Group className="mb-3">
                   <Form.Control
+                    data-testid="weatherSearchBar" // <---- HERE
                     type="text"
                     placeholder="Enter a city or zip code"
                     value={location}
@@ -40,6 +44,7 @@ const Weather = () => {
                   />
                 </Form.Group>
                 <Button
+                  data-testid="getWeatherBtn" // <---- HERE
                   variant="primary"
                   size="sm"
                   type="submit"
@@ -61,25 +66,30 @@ const Weather = () => {
               </Placeholder>
             )}
             {!error && weather && (
-              <div style={{ margin: "20px" }}>
+              <div style={{ marginTop: "16px" }}>
                 <Card className={styles.box} bsPrefix>
-                  <Card.Title className={styles.boxTitle}>
-                    <p>{`Weather for ${weather.city}${
+                  <Card.Title>
+                    <p className="lead fs-4">{`Weather for ${weather.city}${
                       weather.state && weather.city !== weather.state
                         ? ", " + weather.state
                         : ""
                     }, ${weather.country}`}</p>
-                    <i style={{ fontSize: "0.9rem" }}>
+                    <i className="lead fs-6">
                       {`(last updated on ${Moment(weather.date).format(
                         "MMMM D, YYYY, h:mm A"
                       )} - date & time in ${weather.city})`}
                     </i>
                   </Card.Title>
                   <Card.Body>
-                    <Container className={styles.weatherBox} bsPrefix>
+                    <Container
+                      data-testid="weatherContainer"
+                      className={styles.weatherBox}
+                      bsPrefix
+                    >
                       <div>
                         <h1>{`${Math.round(weather.temperature)} \xB0F `}</h1>
                         <p
+                          className="lead"
                           style={{ fontSize: "1rem", fontStyle: "italic" }}
                         >{`Feels like ${Math.round(
                           weather.feelsLike
@@ -87,6 +97,7 @@ const Weather = () => {
                         <Card.Img src={weather.icon} style={{ width: "70%" }} />
                       </div>
                       <div
+                        className="lead"
                         style={{
                           textAlign: "left",
                           fontSize: "1rem",

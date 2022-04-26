@@ -1,64 +1,92 @@
 import React, { useState, useEffect } from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import useAuth from "../hooks/useAuth";
+import styles from "../css/Header.module.css";
 
-export const Header = () => {
-  const path = window.location.pathname;
-  const storedPath = localStorage.getItem(path);
-  const [tab, setTab] = useState(storedPath ? storedPath : "");
+const Header = () => {
+  const [tab, setTab] = useState("");
+
   useEffect(() => {
-    localStorage.setItem("tab", path);
-  }, [tab]);
+    window.onpopstate = () => {
+      window.location.reload();
+    };
+  });
+
+  const { activeUser, handleLogout } = useAuth();
 
   return (
     <Navbar
+      sticky="top"
       variant="dark"
-      style={{ backgroundColor: "#636464", width: "100%" }}
+      expand="md"
+      collapseOnSelect
+      className={styles.bar}
     >
       <Container fluid>
-        <Navbar.Brand
-          className={tab === "home" || path === "/home" ? "active" : ""}
-          as={Link}
-          to="/"
-          onClick={() => setTab("home")}
-        >
-          Home
-        </Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link
-            className={tab === "about" || path === "/about" ? "active" : ""}
-            as={Link}
-            to="/about"
-            onClick={() => setTab("about")}
-          >
-            About
-          </Nav.Link>
-          <Nav.Link
-            className={tab === "songs" || path === "/songs" ? "active" : ""}
-            as={Link}
-            to="/songs"
-            onClick={() => setTab("songs")}
-          >
-            Songs
-          </Nav.Link>
-          <Nav.Link
-            className={tab === "weather" || path === "/weather" ? "active" : ""}
-            as={Link}
-            to="/weather"
-            onClick={() => setTab("weather")}
-          >
-            Weather
-          </Nav.Link>
-          <Nav.Link
-            className={tab === "contact" || path === "/contact" ? "active" : ""}
-            as={Link}
-            to="/contact"
-            onClick={() => setTab("contact")}
-          >
-            Contact
-          </Nav.Link>
-        </Nav>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <LinkContainer
+              className="fs-5"
+              to="/"
+              style={{ marginTop: "-4px" }}
+            >
+              <Nav.Link active onClick={() => setTab("home")}>
+                Home
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/about">
+              <Nav.Link
+                className={tab === "about" ? "active" : ""}
+                onClick={() => setTab("about")}
+              >
+                About
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/songs">
+              <Nav.Link
+                className={tab === "songs" ? "active" : ""}
+                onClick={() => setTab("songs")}
+              >
+                Songs
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/weather">
+              <Nav.Link
+                className={tab === "weather" ? "active" : ""}
+                onClick={() => setTab("weather")}
+              >
+                Weather
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/contact">
+              <Nav.Link
+                className={tab === "contact" ? "active" : ""}
+                onClick={() => setTab("contact")}
+              >
+                Contact
+              </Nav.Link>
+            </LinkContainer>
+          </Nav>
+          {activeUser?.username && (
+            <Nav>
+              <NavDropdown
+                data-testid="activeUserDropMenu"
+                id="collapsible-nav-dropdown"
+                title={activeUser.username}
+                align="end"
+              >
+                <NavDropdown.Item onClick={handleLogout} href="/login">
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          )}
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 };
+
+export default Header;

@@ -1,18 +1,19 @@
+.backdrop {
+  background: url("../assets/skyImage.jpg");
+  background-size: cover;
+}
+
 .box {
   display: flex;
   flex-direction: column;
   border-radius: 0.25rem;
   text-align: center;
-  background-color: rgb(179, 179, 179);
+  background-color: inherit;
 }
 
 .boxTitle {
   margin: 0;
-  padding: 10px 6px 0 6px;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  background-color: rgb(179, 179, 179);
-  font-size: 1.25rem;
+  background-color: inherit;
 }
 
 .card {
@@ -20,6 +21,7 @@
   text-align: center;
   background-color: rgb(219, 219, 219) !important;
   border-radius: 0.25rem;
+  box-shadow: -8px 7px 20px 0px grey;
 }
 
 .error {
@@ -38,20 +40,19 @@
   font-size: 1.25rem;
 }
 
-@media (min-width: 768px) {
-  .weatherBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+.weatherBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .weatherBox div {
   background-color: rgb(238, 238, 238);
   flex-basis: 45%;
   border: 1px #ccc solid;
-  padding: 10px;
+  padding: 8px;
   border-radius: 0.25rem;
+  box-shadow: -8px 7px 20px 0px grey;
 }
 
 .weatherBox h1 {

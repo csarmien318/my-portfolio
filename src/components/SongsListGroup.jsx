@@ -1,13 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
-import ListGroup from "react-bootstrap/ListGroup";
 import ArtistData from "../artistService.json";
+import ListGroup from "react-bootstrap/ListGroup";
+import PropTypes from "prop-types";
 
-export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
+const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
   const artists = ArtistData;
 
   return (
-    <ListGroup as="ul">
+    <ListGroup
+      as="ul"
+      style={{
+        padding: "18px 0 0 4px",
+        overflow: "hidden",
+        minWidth: "119px",
+      }}
+    >
       {artists.map((artist) => (
         <ListGroup.Item
           action
@@ -24,6 +31,8 @@ export const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
     </ListGroup>
   );
 };
+
+export default SongsListGroup;
 
 SongsListGroup.propTypes = {
   onArtistSelect: PropTypes.func.isRequired,

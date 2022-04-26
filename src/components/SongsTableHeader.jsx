@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const SongsTableHeader = ({
+const SongsTableHeader = ({
   songs,
   setAllSongs,
-  order,
-  setOrder,
   sortColumn,
   setSortColumn,
 }) => {
@@ -18,12 +16,12 @@ export const SongsTableHeader = ({
   ];
 
   const handleSort = (column) => {
+    var order = column !== sortColumn.path ? "ascending" : sortColumn.order;
     if (order === "ascending") {
       const sorted = [...songs].sort((a, b) =>
         a[column] > b[column] ? 1 : -1
       );
       setAllSongs(sorted);
-      setOrder("descending");
       setSortColumn({ path: column, order: "descending" });
     }
     if (order === "descending") {
@@ -31,9 +29,20 @@ export const SongsTableHeader = ({
         a[column] < b[column] ? 1 : -1
       );
       setAllSongs(sorted);
-      setOrder("ascending");
       setSortColumn({ path: column, order: "ascending" });
     }
+  };
+
+  const displayHeaders = (columns) => {
+    return columns.map((column) => (
+      <th
+        key={column.path}
+        style={handleStyle(column)}
+        onClick={() => handleSort(column.path)}
+      >
+        {column.label} {displaySortIcon(column)}
+      </th>
+    ));
   };
 
   const displaySortIcon = (column) => {
@@ -43,24 +52,26 @@ export const SongsTableHeader = ({
     else return <i className="fa fa-sort-asc" />;
   };
 
+  const handleStyle = (column) => {
+    if (column.label === "Song") return { width: "300px" };
+    if (column.label === "Artist") return { width: "140px" };
+    if (column.label === "Album") return { width: "220px" };
+    if (column.label === "Length") return { width: "130px" };
+    if (column.label === "Year Released") return { width: "140px" };
+  };
+
   return (
     <thead>
-      <tr style={{ cursor: "pointer" }}>
-        {columns.map((column) => (
-          <th key={column.path} onClick={() => handleSort(column.path)}>
-            {column.label} {displaySortIcon(column)}
-          </th>
-        ))}
-      </tr>
+      <tr style={{ cursor: "pointer" }}>{displayHeaders(columns)}</tr>
     </thead>
   );
 };
 
+export default SongsTableHeader;
+
 SongsTableHeader.propTypes = {
   songs: PropTypes.array.isRequired,
   setAllSongs: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  setOrder: PropTypes.func.isRequired,
   sortColumn: PropTypes.object.isRequired,
   setSortColumn: PropTypes.func.isRequired,
 };
