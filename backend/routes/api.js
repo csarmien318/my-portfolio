@@ -38,9 +38,6 @@ router.post("/login", async (req, res) => {
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN);
 
     const saveToken = { username: username, refreshToken: refreshToken };
-
-    // add update refreshtoken here
-
     const newToken = new Token(saveToken);
     await newToken.save((error) => {
       if (error) {
@@ -84,7 +81,7 @@ router.post("/login", async (req, res) => {
       .status(202)
       .json({ user });
   } else {
-    res.status(401).send("Invalid Email or Password");
+    res.sendStatus(401);
   }
 });
 
@@ -109,42 +106,6 @@ router.delete("/clear-cookies", (req, res) => {
     .clearCookie("isAuthed")
     .send("logout");
 });
-
-// Update refresh token in MongoDB
-// TODO: Update below to update refresh token generated when token expires
-// router.post("/token", async (req, res) => {
-//   const { username, refreshToken } = req.body;
-//   const user = await Token.findOne({ username });
-//   console.log(user);
-
-//   if (!user) {
-//     const newToken = new Token(req.body);
-//     newToken.save((error) => {
-//       if (error) {
-//         res
-//           .status(500)
-//           .json({ msg: "Sorry, an internal server error has occurred." });
-//       }
-
-//       res.json({
-//         msg: "User authenticated",
-//       });
-//     });
-//   } else {
-//     const query = { username: username };
-//     const update = {
-//       $set: { username: username, refreshToken: refreshToken },
-//     };
-//     const options = {};
-//     Token.updateOne(query, update, options)
-//       .then(() => {
-//         res.status(200).json("Renew auth success");
-//       })
-//       .catch((err) => {
-//         console.log("Error: " + err);
-//       });
-//   }
-// });
 
 // Generate new access token upon expiration
 router.post("/auth", async (req, res) => {
@@ -184,8 +145,8 @@ router.get("/songs", (req, res) => {
       console.log(songsData);
       res.json(songsData);
     })
-    .catch((error) => {
-      console.log("error: ", error);
+    .catch(() => {
+      res.status(500).json({ msg: "Error retrieving songs" });
     });
 });
 
@@ -196,7 +157,7 @@ router.post("/save", async (req, res) => {
 
   const newContact = new Contact(data);
 
-  await newContact.save((error) => {
+  newContact.save((error) => {
     if (error) {
       res
         .status(500)

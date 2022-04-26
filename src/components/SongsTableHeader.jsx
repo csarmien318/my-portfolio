@@ -33,6 +33,18 @@ const SongsTableHeader = ({
     }
   };
 
+  const displayHeaders = (columns) => {
+    return columns.map((column) => (
+      <th
+        key={column.path}
+        style={handleStyle(column)}
+        onClick={() => handleSort(column.path)}
+      >
+        {column.label} {displaySortIcon(column)}
+      </th>
+    ));
+  };
+
   const displaySortIcon = (column) => {
     if (column.path !== sortColumn.path) return null;
     if (sortColumn.order === "ascending")
@@ -50,17 +62,7 @@ const SongsTableHeader = ({
 
   return (
     <thead>
-      <tr style={{ cursor: "pointer" }}>
-        {columns.map((column) => (
-          <th
-            key={column.path}
-            style={handleStyle(column)}
-            onClick={() => handleSort(column.path)}
-          >
-            {column.label} {displaySortIcon(column)}
-          </th>
-        ))}
-      </tr>
+      <tr style={{ cursor: "pointer" }}>{displayHeaders(columns)}</tr>
     </thead>
   );
 };

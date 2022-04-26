@@ -79,6 +79,7 @@ const Header = () => {
           {activeUser?.username && (
             <Nav>
               <NavDropdown
+                data-testid="activeUserDropMenu"
                 id="collapsible-nav-dropdown"
                 title={activeUser.username}
                 align="end"

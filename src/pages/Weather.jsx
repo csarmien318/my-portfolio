@@ -27,7 +27,11 @@ const Weather = () => {
         <Card className={styles.card}>
           <Card.Body className={styles.backdrop}>
             {!loader && (
-              <Form className="text-center" onSubmit={onSubmit}>
+              <Form
+                data-testid="weatherForm"
+                className="text-center"
+                onSubmit={onSubmit}
+              >
                 <Form.Group className="mb-3">
                   <Form.Control
                     data-testid="weatherSearchBar" // <---- HERE
@@ -77,7 +81,11 @@ const Weather = () => {
                     </i>
                   </Card.Title>
                   <Card.Body>
-                    <Container className={styles.weatherBox} bsPrefix>
+                    <Container
+                      data-testid="weatherContainer"
+                      className={styles.weatherBox}
+                      bsPrefix
+                    >
                       <div>
                         <h1>{`${Math.round(weather.temperature)} \xB0F `}</h1>
                         <p

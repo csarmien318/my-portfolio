@@ -35,8 +35,6 @@ const useLogin = (callback) => {
           setErrors(newObj);
         }
         break;
-      default:
-        break;
     }
   };
 
@@ -53,7 +51,7 @@ const useLogin = (callback) => {
   };
 
   const handleSubmit = (e) => {
-    if (e) e.preventDefault();
+    e.preventDefault();
 
     if (Object.keys(errors).length === 0) callback();
     else {

@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { omit } from "lodash";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
-const isAuthed = cookies.get("isAuthed");
 
 export const useContact = () => {
   const [values, setValues] = useState({});
@@ -69,30 +65,15 @@ export const useContact = () => {
       setSubmitted(true);
       console.log("Form Values: ", values);
       try {
-        axios.post("http://localhost:8080/api/auth");
-        axios.post("http://localhost:8080/api/save", values, {
+        await axios.post("http://localhost:8080/api/auth");
+        await axios.post("http://localhost:8080/api/save", values, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
         alert("Your response was submitted, thank you for reaching out!");
         window.location.reload();
-        console.log("Data has been sent to the server");
       } catch (error) {
-        setErrors(error.message);
-        // if (error.response.status === 401) {
-        //   window.location.reload();
-        //   alert(
-        //     "Your session expired before submitting the form - reauthentication successful. Please resubmit the form."
-        //   );
-        //   return;
-        // }
-        // if (error.response.status === 403) {
-        //   alert("Forbidden");
-        //   window.location.reload();
-        // } else {
-        //   alert("An internal server error occurred.");
-        //   window.location.reload();
-        // }
+        alert(error?.response);
       }
     } else {
       alert(

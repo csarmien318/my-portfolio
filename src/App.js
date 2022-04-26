@@ -14,6 +14,41 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import useAuth from "./hooks/useAuth";
 
+const App = () => {
+  const { isUser } = useAuth();
+  return (
+    <Router>
+      <Header />
+      <AppRoutes isUser={isUser}>
+        <Routes />
+      </AppRoutes>
+    </Router>
+  );
+};
+
+export const AppRoutes = ({ isUser }) => {
+  return (
+    <>
+      <Routes>
+        {!isUser && <Route path="/login" element={<Login />} />}
+
+        {isUser && (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/songs" element={<Songs />} />
+            <Route path="/weather" element={<Weather />} />
+            <Route path="/contact" element={<Contact />} />
+          </>
+        )}
+        <Route path="*" element={<Navigate to={isUser ? "/" : "/login"} />} />
+      </Routes>
+    </>
+  );
+};
+
+export default App;
+
 // const App = () => {
 //   const { isUser } = useAuth();
 
@@ -39,39 +74,3 @@ import useAuth from "./hooks/useAuth";
 // };
 
 // export default App;
-
-const App = () => {
-  return (
-    <Router>
-      <Header />
-      <AppRoutes>
-        <Routes />
-      </AppRoutes>
-    </Router>
-  );
-};
-
-export const AppRoutes = () => {
-  const { isUser } = useAuth();
-
-  return (
-    <>
-      <Routes>
-        {!isUser && <Route path="/login" element={<Login />} />}
-
-        {isUser && (
-          <>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/songs" element={<Songs />} />
-            <Route path="/weather" element={<Weather />} />
-            <Route path="/contact" element={<Contact />} />
-          </>
-        )}
-        <Route path="*" element={<Navigate to={isUser ? "/" : "/login"} />} />
-      </Routes>
-    </>
-  );
-};
-
-export default App;

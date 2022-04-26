@@ -1,38 +1,46 @@
 import { act, render, fireEvent, waitFor } from "@testing-library/react";
+import { server } from "../../mocks/server";
 import Songs from "../Songs";
+import React from "react";
+import { rest } from "msw";
 
 window.alert = jest.fn();
+console.log = jest.fn();
+console.warn = jest.fn();
+console.error = jest.fn();
 
 describe("Songs Page", () => {
-  it("should render songs", async () => {
-    const { findByText } = render(<Songs />);
-    expect(await findByText("mockTitle")).toBeInTheDocument();
+  it("should render songs and paginate button", async () => {
+    const { findByText, findByRole, getByText, getByRole, queryByRole } =
+      render(<Songs />);
+
+    expect(await findByText("House Of Cards")).toBeInTheDocument();
+    expect(await findByRole("button", { name: /2/i })).toBeInTheDocument();
+
+    const clickAsc = fireEvent.click(getByText(/year released/i));
+    expect(clickAsc).toBeTruthy();
+
+    const clickDesc = fireEvent.click(getByText(/year released/i));
+    expect(clickDesc).toBeTruthy();
+
+    const clickAllArtists = fireEvent.click(getByText(/all artists/i));
+    expect(clickAllArtists).toBeTruthy();
+
+    fireEvent.click(getByRole("button", { name: /3/i }));
+    expect(await findByText("Have a Cigar")).toBeInTheDocument();
+
+    fireEvent.click(await findByText(/radiohead/i));
+    expect(queryByRole("button", { name: /3/i })).toBeNull();
   });
 
-  // it("should render songs", async () => {
-  //   window.alert.mockClear();
-  //   await act(async () => {
-  //     const { getAllByText } = render(<Songs />);
-  //     const items = await getAllByText(/songs/i);
-  //     expect(items).toHaveLength(1);
-  //   });
-  // });
+  it("should handle server error", async () => {
+    server.use(
+      rest.get("http://localhost:8080/api/songs", (req, res, ctx) => {
+        return res.networkError();
+      })
+    );
 
-  // it("should render songs", async () => {
-  //   // window.alert.mockClear();
-  //   await act(async () => {
-  //     const { getByText } = render(<Songs />);
-  //     const items = await getByText("mockId");
-  //     expect(items).toBeTruthy();
-  //   });
-  // });
-
-  // it("should render songs", async () => {
-  //   // window.alert.mockClear();
-  //   await act(async () => {
-  //     const { getByTestId } = render(<Songs />);
-  //     await getByTestId("songsTable");
-  //     expect(songs).toBeTruthy();
-  //   });
-  // });
+    const { getByTestId } = render(<Songs />);
+    expect(getByTestId("loaderImg")).toBeInTheDocument();
+  });
 });

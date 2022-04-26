@@ -45,7 +45,7 @@ const Login = () => {
                 To view this website, please enter the credentials provided.
               </em>
             </Card.Text>
-            <Form onSubmit={handleSubmit}>
+            <Form data-testid="loginForm" onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
                 <Form.Control

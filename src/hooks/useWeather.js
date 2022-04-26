@@ -23,8 +23,8 @@ const useWeather = () => {
         setError("Sorry, we couldn't find the city you entered.");
         console.log(error);
       } else {
-        console.log("Logging error...", error);
-        alert("An unexpected error occurred.");
+        setError("An unexpected error occurred.");
+        console.log(error);
       }
       setLoader(false);
       return;

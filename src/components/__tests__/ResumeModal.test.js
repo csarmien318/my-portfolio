@@ -1,6 +1,18 @@
 import { render, fireEvent } from "@testing-library/react";
 import ResumeModal from "../ResumeModal";
 import About from "../../pages/About";
+// import { rest } from "msw";
+// import { setupServer } from "msw/node";
+
+// const server = setupServer(
+//   rest.post("http://localhost:8080/api/auth", (req, res, ctx) => {
+//     return res(ctx.status(200), ctx.json({ mockToken: "mockToken" }));
+//   })
+// );
+
+// beforeAll(() => server.listen());
+// afterEach(() => server.resetHandlers());
+// afterAll(() => server.close());
 
 describe("Resume Modal", () => {
   it("should render modal", async () => {

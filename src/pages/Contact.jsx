@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import Page from "../components/Page";
 import { useContact } from "../hooks/useContact";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
@@ -7,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 
 const Contact = () => {
   const {} = useAuth();
-  const { handleChange, handleSubmit, errors } = useContact();
+  const { handleChange, handleSubmit, errors, submitted } = useContact();
 
   return (
     <Page title="Contact Me">
@@ -17,6 +16,7 @@ const Contact = () => {
       >
         <Card style={{ boxShadow: "-8px 7px 20px 0 grey" }}>
           <Card.Body>
+            {submitted && <p>sending...</p>}
             <Form data-testid="contactForm" onSubmit={handleSubmit}>
               <div className="mb-3">
                 <Row>

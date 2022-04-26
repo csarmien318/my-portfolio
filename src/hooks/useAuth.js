@@ -24,11 +24,11 @@ const useAuth = () => {
           alert("Internal server error. Try again later.");
           return setUser(false);
         }
-        if (checkUser || activeUser) {
-          handleLogout();
-          alert("Unauthorized");
-          window.location.reload();
-        }
+        // if (checkUser || activeUser) {
+        //   handleLogout();
+        //   alert("Unauthorized");
+        //   window.location.reload();
+        // }
       }
     })();
   }, []);
@@ -47,17 +47,8 @@ const useAuth = () => {
       localStorage.setItem("user", name);
       setUser(true);
       window.location.reload();
-    } catch (err) {
-      if (!err?.response) {
-        alert("An unexpected error occurred. Please try again later.");
-      } else if (err.response?.status === 400) {
-        alert("Missing Username or Password");
-      } else if (err.response?.status === 401) {
-        alert("Incorrect username or password");
-        console.log("Incorrect username or password");
-      } else {
-        alert("Login Failed");
-      }
+    } catch {
+      alert("Incorrect username or password");
     }
   };
 

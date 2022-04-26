@@ -17,44 +17,24 @@ const Songs = () => {
     order: "ascending",
   });
 
-  const { handleLogout } = useAuth();
+  const {} = useAuth();
 
   useEffect(() => {
     async function getSongsData() {
-      let mounted = true;
       setLoader(true);
       await axios
         .get("http://localhost:8080/api/songs", {
           withCredentials: true,
         })
         .then((response) => {
-          if (mounted) {
-            const { data } = response;
-            setAllSongs(data);
-            setApiSongs(data);
-            setLoader(false);
-          }
+          const { data } = response;
+          setAllSongs(data);
+          setApiSongs(data);
+          setLoader(false);
         })
         .catch((err) => {
-          if (mounted) {
-            const status = err?.response.status;
-            setLoader(false);
-            console.log(err);
-            if (status === 401 || status === 403) {
-              alert("Unauthorized");
-            }
-            if (status === 400) {
-              alert("Unauthorized");
-              handleLogout();
-            } else {
-              alert("An internal server error occurred.");
-              handleLogout();
-            }
-          }
+          console.log(err.message);
         });
-      return () => {
-        mounted = false;
-      };
     }
     getSongsData();
   }, []);
@@ -70,7 +50,7 @@ const Songs = () => {
       <Container fluid style={{ maxWidth: "2000px" }}>
         <Row>
           {loader && (
-            <Placeholder as="p" animation="glow">
+            <Placeholder data-testid="loaderImg" as="p" animation="glow">
               <Placeholder xs={12} bg="dark" size="lg" />
             </Placeholder>
           )}

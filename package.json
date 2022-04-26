@@ -31,8 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "coverage": "react-scripts test --coverage a",
+    "test": "react-scripts test --coverage a",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,5 +60,15 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/reportWebVitals.js",
+      "!src/mocks/browser.js",
+      "!src/mocks/handlers.js",
+      "!src/mocks/server.js"
+    ]
   }
 }
