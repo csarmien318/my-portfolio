@@ -18,7 +18,7 @@ describe("About Page", () => {
     expect(click).toBeTruthy();
   });
 
-  it("Cards should be truthy", () => {
+  it("should render cards", () => {
     window.alert.mockClear();
     const { getAllByTestId } = render(<About />);
     const card = getAllByTestId("aboutMeCards");

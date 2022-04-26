@@ -33,7 +33,7 @@ describe("Songs Page", () => {
     expect(queryByRole("button", { name: /3/i })).toBeNull();
   });
 
-  it("should handle server error", async () => {
+  it("should handle server error persisting loader", async () => {
     server.use(
       rest.get("http://localhost:8080/api/songs", (req, res, ctx) => {
         return res.networkError();
