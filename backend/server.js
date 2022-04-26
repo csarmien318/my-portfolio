@@ -29,8 +29,6 @@ app.use(
 );
 
 // HTTP request logger
-app.use(morgan("tiny"));
-app.use("/api", routes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "build")));
@@ -43,6 +41,9 @@ if (process.env.NODE_ENV === "production") {
     res.send("Api running");
   });
 }
+
+app.use(morgan("tiny"));
+app.use("/api", routes);
 
 app.listen(
   process.env.PORT,
