@@ -32,6 +32,20 @@ app.use(
 app.use(morgan("tiny"));
 app.use("/api", routes);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.join(__dirname, "../my-portfolio", "../build", "../build/index.html")
+    );
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Api running");
+  });
+}
+
 app.listen(
   process.env.PORT,
   console.log(`Server is starting at ${process.env.PORT}`)
