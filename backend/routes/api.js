@@ -189,6 +189,8 @@ function generateAccessToken(user) {
   });
 }
 
+module.exports = router;
+
 // Require authentication
 // async function authenticateToken(req, res, next) {
 //   const accessToken = req.headers?.cookie
@@ -219,5 +221,3 @@ function generateAccessToken(user) {
 //     next();
 //   });
 // }
-
-module.exports = router;
