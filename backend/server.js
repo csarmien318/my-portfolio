@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/all_testing", {
 });
 
 mongoose.connection.on("connected", () => {
-  console.log("Mongoose connected successfully!!!!!!");
+  console.log("Mongoose connected successfully!!!");
 });
 
 app.use(express.json());
@@ -33,9 +33,9 @@ app.use(
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "build")));
 
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.join(__dirname, "my-portfolio", "build", "index.html"));
-  // });
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../", "build", "index.html"));
+  });
 } else {
   app.get("/", (req, res) => {
     res.send("Api running");
