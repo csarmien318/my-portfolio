@@ -37,7 +37,7 @@ const Songs = () => {
         });
     }
     getSongsData();
-  }, []);
+  }, [setAllSongs]);
 
   useEffect(() => {
     setAllSongs(getApiSongs);

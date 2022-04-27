@@ -139,8 +139,8 @@ router.post("/auth", async (req, res) => {
 });
 
 // Get song data
-router.get("/songs", (req, res) => {
-  Songs.find({})
+router.get("/songs", async (req, res) => {
+  await Songs.find({})
     .then((songsData) => {
       console.log(songsData);
       res.json(songsData);
@@ -151,7 +151,7 @@ router.get("/songs", (req, res) => {
 });
 
 // Save contact info
-router.post("/save", async (req, res) => {
+router.post("/save", authenticateToken, async (req, res) => {
   const data = req.body;
   console.log(data);
 
@@ -189,35 +189,35 @@ function generateAccessToken(user) {
   });
 }
 
-module.exports = router;
-
 // Require authentication
-// async function authenticateToken(req, res, next) {
-//   const accessToken = req.headers?.cookie
-//     ?.split("accessToken=")[1]
-//     ?.split(";")[0];
-//   const refreshToken = req.headers?.cookie
-//     ?.split("refreshToken=")[1]
-//     .split(";")[0];
-//   if (refreshToken == undefined && accessToken == undefined) {
-//     res.sendStatus(403); // changed from 401
-//     return;
-//   }
-//   const token = accessToken;
-//   const user = await Token.findOne({ refreshToken: refreshToken });
-//   if (token == null || !user) {
-//     console.log("authenticateToken error");
-//     res.sendStatus(401);
-//     return;
-//   }
+async function authenticateToken(req, res, next) {
+  const accessToken = req.headers?.cookie
+    ?.split("accessToken=")[1]
+    ?.split(";")[0];
+  const refreshToken = req.headers?.cookie
+    ?.split("refreshToken=")[1]
+    .split(";")[0];
+  if (refreshToken == undefined && accessToken == undefined) {
+    res.sendStatus(403); // changed from 401
+    return;
+  }
+  const token = accessToken;
+  const user = await Token.findOne({ refreshToken: refreshToken });
+  if (token == null || !user) {
+    console.log("authenticateToken error");
+    res.sendStatus(401);
+    return;
+  }
 
-//   jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
-//     console.log("Logging error: ", err);
-//     if (err) {
-//       res.sendStatus(403);
-//       return;
-//     }
-//     req.user = user;
-//     next();
-//   });
-// }
+  jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
+    console.log("Logging error: ", err);
+    if (err) {
+      res.sendStatus(403);
+      return;
+    }
+    req.user = user;
+    next();
+  });
+}
+
+module.exports = router;
