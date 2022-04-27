@@ -1,0 +1,43 @@
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "",
+  "password": ""
+}
+
+###
+
+POST http://localhost:8080/api/token
+Content-Type: application/json
+
+{
+  "username": "user1000",
+  "refreshToken": "u81e3RhT09sx"
+}
+
+###
+
+POST http://localhost:8080/api/auth
+Content-Type: application/json
+
+{
+  "username": "user0000",
+  "refreshToken": "a46xbRj9S25c"
+}
+
+###
+
+GET http://localhost:8080/api/songs
+Authorization: Bearer 
+
+###
+
+DELETE http://localhost:8080/api/logout
+# Content-Type: application/json
+
+{
+  "username": "",
+}
+
+###
