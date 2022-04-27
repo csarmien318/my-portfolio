@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ba3740f6.chunk.css",
+    "main.js": "/static/js/main.796f22cc.chunk.js",
+    "main.js.map": "/static/js/main.796f22cc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.257b3268.js",
+    "runtime-main.js.map": "/static/js/runtime-main.257b3268.js.map",
+    "static/css/2.3a32127a.chunk.css": "/static/css/2.3a32127a.chunk.css",
+    "static/js/2.291bb9c8.chunk.js": "/static/js/2.291bb9c8.chunk.js",
+    "static/js/2.291bb9c8.chunk.js.map": "/static/js/2.291bb9c8.chunk.js.map",
+    "static/js/3.9ea008b2.chunk.js": "/static/js/3.9ea008b2.chunk.js",
+    "static/js/3.9ea008b2.chunk.js.map": "/static/js/3.9ea008b2.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.3a32127a.chunk.css.map": "/static/css/2.3a32127a.chunk.css.map",
+    "static/css/main.ba3740f6.chunk.css.map": "/static/css/main.ba3740f6.chunk.css.map",
+    "static/js/2.291bb9c8.chunk.js.LICENSE.txt": "/static/js/2.291bb9c8.chunk.js.LICENSE.txt",
+    "static/media/ChristophersResume.7f1b1318.png": "/static/media/ChristophersResume.7f1b1318.png",
+    "static/media/font-awesome.css": "/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/Jumbotron.module.css": "/static/media/grayCanvas.62559ff3.jpg",
+    "static/media/Weather.module.css": "/static/media/skyImage.3c48deb6.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.257b3268.js",
+    "static/css/2.3a32127a.chunk.css",
+    "static/js/2.291bb9c8.chunk.js",
+    "static/css/main.ba3740f6.chunk.css",
+    "static/js/main.796f22cc.chunk.js"
+  ]
+}
