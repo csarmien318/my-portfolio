@@ -71,11 +71,13 @@ export const useContact = () => {
         alert("Your response was submitted, thank you for reaching out!");
         window.location.reload();
       } catch (error) {
-        alert(error?.response);
+        alert(
+          "Form was not submitted - please refresh the browser and try again later."
+        );
       }
     } else {
       alert(
-        "Form was not submitted. Make sure required fields were filled correctly."
+        "Form was not submitted - make sure required fields were filled correctly."
       );
     }
   };

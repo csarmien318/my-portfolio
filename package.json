@@ -1,0 +1,11 @@
+{
+  "name": "my_portfolio-deployment",
+  "version": "1.0.0",
+  "main": "",
+  "scripts": {
+    "start": "npm start --prefix backend",
+    "install-client": "cd client && npm install && npm run build && cd ..",
+    "install-backend": "cd backend && npm install && cd ..",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-client && npm run install-backend"
+  }
+}
