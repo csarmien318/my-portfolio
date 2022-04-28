@@ -5,6 +5,7 @@ import Page from "../components/Page";
 import SongsListGroup from "../components/SongsListGroup";
 import SongsTable from "../components/SongsTable";
 import useAuth from "../hooks/useAuth";
+import { config } from "../constants";
 
 const Songs = () => {
   const [getApiSongs, setApiSongs] = useState([]);
@@ -23,7 +24,7 @@ const Songs = () => {
     async function getSongsData() {
       setLoader(true);
       await axios
-        .get("http://localhost:8080/api/songs", {
+        .get(`${config.SERVER_URI}/songs`, {
           withCredentials: true,
         })
         .then((response) => {
