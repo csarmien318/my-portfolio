@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { config } from "../constants";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
@@ -18,7 +19,7 @@ const useAuth = () => {
   useEffect(() => {
     (async () => {
       try {
-        await axios.post("http://localhost:8080/api/auth");
+        await axios.post(`${config.SERVER_URI}/auth`);
       } catch (err) {
         if (!err?.response) {
           alert("Internal server error. Try again later.");
@@ -36,7 +37,7 @@ const useAuth = () => {
   const handleLogin = async (username, password) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/login",
+        `${config.SERVER_URI}/login`,
         JSON.stringify({ username, password }),
         {
           headers: { "Content-Type": "application/json" },
@@ -53,9 +54,9 @@ const useAuth = () => {
   };
 
   const handleLogout = () => {
-    axios.delete("http://localhost:8080/api/clear-cookies");
+    axios.delete(`${config.SERVER_URI}/clear-cookies`);
     axios
-      .get("http://localhost:8080/api/logout", {
+      .get(`${config.SERVER_URI}/logout`, {
         headers: { "Content-Type": "application/json" },
         withCredential: true,
       })
