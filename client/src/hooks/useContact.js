@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { omit } from "lodash";
+import { config } from "../constants";
 
 export const useContact = () => {
   const [values, setValues] = useState({});
@@ -63,8 +64,8 @@ export const useContact = () => {
       setSubmitted(true);
       console.log("Form Values: ", values);
       try {
-        await axios.post("http://localhost:8080/api/auth");
-        await axios.post("http://localhost:8080/api/save", values, {
+        await axios.post(`${config.SERVER_URI}/auth`);
+        await axios.post(`${config.SERVER_URI}/save`, values, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
