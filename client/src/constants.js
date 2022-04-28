@@ -3,7 +3,7 @@ const configs = {
     SERVER_URI: "http://localhost:8080/api",
   },
   production: {
-    SERVER_URI: "https://csarmiento-fullstack-portfolio.herokuapp.com",
+    SERVER_URI: "https://csarmiento-fullstack-portfolio.herokuapp.com/api",
   },
 };
 
