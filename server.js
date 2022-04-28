@@ -28,6 +28,7 @@ app.use(
   })
 );
 
+// TODO: check morgan implementation
 // app.use(morgan("tiny"));
 app.use("/api", routes);
 
