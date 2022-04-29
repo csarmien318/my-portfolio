@@ -96,7 +96,7 @@ const About = () => {
                       Effective verbal communication and interpretation of
                       abstract data
                     </li>
-                    <li>Fluent in Spanish</li>
+                    <li>Bilingual proficiency in Spanish</li>
                   </ul>
                 </div>
               </Card.Body>
