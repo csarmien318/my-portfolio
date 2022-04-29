@@ -150,7 +150,7 @@ router.get("/songs", async (req, res) => {
     });
 });
 
-// Save contact info
+// Save contact data
 router.post("/save", authenticateToken, async (req, res) => {
   const data = req.body;
   console.log(data);
@@ -170,18 +170,6 @@ router.post("/save", authenticateToken, async (req, res) => {
   });
 });
 
-// Display contact data in backend route
-router.get("/", (req, res) => {
-  Contact.find({})
-    .then((data) => {
-      console.log("Data: ", data);
-      res.json(data);
-    })
-    .catch((error) => {
-      console.log("error: ", error);
-    });
-});
-
 // Generate new access token and set expiration on token
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN, {
@@ -198,7 +186,7 @@ async function authenticateToken(req, res, next) {
     ?.split("refreshToken=")[1]
     .split(";")[0];
   if (refreshToken == undefined && accessToken == undefined) {
-    res.sendStatus(403); // changed from 401
+    res.sendStatus(403);
     return;
   }
   const token = accessToken;
