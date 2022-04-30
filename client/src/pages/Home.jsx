@@ -2,12 +2,10 @@ import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Aos from "aos";
 import Page from "../components/Page";
-import useAuth from "../hooks/useAuth";
 import styles from "../css/Home.module.css";
 import "aos/dist/aos.css";
 
 const Home = () => {
-  const {} = useAuth();
   useEffect(() => {
     Aos.init({ duration: 1000, once: true });
   }, []);

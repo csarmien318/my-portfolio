@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -8,15 +7,10 @@ import useAuth from "../hooks/useAuth";
 import useLogin from "../hooks/useLogin";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const formSubmit = async () => {
-    await handleLogin(username, password);
-
+    const response = await handleLogin(username, password);
     setUsername("");
     setPassword("");
-
-    navigate("/");
   };
 
   const {

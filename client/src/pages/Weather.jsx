@@ -3,7 +3,6 @@ import { Button, Card, Container, Form, Placeholder } from "react-bootstrap";
 import Moment from "moment";
 import Page from "../components/Page";
 import styles from "../css/Weather.module.css";
-import useAuth from "../hooks/useAuth";
 import useWeather from "../hooks/useWeather";
 
 const Weather = () => {
@@ -19,7 +18,6 @@ const Weather = () => {
   };
 
   const { error, loader, weather, submitRequest } = useWeather();
-  const {} = useAuth();
 
   return (
     <Page title="Weather">
@@ -34,7 +32,7 @@ const Weather = () => {
               >
                 <Form.Group className="mb-3">
                   <Form.Control
-                    data-testid="weatherSearchBar" // <---- HERE
+                    data-testid="weatherSearchBar"
                     type="text"
                     placeholder="Enter a city or zip code"
                     value={location}
@@ -44,7 +42,7 @@ const Weather = () => {
                   />
                 </Form.Group>
                 <Button
-                  data-testid="getWeatherBtn" // <---- HERE
+                  data-testid="getWeatherBtn"
                   variant="primary"
                   size="sm"
                   type="submit"

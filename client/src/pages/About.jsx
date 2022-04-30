@@ -5,11 +5,9 @@ import Card from "react-bootstrap/Card";
 import Page from "../components/Page";
 import ResumeModal from "../components/ResumeModal";
 import styles from "../css/About.module.css";
-import useAuth from "../hooks/useAuth";
 
 const About = () => {
   const [modalShow, setModalShow] = useState(false);
-  const {} = useAuth();
 
   const handleClick = () => {
     setModalShow(true);

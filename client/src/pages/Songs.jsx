@@ -4,7 +4,6 @@ import axios from "axios";
 import Page from "../components/Page";
 import SongsListGroup from "../components/SongsListGroup";
 import SongsTable from "../components/SongsTable";
-import useAuth from "../hooks/useAuth";
 import { config } from "../constants";
 
 const Songs = () => {
@@ -17,8 +16,6 @@ const Songs = () => {
     path: "",
     order: "ascending",
   });
-
-  const {} = useAuth();
 
   useEffect(() => {
     async function getSongsData() {

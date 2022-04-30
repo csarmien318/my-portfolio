@@ -12,22 +12,22 @@ app.use(cookieParser());
 const Contact = require("../models/contact");
 const Songs = require("../models/songs");
 const Users = require("../models/users");
-const Token = require("../models/token");
+const Tokens = require("../models/token");
 
 // Login and save refreshToken in MongoDB
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  const isUser = await Users.findOne({ username });
-  if (Token.findOne({ username })) {
-    await Token.deleteOne({ username }).then(() => {
+  const storedUser = await Users.findOne({ username });
+  if (Tokens.findOne({ username })) {
+    await Tokens.deleteOne({ username }).then(() => {
       res;
     });
   }
 
-  if (isUser && (await isUser.password) === password) {
+  if (storedUser && (await storedUser.password) === password) {
     await Users.updateOne(
-      { username: isUser.username },
+      { username: storedUser.username },
       { $inc: { numLogins: 1 } }
     ).then(() => {
       res;
@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN);
 
     const saveToken = { username: username, refreshToken: refreshToken };
-    const newToken = new Token(saveToken);
+    const newToken = new Tokens(saveToken);
     await newToken.save((error) => {
       if (error) {
         res
@@ -86,10 +86,16 @@ router.post("/login", async (req, res) => {
 });
 
 // Logout
-router.get("/logout", async (req, res) => {
-  await Token.deleteOne(req.body.username)
+router.get("/logout", (req, res) => {
+  Tokens.deleteOne(req.body.username)
     .then(() => {
-      res.json("Logout successful");
+      res
+        .clearCookie("user")
+        .clearCookie("accessToken")
+        .clearCookie("refreshToken")
+        .clearCookie("authedSession")
+        .clearCookie("isAuthed")
+        .json("Logout successful");
     })
     .catch((error) => {
       console.log("Error: " + error);
@@ -110,10 +116,13 @@ router.delete("/clear-cookies", (req, res) => {
 // Generate new access token upon expiration
 router.post("/auth", async (req, res) => {
   const tokens = req.headers.cookie;
-  if (!tokens) res.status(401).send();
+  if (!tokens) return;
+
   const refreshToken = tokens?.split("refreshToken=")[1]?.split(";")[0];
-  if (!refreshToken) res.status(403).send();
-  if (!(await Token.findOne({ refreshToken }))) res.status(403);
+  if (!refreshToken) return res.status(403).send();
+
+  const storedToken = await Tokens.findOne({ refreshToken });
+  if (!storedToken) return res.status(403).send();
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, user) => {
     if (err) return res.status(403);
@@ -151,7 +160,7 @@ router.get("/songs", async (req, res) => {
 });
 
 // Save contact data
-router.post("/save", authenticateToken, async (req, res) => {
+router.post("/save", async (req, res) => {
   const data = req.body;
   console.log(data);
 
@@ -178,34 +187,34 @@ function generateAccessToken(user) {
 }
 
 // Require authentication
-async function authenticateToken(req, res, next) {
-  const accessToken = req.headers?.cookie
-    ?.split("accessToken=")[1]
-    ?.split(";")[0];
-  const refreshToken = req.headers?.cookie
-    ?.split("refreshToken=")[1]
-    .split(";")[0];
-  if (refreshToken == undefined && accessToken == undefined) {
-    res.sendStatus(403);
-    return;
-  }
-  const token = accessToken;
-  const user = await Token.findOne({ refreshToken: refreshToken });
-  if (token == null || !user) {
-    console.log("authenticateToken error");
-    res.sendStatus(401);
-    return;
-  }
+// async function authenticateToken(req, res, next) {
+//   const accessToken = req.headers?.cookie
+//     ?.split("accessToken=")[1]
+//     ?.split(";")[0];
+//   const refreshToken = req.headers?.cookie
+//     ?.split("refreshToken=")[1]
+//     .split(";")[0];
+//   if (refreshToken == undefined && accessToken == undefined) {
+//     res.sendStatus(403);
+//     return;
+//   }
+//   const token = accessToken;
+//   const user = await Tokens.findOne({ refreshToken: refreshToken });
+//   if (token == null || !user) {
+//     console.log("authenticateToken error");
+//     res.sendStatus(401);
+//     return;
+//   }
 
-  jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
-    console.log("Logging error: ", err);
-    if (err) {
-      res.sendStatus(403);
-      return;
-    }
-    req.user = user;
-    next();
-  });
-}
+//   jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
+//     console.log("Logging error: ", err);
+//     if (err) {
+//       res.sendStatus(403);
+//       return;
+//     }
+//     req.user = user;
+//     next();
+//   });
+// }
 
 module.exports = router;
