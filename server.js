@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const enforce = require("express-sslify");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -36,6 +37,7 @@ app.use(morgan("tiny"));
 app.use("/api", routes);
 
 if (process.env.NODE_ENV === "production") {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.static(path.join(__dirname, "/client/build")));
 
   app.get("*", (req, res) => {
