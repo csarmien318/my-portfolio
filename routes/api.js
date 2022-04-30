@@ -19,10 +19,17 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   const storedUser = await Users.findOne({ username });
-  if (Tokens.findOne({ username })) {
-    await Tokens.deleteOne({ username }).then(() => {
-      res;
-    });
+  const checkMultipleLogins = await Tokens.findOne({ username });
+
+  if (
+    storedUser &&
+    checkMultipleLogins &&
+    (await checkMultipleLogins.username) === username
+  ) {
+    return res.sendStatus(400);
+    // await Tokens.deleteOne({ username }).then(() => {
+    //   res;
+    // });
   }
 
   if (storedUser && (await storedUser.password) === password) {

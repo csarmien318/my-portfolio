@@ -41,8 +41,9 @@ const useAuth = () => {
       let name = JSON.stringify(response.data.user);
       sessionStorage.setItem("user", name);
       window.location.reload();
-    } catch {
-      alert("Incorrect username or password");
+    } catch (error) {
+      if (error.response.status === 400) alert("Multiple logins forbidden.");
+      else alert("Incorrect username or password");
       window.location.reload();
     }
   };
