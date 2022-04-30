@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import useAuth from "../hooks/useAuth";
@@ -7,11 +7,9 @@ import styles from "../css/Header.module.css";
 const Header = () => {
   const [tab, setTab] = useState("");
 
-  useEffect(() => {
-    window.onpopstate = () => {
-      window.location.reload();
-    };
-  });
+  window.onpopstate = () => {
+    window.location.reload();
+  };
 
   const { activeUser, handleLogout } = useAuth();
 
@@ -74,10 +72,10 @@ const Header = () => {
               <NavDropdown
                 data-testid="activeUserDropMenu"
                 id="collapsible-nav-dropdown"
-                title={activeUser.username}
+                title={activeUser.username || sessionStorage.getItem("user")}
                 align="end"
               >
-                <NavDropdown.Item onClick={handleLogout} href="/login">
+                <NavDropdown.Item onClick={() => handleLogout()} href="/login">
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>

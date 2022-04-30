@@ -2,10 +2,8 @@ import React from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useContact } from "../hooks/useContact";
 import Page from "../components/Page";
-import useAuth from "../hooks/useAuth";
 
 const Contact = () => {
-  const {} = useAuth();
   const { handleChange, handleSubmit, errors, submitted } = useContact();
 
   return (

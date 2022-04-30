@@ -4,35 +4,29 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-const isAuthed = cookies.get("isAuthed");
 const activeUser = cookies.get("user");
+const user = sessionStorage.getItem("user");
 
 axios.defaults.withCredentials = true;
 
 const useAuth = () => {
-  const [isUser, setUser] = useState(() => {
-    if (activeUser || isAuthed) return true;
-    return false;
-  });
+  const [isUser, setUser] = useState(user);
 
-  const checkUser = localStorage.getItem("user");
+  const checkUser = sessionStorage.getItem("user");
   useEffect(() => {
-    (async () => {
+    async function authUser() {
       try {
         await axios.post(`${config.SERVER_URI}/auth`);
+        if (!sessionStorage.getItem("user")) sessionStorage.clear();
       } catch (err) {
-        if (!err?.response) {
-          alert("Internal server error. Try again later.");
-          return setUser(false);
+        if (err.response.status === 403) {
+          alert("Forbidden");
+          handleLogout();
         }
-        // if (checkUser || activeUser) {
-        //   handleLogout();
-        //   alert("Unauthorized");
-        //   window.location.reload();
-        // }
       }
-    })();
-  }, []);
+    }
+    if (isUser) authUser();
+  });
 
   const handleLogin = async (username, password) => {
     try {
@@ -45,31 +39,27 @@ const useAuth = () => {
         }
       );
       let name = JSON.stringify(response.data.user);
-      localStorage.setItem("user", name);
-      setUser(true);
+      sessionStorage.setItem("user", name);
       window.location.reload();
     } catch {
       alert("Incorrect username or password");
+      window.location.reload();
     }
   };
 
-  const handleLogout = () => {
-    axios.delete(`${config.SERVER_URI}/clear-cookies`);
-    axios
-      .get(`${config.SERVER_URI}/logout`, {
+  const handleLogout = async () => {
+    try {
+      axios.delete(`${config.SERVER_URI}/clear-cookies`);
+      axios.get(`${config.SERVER_URI}/logout`, {
         headers: { "Content-Type": "application/json" },
         withCredential: true,
-      })
-      // .then(() => {
-      //   localStorage.clear();
-      // })
-      .catch(() => {
-        console.log("An internal server error has occurred.");
       });
-
-    setUser(false);
-    localStorage.clear();
-    window.location.reload();
+      setUser(false);
+      sessionStorage.clear();
+      window.location.reload();
+    } catch {
+      console.log("An internal server error has occurred.");
+    }
   };
 
   return {

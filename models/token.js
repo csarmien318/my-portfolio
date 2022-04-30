@@ -2,20 +2,20 @@ const mongoose = require("mongoose");
 
 // Schema
 const Schema = mongoose.Schema;
-const TokenSchema = new Schema({
+const TokensSchema = new Schema({
   username: String,
   refreshToken: String,
 });
 
 // Model
-const Token = mongoose.model("Token", TokenSchema);
+const Tokens = mongoose.model("Tokens", TokensSchema);
 
 // Saving data to our mongo database
-const tokenData = {
+const tokensData = {
   username: "John Smith",
   refreshToken: "q843ncowurnrfhwoc3uchowuhto24t72cnvofhcnwpieufpwf0248rhfiwu",
 };
 
-const newToken = new Token(tokenData); // instance of the model
+const newToken = new Tokens(tokensData); // instance of the model
 
-module.exports = Token;
+module.exports = Tokens;
