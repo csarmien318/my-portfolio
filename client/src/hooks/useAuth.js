@@ -38,8 +38,11 @@ const useAuth = () => {
           withCredentials: true,
         }
       );
-      let name = JSON.stringify(response.data.user);
-      sessionStorage.setItem("user", name);
+      if (response.status === 202) {
+        console.log("Checking login staatus of 202");
+        let name = JSON.stringify(response.data.user);
+        sessionStorage.setItem("user", name);
+      }
       window.location.reload();
     } catch (error) {
       if (error.response.status === 400) alert("Multiple logins forbidden.");

@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { act, render, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
 import { server } from "../../mocks/server";
@@ -49,7 +49,7 @@ const MockHeader = ({ activeUser }) => {
                 title={activeUser}
                 align="end"
               >
-                <NavDropdown.Item onClick={handleLogout} href="/login">
+                <NavDropdown.Item onClick={() => handleLogout()} href="/login">
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>
@@ -109,8 +109,11 @@ describe("Header component", () => {
       })
     );
     const { getByText } = render(<MockHeader activeUser="test1000" />);
-    fireEvent.click(getByText(/test1000/i));
-    const clickLogout = fireEvent.click(getByText(/logout/i));
+
+    await act(async () => {
+      fireEvent.click(getByText(/test1000/i));
+    });
+    fireEvent.click(getByText(/logout/i));
     console.log = jest.fn();
 
     await waitFor(() => {

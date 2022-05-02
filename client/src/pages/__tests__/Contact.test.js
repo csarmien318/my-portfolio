@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { server } from "../../mocks/server";
 import { rest } from "msw";
 import Contact from "../../pages/Contact";
@@ -15,10 +15,12 @@ describe("Contact page test - useContact.js tested indirectly", () => {
     const emailBox = getByPlaceholderText(/enter email/i);
     const form = getByTestId("contactForm");
 
-    fireEvent.change(nameBox, { target: { value: "Test Name" } });
-    fireEvent.change(emailBox, { target: { value: "test@mail.com" } });
-    fireEvent.click(getByRole("button"));
-    fireEvent.submit(form);
+    await act(async () => {
+      fireEvent.change(nameBox, { target: { value: "Test Name" } });
+      fireEvent.change(emailBox, { target: { value: "test@mail.com" } });
+      fireEvent.click(getByRole("button"));
+      fireEvent.submit(form);
+    });
 
     await waitFor(() => expect(window.alert).toBeCalled());
   });

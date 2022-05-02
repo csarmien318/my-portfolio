@@ -20,19 +20,31 @@ const Songs = () => {
   useEffect(() => {
     async function getSongsData() {
       setLoader(true);
-      await axios
-        .get(`${config.SERVER_URI}/songs`, {
+
+      try {
+        const response = await axios.get(`${config.SERVER_URI}/songs`, {
           withCredentials: true,
-        })
-        .then((response) => {
-          const { data } = response;
-          setAllSongs(data);
-          setApiSongs(data);
-          setLoader(false);
-        })
-        .catch((err) => {
-          console.log(err.message);
         });
+        const { data } = response;
+        setAllSongs(data);
+        setApiSongs(data);
+        setLoader(false);
+      } catch (err) {
+        console.log(err.message);
+      }
+      // await axios
+      //   .get(`${config.SERVER_URI}/songs`, {
+      //     withCredentials: true,
+      //   })
+      //   .then((response) => {
+      //     const { data } = response;
+      //     setAllSongs(data);
+      //     setApiSongs(data);
+      //     setLoader(false);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err.message);
+      //   });
     }
     getSongsData();
   }, [setAllSongs]);
