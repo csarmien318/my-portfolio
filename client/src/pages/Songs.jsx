@@ -4,6 +4,7 @@ import axios from "axios";
 import Page from "../components/Page";
 import SongsListGroup from "../components/SongsListGroup";
 import SongsTable from "../components/SongsTable";
+import styles from "../css/Songs.module.css";
 
 const Songs = () => {
   const [getApiSongs, setApiSongs] = useState([]);
@@ -21,8 +22,6 @@ const Songs = () => {
   useEffect(() => {
     async function getSongsData() {
       setLoader(true);
-      console.log(process.env.NODE_ENV);
-
       try {
         const response = await axios.get(`${API_ENDPOINT}/songs`, {
           withCredentials: true,
@@ -46,7 +45,11 @@ const Songs = () => {
 
   return (
     <Page title="Tabled Data">
-      <Container fluid style={{ maxWidth: "2000px" }}>
+      <Container
+        fluid
+        className={styles.container}
+        style={{ maxWidth: "2000px" }}
+      >
         <Row>
           {loader && (
             <Placeholder data-testid="loaderImg" as="p" animation="glow">

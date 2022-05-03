@@ -2,19 +2,13 @@ import React from "react";
 import ArtistData from "../artistService.json";
 import ListGroup from "react-bootstrap/ListGroup";
 import PropTypes from "prop-types";
+import styles from "../css/Songs.module.css";
 
 const SongsListGroup = ({ onArtistSelect, selectedArtist }) => {
   const artists = ArtistData;
 
   return (
-    <ListGroup
-      as="ul"
-      style={{
-        padding: "18px 0 0 4px",
-        overflow: "hidden",
-        minWidth: "119px",
-      }}
-    >
+    <ListGroup as="ul" className={styles.listGroup}>
       {artists.map((artist) => (
         <ListGroup.Item
           action

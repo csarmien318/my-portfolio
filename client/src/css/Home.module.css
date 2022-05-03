@@ -80,16 +80,71 @@
   min-width: fit-content;
 }
 
+@media (max-width: 991px) {
+  .musicImg {
+    margin: 20px 0 0 50px !important;
+  }
+
+  .shardsImg {
+    margin: 0 !important;
+  }
+}
+
 @media (max-width: 767px) {
   .cloudImg,
   .contactImg,
   .logoImg,
-  .musicImg,
   .personImg {
-    margin: 25% 0 6% 24%;
+    margin: 25% 0 6% 24% !important;
+  }
+
+  .musicImg {
+    margin: 0 0 5% 18% !important;
   }
 
   .shardsImg {
-    margin: 0 -2px 0 12vw;
+    margin: 0 -2px 0 12vw !important;
+  }
+}
+
+@media (max-width: 490px) {
+  .cloudImg,
+  .contactImg {
+    margin: 0 0 5% 64px !important;
+  }
+  .logoImg,
+  .personImg {
+    margin: 0 0 5% 40px !important;
+  }
+
+  .musicImg {
+    margin: 0 0 5% 10px !important;
+  }
+
+  .shardsImg {
+    margin: 5% -10px 0 -20px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .cloudImg {
+    margin: 0 0 5% 40px !important;
+  }
+
+  .contactImg {
+    margin: 0 0 5% 42px !important;
+  }
+}
+
+@media (max-width: 370px) {
+  .cloudImg {
+    margin: 0 0 5% 34px !important;
+  }
+
+  .contactImg {
+    margin: 0 0 5% 42px !important;
+  }
+  .logoImg {
+    margin: 0 0 5% 32px !important;
   }
 }
