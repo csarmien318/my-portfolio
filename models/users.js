@@ -10,7 +10,7 @@ const UsersSchema = new Schema({
 const Users = mongoose.model("Users", UsersSchema);
 
 const usersData = {
-  username: "",
+  username: "Test",
   password: "",
   numLogins: 0,
 };

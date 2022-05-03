@@ -11,10 +11,10 @@ const ContactSchema = new Schema({
 const Contact = mongoose.model("Contact", ContactSchema);
 
 const data = {
-  username: "John Smith",
-  company: "Testing Inc.",
-  email: "jsmith@testing.com",
-  message: "This is a test message from John Smith.",
+  username: "Test",
+  company: "Testing",
+  email: "test@testing.com",
+  message: "Test",
 };
 
 const newContact = new Contact(data);

@@ -9,8 +9,8 @@ const TokensSchema = new Schema({
 const Tokens = mongoose.model("Tokens", TokensSchema);
 
 const tokensData = {
-  username: "John Smith",
-  refreshToken: "q843ncowurnrfhwoc3uchowuhto24t72cnvofhcnwpieufpwf0248rhfiwu",
+  username: "",
+  refreshToken: "",
 };
 
 const newToken = new Tokens(tokensData);
