@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { omit } from "lodash";
-import { config } from "../constants";
 
 export const useContact = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   useEffect(() => {
     setSubmitted(false);
@@ -63,9 +64,11 @@ export const useContact = () => {
     if (Object.keys(errors).length === 0) {
       setSubmitted(true);
       console.log("Form Values: ", values);
+      console.log(process.env.NODE_ENV);
+      console.log(API_ENDPOINT);
       try {
-        await axios.post(`${config.SERVER_URI}/auth`);
-        await axios.post(`${config.SERVER_URI}/save`, values, {
+        await axios.post(`${API_ENDPOINT}/auth`);
+        await axios.post(`${API_ENDPOINT}/save`, values, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });

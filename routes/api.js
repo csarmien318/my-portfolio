@@ -19,18 +19,6 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   const storedUser = await Users.findOne({ username });
-  const checkMultipleLogins = await Tokens.findOne({ username });
-
-  if (
-    storedUser &&
-    checkMultipleLogins &&
-    (await checkMultipleLogins.username) === username
-  ) {
-    return res.sendStatus(400);
-    // await Tokens.deleteOne({ username }).then(() => {
-    //   res;
-    // });
-  }
 
   if (storedUser && (await storedUser.password) === password) {
     await Users.updateOne(
@@ -39,6 +27,18 @@ router.post("/login", async (req, res) => {
     ).then(() => {
       res;
     });
+
+    const checkMultipleLogins = await Tokens.findOne({ username });
+
+    if (
+      checkMultipleLogins &&
+      (await checkMultipleLogins.username) === username
+    ) {
+      // return res.sendStatus(400);
+      await Tokens.deleteOne({ username }).then(() => {
+        res;
+      });
+    }
 
     const user = { username: username };
     const accessToken = generateAccessToken(user);
@@ -96,16 +96,10 @@ router.post("/login", async (req, res) => {
 router.get("/logout", (req, res) => {
   Tokens.deleteOne(req.body.username)
     .then(() => {
-      res
-        .clearCookie("user")
-        .clearCookie("accessToken")
-        .clearCookie("refreshToken")
-        .clearCookie("authedSession")
-        .clearCookie("isAuthed")
-        .json("Logout successful");
+      res.json("Logout successful");
     })
     .catch((error) => {
-      console.log("Error: " + error);
+      res.json(error);
     });
   res;
 });

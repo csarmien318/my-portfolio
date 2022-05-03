@@ -18,10 +18,7 @@ describe("Login page functionality", () => {
     fireEvent.change(passwordBox, { target: { value: "test1000test" } });
     fireEvent.blur(passwordBox);
     fireEvent.click(button);
-
-    await act(async () => {
-      fireEvent.submit(form);
-    });
+    fireEvent.submit(form);
 
     await waitFor(() => expect(form).toBeTruthy());
   });

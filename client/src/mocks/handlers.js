@@ -77,7 +77,7 @@ export const handlers = [
       );
     }
 
-    return res.networkError();
+    return res(ctx.status(400), ctx.json({ user }));
   }),
 
   rest.get("http://localhost:8080/api/logout", async (req, res, ctx) => {

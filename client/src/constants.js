@@ -1,10 +1,10 @@
-const configs = {
-  development: {
-    SERVER_URI: "http://localhost:8080/api",
-  },
-  production: {
-    SERVER_URI: "https://csarmiento-fullstack-portfolio.herokuapp.com/api",
-  },
-};
+// const configs = {
+//   development: {
+//     SERVER_URI: "http://localhost:8080/api",
+//   },
+//   production: {
+//     SERVER_URI: "https://csarmiento-fullstack-portfolio.herokuapp.com/api",
+//   },
+// };
 
-module.exports.config = configs[process.env.NODE_ENV];
+// module.exports.config = configs[process.env.NODE_ENV];
