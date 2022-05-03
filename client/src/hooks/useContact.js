@@ -63,9 +63,6 @@ export const useContact = () => {
     e.preventDefault();
     if (Object.keys(errors).length === 0) {
       setSubmitted(true);
-      console.log("Form Values: ", values);
-      console.log(process.env.NODE_ENV);
-      console.log(API_ENDPOINT);
       try {
         await axios.post(`${API_ENDPOINT}/auth`);
         await axios.post(`${API_ENDPOINT}/save`, values, {

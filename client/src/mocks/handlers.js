@@ -33,7 +33,6 @@ export const handlers = [
 
   rest.post("http://localhost:8080/api/login", async (req, res, ctx) => {
     const user = req.body;
-    console.log(user);
     const { username } = user;
     const { password } = user;
 

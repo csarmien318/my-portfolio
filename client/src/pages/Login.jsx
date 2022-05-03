@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Page from "../components/Page";
 import useAuth from "../hooks/useAuth";
 import useLogin from "../hooks/useLogin";
+import styles from "../css/Login.module.css";
 
 const Login = () => {
   const formSubmit = async () => {
@@ -25,13 +26,7 @@ const Login = () => {
 
   return (
     <Page title="Login">
-      <div
-        className="container-md col-4"
-        style={{
-          width: "480px",
-          marginBottom: "40px",
-        }}
-      >
+      <div className={`container-md col-4 ${styles.container}`}>
         <Card style={{ boxShadow: "-8px 7px 20px 0px grey" }}>
           <Card.Body>
             <Card.Text>
@@ -60,7 +55,7 @@ const Login = () => {
               </Form.Group>
               <div className="d-flex justify-content-center">
                 <Button
-                  className="submit col-3"
+                  className={`submit col-3 ${styles.btn}`}
                   variant="primary"
                   type="submit"
                   value="Submit"

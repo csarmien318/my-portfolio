@@ -8,8 +8,29 @@
   padding-bottom: 20px;
 }
 
+.listGroup {
+  padding: 18px 0 0 4px;
+  overflow: hidden;
+  min-width: 119px;
+}
+
 .tableBox {
   min-width: max-content;
   border-collapse: collapse;
   border-spacing: 0px;
+}
+
+@media (max-width: 460px) {
+  .container {
+    max-width: 374px;
+  }
+  .divBox {
+    margin-left: 20px;
+    max-width: 390px;
+  }
+  .listGroup {
+    padding: 80% 2% 20% 2%;
+    min-width: 96px;
+    overflow: hidden !important;
+  }
 }

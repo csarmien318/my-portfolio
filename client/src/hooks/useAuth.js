@@ -18,7 +18,6 @@ const useAuth = () => {
     async function authUser() {
       try {
         await axios.post(`${API_ENDPOINT}/auth`);
-        // if (!sessionStorage.getItem("user")) sessionStorage.clear();
       } catch (err) {
         if (err?.response?.status === 403) {
           alert(
@@ -42,7 +41,6 @@ const useAuth = () => {
         }
       );
       if (response.status === 202) {
-        console.log("Checking login staatus of 202");
         let name = JSON.stringify(response.data.user);
         sessionStorage.setItem("user", name);
       }

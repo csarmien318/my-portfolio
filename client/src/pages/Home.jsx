@@ -7,15 +7,20 @@ import "aos/dist/aos.css";
 
 const Home = () => {
   useEffect(() => {
-    Aos.init({ duration: 1000, once: true });
+    Aos.init({
+      startEvent: "scroll",
+      duration: 1000,
+      once: true,
+    });
   }, []);
 
   return (
     <Page title="Welcome">
       <Container fluid="md" className={`lead ${styles.container}`}>
         <Row
+          data-aos=""
           style={{
-            marginBottom: "60%",
+            marginBottom: "30%",
             flexWrap: "wrap-reverse",
           }}
         >
@@ -25,9 +30,16 @@ const Home = () => {
               <blockquote className="blockquote">
                 <p className="lead">
                   This website was created to serve as a portfolio showcasing my
-                  <em> full-stack software development</em> capabilities. In
-                  case you're wondering, I am the sole creator and contributor
-                  of everything shown here - feel free to check out the code on{" "}
+                  <em> full-stack software development</em> capabilities.
+                  Moreover, this application marks the start of my journey into
+                  software engineering as a self-educated individual in the
+                  field.
+                  <br />
+                </p>
+                <p>
+                  In case you're wondering,{" "}
+                  <em>I am the sole contributor and creator</em> of this
+                  application - feel free to check out the code on{" "}
                   <a
                     style={{ textDecoration: "none" }}
                     href="https://github.com/csarmien318/my-portfolio.git"
@@ -56,16 +68,24 @@ const Home = () => {
             <div className={styles.box1}>
               <p className="display-5 fw-light">Introduction</p>
               <p>
-                This project was built using the{" "}
+                This application was written primarily in{" "}
+                <strong>JavaScript</strong> and built using the{" "}
                 <strong>
-                  <em>MERN Stack</em> (MongoDB, ExpressJS, ReactJS,
+                  <em>MERN Stack</em> (MongoDB, Express, React, Node)
                 </strong>{" "}
-                and <strong>NodeJS)</strong> web development framework. In
-                addition, <strong>Mongoose, Axios, CORS, </strong> and
-                implementation of <strong>middleware</strong> were used to
-                create server-side functionality. All code was tested using{" "}
-                <strong>React Testing Library, Jest</strong> and{" "}
-                <strong>Mock Service Worker</strong> to mock API calls.
+                web development framework. In addition,{" "}
+                <strong>authentication middleware</strong> for generating{" "}
+                <strong>JSON web tokens, Mongoose,</strong> and{" "}
+                <strong>Cors</strong> were implemented in the server-side layer
+                of this app. <br />
+              </p>
+              <p>
+                <strong>
+                  <em>Performance testing frameworks</em>
+                </strong>{" "}
+                such as <strong>React Testing Library, Jest</strong> and{" "}
+                <strong>Mock Service Worker</strong> were used to test code
+                functionality, detect bugs, and prevent unintended behavior.
                 <br />
               </p>
               <p>
@@ -93,7 +113,8 @@ const Home = () => {
             <p>
               Fairly self-explanatory. Here you can find my personal statement,
               education, professional experience, and some miscellaneous things
-              about me - all of which were styled using Bootstrap and CSS.
+              about me, all of which were styled using{" "}
+              <strong>Bootstrap</strong> and <strong>CSS</strong>.
             </p>
           </Col>
           <Col md={2}>
@@ -112,9 +133,18 @@ const Home = () => {
               alongside a list group and implements:
             </p>
             <ul>
-              <li>Performing API calls to read data stored in MongoDB</li>
-              <li>Tabulating, sorting, and paginating data</li>
-              <li>Bootstrap styling and CSS formatting</li>
+              <li>
+                Performing <strong>API calls</strong> to read data manually
+                stored in <strong>MongoDB</strong>
+              </li>
+              <li>
+                <strong>Tabulating, sorting,</strong> and{" "}
+                <strong>paginating</strong> data
+              </li>
+              <li>
+                <strong>Bootstrap</strong> styling and <strong>CSS</strong>{" "}
+                formatting
+              </li>
             </ul>
           </Col>
         </Row>
@@ -138,17 +168,25 @@ const Home = () => {
             </p>
             <ul>
               <li>
-                API requests, query parameters, responses, and error handling
+                <strong>API requests</strong>, <strong>query parameters</strong>
+                , <strong>responses</strong>, and{" "}
+                <strong>error handling</strong>
               </li>
-              <li>Organizing and dynamically displaying received data</li>
-              <li>Bootstrap Styling and CSS formatting</li>
+              <li>
+                <strong>Organizing</strong> and{" "}
+                <strong>dynamic displaying</strong> of data retrieved
+              </li>
+              <li>
+                <strong>Bootstrap</strong> styling and <strong>CSS</strong>{" "}
+                formatting
+              </li>
             </ul>
           </Col>
           <Col md={4}>
             <div className={styles.cloudImg} />
           </Col>
         </Row>
-        <Row data-aos="fade-up" style={{ marginBottom: "10%" }}>
+        <Row data-aos="fade-up" style={{ marginBottom: "15%" }}>
           <Col md={2} lg={3} xl={2}>
             <div className={styles.contactImg} />
           </Col>
@@ -158,20 +196,23 @@ const Home = () => {
             <p>
               Lastly, I included a contact me section as well as an initial
               login page to prevent unwanted users from entering this site. The
-              following was applied to either one or the other, or both:
+              following was applied to either one, the other, or both:
             </p>
             <ul>
               <li>
-                Defining API endpoints and applying CRUD operations on data in
-                MongoDB
+                <strong>Form validation, error handling,</strong> user{" "}
+                <strong>authentication</strong> and{" "}
+                <strong>authorization</strong>
               </li>
               <li>
-                Form validation, error handling, user authentication and
-                authorization
+                Generating <strong>access</strong> and{" "}
+                <strong>refresh JSON web tokens</strong> stored as{" "}
+                <strong>httpOnly cookies</strong> sent from the back-end
               </li>
               <li>
-                Generating access and refresh JSON web tokens stored as httpOnly
-                cookies
+                Defining <strong>API endpoints</strong> and applying{" "}
+                <strong>CRUD operations</strong> on data in{" "}
+                <strong>MongoDB</strong>
               </li>
             </ul>
             <p className="fw-bolder fst-italic text-muted">

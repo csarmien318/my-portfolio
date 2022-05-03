@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Schema
 const Schema = mongoose.Schema;
 const ContactSchema = new Schema({
   username: String,
@@ -9,10 +8,8 @@ const ContactSchema = new Schema({
   message: String,
 });
 
-// Model
 const Contact = mongoose.model("Contact", ContactSchema);
 
-// Saving data to our mongo database
 const data = {
   username: "John Smith",
   company: "Testing Inc.",
@@ -20,6 +17,6 @@ const data = {
   message: "This is a test message from John Smith.",
 };
 
-const newContact = new Contact(data); // instance of the model
+const newContact = new Contact(data);
 
 module.exports = Contact;
