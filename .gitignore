@@ -8,13 +8,13 @@ client/node_modules
 
 # testing
 client/coverage
+.env.test
+.env.test.local
 
 
 .DS_Store
 .env
 .env.local
-.env.test
-.env.test.local
 .env.development
 .env.development.local
 .env.production
