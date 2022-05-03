@@ -4,7 +4,6 @@ import axios from "axios";
 import Page from "../components/Page";
 import SongsListGroup from "../components/SongsListGroup";
 import SongsTable from "../components/SongsTable";
-import { config } from "../constants";
 
 const Songs = () => {
   const [getApiSongs, setApiSongs] = useState([]);
@@ -17,12 +16,15 @@ const Songs = () => {
     order: "ascending",
   });
 
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
   useEffect(() => {
     async function getSongsData() {
       setLoader(true);
+      console.log(process.env.NODE_ENV);
 
       try {
-        const response = await axios.get(`${config.SERVER_URI}/songs`, {
+        const response = await axios.get(`${API_ENDPOINT}/songs`, {
           withCredentials: true,
         });
         const { data } = response;
@@ -32,19 +34,6 @@ const Songs = () => {
       } catch (err) {
         console.log(err.message);
       }
-      // await axios
-      //   .get(`${config.SERVER_URI}/songs`, {
-      //     withCredentials: true,
-      //   })
-      //   .then((response) => {
-      //     const { data } = response;
-      //     setAllSongs(data);
-      //     setApiSongs(data);
-      //     setLoader(false);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err.message);
-      //   });
     }
     getSongsData();
   }, [setAllSongs]);

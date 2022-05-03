@@ -94,25 +94,23 @@ describe("Header component", () => {
 
   it("should render logout button and be truthy upon click", async () => {
     const { getByText } = render(<MockHeader activeUser="test1000" />);
-    fireEvent.click(getByText(/test1000/i));
-    const clickLogout = fireEvent.click(getByText(/logout/i));
 
-    await waitFor(() => {
-      expect(clickLogout).toBeTruthy();
+    await act(async () => {
+      fireEvent.click(getByText(/test1000/i));
     });
+
+    expect(fireEvent.click(getByText(/logout/i))).toBeTruthy();
   });
 
   it("should throw and log error on console with message", async () => {
+    console.log = jest.fn();
     server.use(
       rest.get("http://localhost:8080/api/logout", (req, res, ctx) => {
         return res.networkError();
       })
     );
     const { getByText } = render(<MockHeader activeUser="test1000" />);
-
-    await act(async () => {
-      fireEvent.click(getByText(/test1000/i));
-    });
+    fireEvent.click(getByText(/test1000/i));
     fireEvent.click(getByText(/logout/i));
     console.log = jest.fn();
 
