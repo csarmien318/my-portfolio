@@ -11,6 +11,8 @@ client/coverage
 .env.test
 .env.test.local
 
+#production
+/build
 
 .DS_Store
 .env
