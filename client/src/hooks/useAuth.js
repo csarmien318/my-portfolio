@@ -55,13 +55,11 @@ const useAuth = () => {
     axios.delete(`${API_ENDPOINT}/clear-cookies`);
     axios
       .get(`${API_ENDPOINT}/logout`, {
-        headers: { "Content-Type": "application/json" },
         withCredential: true,
       })
       .catch(() => {
         console.log("An internal server error has occurred.");
       });
-
     setUser(false);
     sessionStorage.clear();
     window.location.reload();
