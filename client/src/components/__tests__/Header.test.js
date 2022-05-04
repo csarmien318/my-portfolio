@@ -61,6 +61,8 @@ const MockHeader = ({ activeUser }) => {
   );
 };
 
+console.error = jest.fn();
+
 describe("Header component", () => {
   console.warn = jest.fn();
   it("should render specific elements in routes when clicked on Header", async () => {
@@ -80,26 +82,6 @@ describe("Header component", () => {
 
     fireEvent.click(getByRole("link", { name: /home/i }));
     expect(getByText(/welcome/i)).toBeInTheDocument();
-  });
-
-  it("should call window.onpopstate to simulate user pressing back btn in browser", async () => {
-    jest.spyOn(React, "useEffect").mockImplementation((e) => e());
-    jest.spyOn(window, "onpopstate");
-    console.error = jest.fn();
-
-    render(<MockAppRoutes isUser="true" />);
-    window.onpopstate();
-    expect(window.onpopstate).toHaveBeenCalledTimes(1);
-  });
-
-  it("should render logout button and be truthy upon click", async () => {
-    const { getByText } = render(<MockHeader activeUser="test1000" />);
-
-    await act(async () => {
-      fireEvent.click(getByText(/test1000/i));
-    });
-
-    expect(fireEvent.click(getByText(/logout/i))).toBeTruthy();
   });
 
   it("should throw and log error on console with message", async () => {
