@@ -44,7 +44,7 @@ const Header = () => {
               <NavDropdown
                 data-testid="activeUserDropMenu"
                 id="collapsible-nav-dropdown"
-                title={activeUser.username || user}
+                title={activeUser?.username || user}
                 align="end"
               >
                 <NavDropdown.Item onClick={handleLogout}>
