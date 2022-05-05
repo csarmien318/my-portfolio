@@ -5,20 +5,20 @@ export const handlers = [
   rest.post("http://localhost:8080/api/auth", (req, res, ctx) => {
     return res(
       ctx.cookie("accessToken", {
-        expires: new Date(new Date().getTime() + 1800 * 1000),
+        expires: new Date(new Date().getTime() + 1200 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
         httpOnly: true,
       }),
       ctx.cookie("authedSession", true, {
-        expires: new Date(new Date().getTime() + 1800 * 1000),
+        expires: new Date(new Date().getTime() + 1200 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
       }),
       ctx.status(200),
-      ctx.json({ mockToken: "mockToken" })
+      ctx.json("User authentication successful")
     );
   }),
 
@@ -46,7 +46,7 @@ export const handlers = [
           secure: true,
         }),
         ctx.cookie("accessToken", {
-          expires: new Date(new Date().getTime() + 1800 * 1000),
+          expires: new Date(new Date().getTime() + 1200 * 1000),
           origin: "http://localhost:3000",
           sameSite: "strict",
           secure: true,
@@ -60,7 +60,7 @@ export const handlers = [
           httpOnly: true,
         }),
         ctx.cookie("authedSession", true, {
-          expires: new Date(new Date().getTime() + 1800 * 1000),
+          expires: new Date(new Date().getTime() + 1200 * 1000),
           origin: "http://localhost:3000",
           sameSite: "strict",
           secure: true,

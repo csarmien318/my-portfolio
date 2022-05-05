@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
         secure: true,
       })
       .cookie("accessToken", accessToken, {
-        expires: new Date(new Date().getTime() + 1800 * 1000),
+        expires: new Date(new Date().getTime() + 1200 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
         httpOnly: true,
       })
       .cookie("authedSession", true, {
-        expires: new Date(new Date().getTime() + 1800 * 1000),
+        expires: new Date(new Date().getTime() + 1200 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
@@ -130,20 +130,20 @@ router.post("/auth", async (req, res) => {
     const accessToken = generateAccessToken(user);
     res
       .cookie("accessToken", accessToken, {
-        expires: new Date(new Date().getTime() + 1800 * 1000),
+        expires: new Date(new Date().getTime() + 1200 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
         httpOnly: true,
       })
       .cookie("authedSession", true, {
-        expires: new Date(new Date().getTime() + 1800 * 1000),
+        expires: new Date(new Date().getTime() + 1200 * 1000),
         origin: "http://localhost:3000",
         sameSite: "strict",
         secure: true,
       })
       .status(200)
-      .json({ accessToken: accessToken });
+      .json("User authentication successful");
   });
 });
 
@@ -180,7 +180,7 @@ router.post("/save", async (req, res) => {
 // Generate new access token and set expiration on token
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN, {
-    expiresIn: "86400s",
+    expiresIn: "1200s",
   });
 }
 

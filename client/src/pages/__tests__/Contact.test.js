@@ -44,11 +44,8 @@ describe("Contact page test - useContact.js tested indirectly", () => {
 
   it("should mock server error", async () => {
     server.use(
-      rest.post("http://localhost:8080/api/save", (req, res, ctx) => {
-        return res.networkError();
-      }),
       rest.post("http://localhost:8080/api/auth", (req, res, ctx) => {
-        return res.networkError();
+        return res(ctx.status(403));
       })
     );
     const { getByPlaceholderText, getByRole, getByTestId } = render(

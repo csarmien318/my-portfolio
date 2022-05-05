@@ -29,11 +29,17 @@ const Login = () => {
       <div className={`container-md col-4 ${styles.container}`}>
         <Card style={{ boxShadow: "-8px 7px 20px 0px grey" }}>
           <Card.Body>
-            <Card.Text>
-              <em className="lead fs-6">
+            <div className={styles.textBox}>
+              <p className="fs-6 fw-normal lead">
                 To view this website, please enter the credentials provided.
-              </em>
-            </Card.Text>
+              </p>
+              <p
+                className="text-center fw-light fst-italic"
+                style={{ marginTop: "-2%", fontSize: "0.87rem" }}
+              >
+                (username and password are case-sensitive)
+              </p>
+            </div>
             <Form data-testid="loginForm" onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>

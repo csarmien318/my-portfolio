@@ -52,10 +52,13 @@ const useAuth = () => {
   };
 
   const handleLogout = async () => {
-    axios.delete(`${API_ENDPOINT}/clear-cookies`);
-    axios
+    await axios.delete(`${API_ENDPOINT}/clear-cookies`);
+    await axios
       .get(`${API_ENDPOINT}/logout`, {
         withCredential: true,
+      })
+      .then(() => {
+        console.log("Logout successful.");
       })
       .catch(() => {
         console.log("An internal server error has occurred.");
