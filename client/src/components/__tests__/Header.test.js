@@ -102,4 +102,15 @@ describe("Header component", () => {
       );
     });
   });
+
+  it("should throw and log error on console with message", async () => {
+    const { getByText } = render(<MockHeader activeUser="test1000" />);
+    fireEvent.click(getByText(/test1000/i));
+    fireEvent.click(getByText(/logout/i));
+    console.log = jest.fn();
+
+    await waitFor(() => {
+      expect(console.log).toBeCalledWith("Logout successful.");
+    });
+  });
 });
