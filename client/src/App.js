@@ -19,8 +19,8 @@ const App = () => {
   const { isUser } = useAuth();
   return (
     <Router>
-      <Header />
       <RestoreScroll>
+        <Header />
         <AppRoutes isUser={isUser}>
           <Routes />
         </AppRoutes>

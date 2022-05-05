@@ -1,4 +1,4 @@
-import { act, render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
 import { server } from "../../mocks/server";
@@ -100,17 +100,6 @@ describe("Header component", () => {
       expect(console.log).toBeCalledWith(
         "An internal server error has occurred."
       );
-    });
-  });
-
-  it("should throw and log error on console with message", async () => {
-    const { getByText } = render(<MockHeader activeUser="test1000" />);
-    fireEvent.click(getByText(/test1000/i));
-    fireEvent.click(getByText(/logout/i));
-    console.log = jest.fn();
-
-    await waitFor(() => {
-      expect(console.log).toBeCalledWith("Logout successful.");
     });
   });
 });
