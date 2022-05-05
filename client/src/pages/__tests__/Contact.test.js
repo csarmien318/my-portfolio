@@ -45,7 +45,7 @@ describe("Contact page test - useContact.js tested indirectly", () => {
   it("should mock server error", async () => {
     server.use(
       rest.post("http://localhost:8080/api/auth", (req, res, ctx) => {
-        return res(ctx.status(403));
+        return res.networkError();
       })
     );
     const { getByPlaceholderText, getByRole, getByTestId } = render(
@@ -58,7 +58,6 @@ describe("Contact page test - useContact.js tested indirectly", () => {
     fireEvent.change(nameBox, { target: { value: "Test" } });
     fireEvent.change(emailBox, { target: { value: "test@mail.com" } });
     fireEvent.click(getByRole("button"));
-    fireEvent.submit(form);
 
     await waitFor(() => expect(window.alert).toBeCalled());
   });

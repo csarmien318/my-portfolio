@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth";
 import styles from "../css/Header.module.css";
 
 const Header = () => {
-  const { activeUser, handleLogout } = useAuth();
+  const { activeUser, user, handleLogout } = useAuth();
 
   return (
     <Navbar
@@ -39,12 +39,12 @@ const Header = () => {
               <Nav.Link active={false}>Contact</Nav.Link>
             </LinkContainer>
           </Nav>
-          {activeUser?.username && (
+          {user && (
             <Nav>
               <NavDropdown
                 data-testid="activeUserDropMenu"
                 id="collapsible-nav-dropdown"
-                title={activeUser.username || sessionStorage.getItem("user")}
+                title={activeUser.username || user}
                 align="end"
               >
                 <NavDropdown.Item onClick={handleLogout}>

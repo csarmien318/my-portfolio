@@ -12,10 +12,13 @@ const useAuth = () => {
   const [isUser, setUser] = useState(user);
 
   const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
-  const checkUser = sessionStorage.getItem("user");
 
   useEffect(() => {
     async function authUser() {
+      if (!user) {
+        handleLogout();
+        return;
+      }
       try {
         await axios.post(`${API_ENDPOINT}/auth`);
       } catch (err) {
@@ -27,8 +30,9 @@ const useAuth = () => {
         handleLogout();
       }
     }
-    if (isUser) authUser();
-  });
+
+    if (activeUser) authUser();
+  }, []);
 
   const handleLogin = async (username, password) => {
     try {
@@ -52,13 +56,10 @@ const useAuth = () => {
   };
 
   const handleLogout = async () => {
-    await axios.delete(`${API_ENDPOINT}/clear-cookies`);
+    axios.delete(`${API_ENDPOINT}/clear-cookies`);
     await axios
       .get(`${API_ENDPOINT}/logout`, {
         withCredential: true,
-      })
-      .then(() => {
-        console.log("Logout successful.");
       })
       .catch(() => {
         console.log("An internal server error has occurred.");
@@ -69,9 +70,10 @@ const useAuth = () => {
   };
 
   return {
+    user,
     isUser,
     activeUser,
-    checkUser,
+    // checkUser,
     setUser,
     handleLogin,
     handleLogout,
