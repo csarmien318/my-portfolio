@@ -15,12 +15,9 @@ const useAuth = () => {
 
   useEffect(() => {
     async function authUser() {
-      if (!user) {
-        handleLogout();
-        return;
-      }
+      if ((isUser && !user) || (!isUser && activeUser)) return handleLogout();
       try {
-        await axios.post(`${API_ENDPOINT}/auth`);
+        if (isUser && user) await axios.post(`${API_ENDPOINT}/auth`);
       } catch (err) {
         if (err?.response?.status === 403) {
           alert(
@@ -31,7 +28,7 @@ const useAuth = () => {
       }
     }
 
-    if (activeUser) authUser();
+    authUser();
   }, []);
 
   const handleLogin = async (username, password) => {
@@ -45,7 +42,7 @@ const useAuth = () => {
         }
       );
       if (response.status === 202) {
-        let name = JSON.stringify(response.data.user);
+        let name = response.data.user.username;
         sessionStorage.setItem("user", name);
       }
       window.location.reload();

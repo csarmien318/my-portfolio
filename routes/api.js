@@ -116,7 +116,7 @@ router.delete("/clear-cookies", (req, res) => {
 // Generate new access token upon expiration
 router.post("/auth", async (req, res) => {
   const tokens = req.headers.cookie;
-  if (!tokens) return;
+  if (!tokens) return res.status(401).send();
 
   const refreshToken = tokens?.split("refreshToken=")[1]?.split(";")[0];
   if (!refreshToken) return res.status(403).send();
