@@ -32,8 +32,7 @@ const Home = () => {
                   This website was created to serve as a portfolio showcasing my
                   <em> full-stack software development</em> capabilities.
                   Moreover, this application marks the start of my journey into
-                  software engineering as a self-educated individual in the
-                  field.
+                  software engineering.
                   <br />
                 </p>
                 <p>
@@ -75,9 +74,9 @@ const Home = () => {
                 </strong>{" "}
                 web development framework. In addition,{" "}
                 <strong>authentication middleware</strong> for generating{" "}
-                <strong>JSON web tokens, Mongoose,</strong> and{" "}
-                <strong>Cors</strong> were implemented in the server-side layer
-                of this app. <br />
+                <strong>JSON web tokens,</strong> creating{" "}
+                <strong>REST APIs, Mongoose</strong> and <strong>Cors</strong>{" "}
+                were implemented in the server-side layer of this app. <br />
               </p>
               <p>
                 <strong>
