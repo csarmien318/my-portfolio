@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import resume from "../assets/ResumePortfolioEdit.png";
+import resume from "../assets/softwareDev_Resume.png";
 
 const ResumeModal = ({ modalShow, setModalShow }) => {
   return (
