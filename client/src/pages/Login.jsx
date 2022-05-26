@@ -1,22 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Page from "../components/Page";
 import useAuth from "../hooks/useAuth";
 import useLogin from "../hooks/useLogin";
+import styles from "../css/Login.module.css";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const formSubmit = async () => {
-    await handleLogin(username, password);
-
+    const response = await handleLogin(username, password);
     setUsername("");
     setPassword("");
-
-    navigate("/");
   };
 
   const {
@@ -31,20 +26,20 @@ const Login = () => {
 
   return (
     <Page title="Login">
-      <div
-        className="container-md col-4"
-        style={{
-          width: "480px",
-          marginBottom: "40px",
-        }}
-      >
+      <div className={`container-md col-4 ${styles.container}`}>
         <Card style={{ boxShadow: "-8px 7px 20px 0px grey" }}>
           <Card.Body>
-            <Card.Text>
-              <em className="lead fs-6">
+            <div className={styles.textBox}>
+              <p className="fs-6 fw-normal lead">
                 To view this website, please enter the credentials provided.
-              </em>
-            </Card.Text>
+              </p>
+              <p
+                className="text-center fw-light fst-italic"
+                style={{ marginTop: "-2%", fontSize: "0.87rem" }}
+              >
+                (username and password are case-sensitive)
+              </p>
+            </div>
             <Form data-testid="loginForm" onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
@@ -66,7 +61,7 @@ const Login = () => {
               </Form.Group>
               <div className="d-flex justify-content-center">
                 <Button
-                  className="submit col-3"
+                  className={`submit col-3 ${styles.btn}`}
                   variant="primary"
                   type="submit"
                   value="Submit"

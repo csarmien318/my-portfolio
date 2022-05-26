@@ -4,7 +4,7 @@ import axios from "axios";
 import Page from "../components/Page";
 import SongsListGroup from "../components/SongsListGroup";
 import SongsTable from "../components/SongsTable";
-import useAuth from "../hooks/useAuth";
+import styles from "../css/Songs.module.css";
 
 const Songs = () => {
   const [getApiSongs, setApiSongs] = useState([]);
@@ -17,27 +17,25 @@ const Songs = () => {
     order: "ascending",
   });
 
-  const {} = useAuth();
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   useEffect(() => {
     async function getSongsData() {
       setLoader(true);
-      await axios
-        .get("http://localhost:8080/api/songs", {
+      try {
+        const response = await axios.get(`${API_ENDPOINT}/songs`, {
           withCredentials: true,
-        })
-        .then((response) => {
-          const { data } = response;
-          setAllSongs(data);
-          setApiSongs(data);
-          setLoader(false);
-        })
-        .catch((err) => {
-          console.log(err.message);
         });
+        const { data } = response;
+        setAllSongs(data);
+        setApiSongs(data);
+        setLoader(false);
+      } catch (err) {
+        console.log(err.message);
+      }
     }
     getSongsData();
-  }, []);
+  }, [setAllSongs]);
 
   useEffect(() => {
     setAllSongs(getApiSongs);
@@ -47,7 +45,11 @@ const Songs = () => {
 
   return (
     <Page title="Tabled Data">
-      <Container fluid style={{ maxWidth: "2000px" }}>
+      <Container
+        fluid
+        className={styles.container}
+        style={{ maxWidth: "2000px" }}
+      >
         <Row>
           {loader && (
             <Placeholder data-testid="loaderImg" as="p" animation="glow">

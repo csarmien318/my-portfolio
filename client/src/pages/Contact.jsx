@@ -2,18 +2,14 @@ import React from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useContact } from "../hooks/useContact";
 import Page from "../components/Page";
-import useAuth from "../hooks/useAuth";
+import styles from "../css/Contact.module.css";
 
 const Contact = () => {
-  const {} = useAuth();
   const { handleChange, handleSubmit, errors, submitted } = useContact();
 
   return (
     <Page title="Contact Me">
-      <div
-        className="container-md col-4"
-        style={{ width: "440px", marginBottom: "40px" }}
-      >
+      <div className={`container-md col-4 ${styles.container}`}>
         <Card style={{ boxShadow: "-8px 7px 20px 0 grey" }}>
           <Card.Body>
             {submitted && <p>sending...</p>}
@@ -79,7 +75,7 @@ const Contact = () => {
                 variant="primary"
                 type="submit"
                 value="Submit"
-                className="submit"
+                className={`submit ${styles.btn}`}
               >
                 Submit
               </Button>

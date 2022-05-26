@@ -13,15 +13,18 @@ import Weather from "./pages/Weather";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import useAuth from "./hooks/useAuth";
+import RestoreScroll from "./components/RestoreScroll";
 
 const App = () => {
   const { isUser } = useAuth();
   return (
     <Router>
-      <Header />
-      <AppRoutes isUser={isUser}>
-        <Routes />
-      </AppRoutes>
+      <RestoreScroll>
+        <Header />
+        <AppRoutes isUser={isUser}>
+          <Routes />
+        </AppRoutes>
+      </RestoreScroll>
     </Router>
   );
 };

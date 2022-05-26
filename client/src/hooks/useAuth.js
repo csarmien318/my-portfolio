@@ -3,78 +3,74 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-const isAuthed = cookies.get("isAuthed");
 const activeUser = cookies.get("user");
+const user = sessionStorage.getItem("user");
 
 axios.defaults.withCredentials = true;
 
 const useAuth = () => {
-  const [isUser, setUser] = useState(() => {
-    if (activeUser || isAuthed) return true;
-    return false;
-  });
+  const [isUser, setUser] = useState(user);
 
-  const checkUser = localStorage.getItem("user");
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
   useEffect(() => {
-    (async () => {
+    async function authUser() {
+      if ((isUser && !user) || (!isUser && activeUser)) return handleLogout();
       try {
-        await axios.post("http://localhost:8080/api/auth");
+        if (isUser && user) await axios.post(`${API_ENDPOINT}/auth`);
       } catch (err) {
-        if (!err?.response) {
-          alert("Internal server error. Try again later.");
-          return setUser(false);
+        if (err?.response?.status === 403) {
+          alert(
+            "Forbidden: Either another user has logged in with the same credentials, or there was an authentication error."
+          );
         }
-        // if (checkUser || activeUser) {
-        //   handleLogout();
-        //   alert("Unauthorized");
-        //   window.location.reload();
-        // }
+        handleLogout();
       }
-    })();
+    }
+
+    authUser();
   }, []);
 
   const handleLogin = async (username, password) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/login",
+        `${API_ENDPOINT}/login`,
         JSON.stringify({ username, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      let name = JSON.stringify(response.data.user);
-      localStorage.setItem("user", name);
-      setUser(true);
+      if (response.status === 202) {
+        let name = response.data.user.username;
+        sessionStorage.setItem("user", name);
+      }
       window.location.reload();
-    } catch {
+    } catch (error) {
       alert("Incorrect username or password");
+      window.location.reload();
     }
   };
 
-  const handleLogout = () => {
-    axios.delete("http://localhost:8080/api/clear-cookies");
-    axios
-      .get("http://localhost:8080/api/logout", {
-        headers: { "Content-Type": "application/json" },
+  const handleLogout = async () => {
+    axios.delete(`${API_ENDPOINT}/clear-cookies`);
+    await axios
+      .get(`${API_ENDPOINT}/logout`, {
         withCredential: true,
       })
-      // .then(() => {
-      //   localStorage.clear();
-      // })
       .catch(() => {
         console.log("An internal server error has occurred.");
       });
-
     setUser(false);
-    localStorage.clear();
+    sessionStorage.clear();
     window.location.reload();
   };
 
   return {
+    user,
     isUser,
     activeUser,
-    checkUser,
+    // checkUser,
     setUser,
     handleLogin,
     handleLogout,

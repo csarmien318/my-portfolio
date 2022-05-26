@@ -54,7 +54,6 @@ const useWeather = () => {
       uvIndex: data.current.uv,
       date: data.current.last_updated,
     });
-    console.log(data);
   };
 
   const submitRequest = async (location) => {

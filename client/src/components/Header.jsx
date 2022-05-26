@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Navbar, NavDropdown, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import useAuth from "../hooks/useAuth";
 import styles from "../css/Header.module.css";
 
 const Header = () => {
-  const [tab, setTab] = useState("");
-
-  useEffect(() => {
-    window.onpopstate = () => {
-      window.location.reload();
-    };
-  });
-
-  const { activeUser, handleLogout } = useAuth();
+  const { activeUser, user, handleLogout } = useAuth();
 
   return (
     <Navbar
@@ -32,52 +24,30 @@ const Header = () => {
               to="/"
               style={{ marginTop: "-4px" }}
             >
-              <Nav.Link active onClick={() => setTab("home")}>
-                Home
-              </Nav.Link>
+              <Nav.Link active={false}>Home</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/about">
-              <Nav.Link
-                className={tab === "about" ? "active" : ""}
-                onClick={() => setTab("about")}
-              >
-                About
-              </Nav.Link>
+              <Nav.Link active={false}>About</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/songs">
-              <Nav.Link
-                className={tab === "songs" ? "active" : ""}
-                onClick={() => setTab("songs")}
-              >
-                Songs
-              </Nav.Link>
+              <Nav.Link active={false}>Songs</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/weather">
-              <Nav.Link
-                className={tab === "weather" ? "active" : ""}
-                onClick={() => setTab("weather")}
-              >
-                Weather
-              </Nav.Link>
+              <Nav.Link active={false}>Weather</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/contact">
-              <Nav.Link
-                className={tab === "contact" ? "active" : ""}
-                onClick={() => setTab("contact")}
-              >
-                Contact
-              </Nav.Link>
+              <Nav.Link active={false}>Contact</Nav.Link>
             </LinkContainer>
           </Nav>
-          {activeUser?.username && (
+          {user && (
             <Nav>
               <NavDropdown
                 data-testid="activeUserDropMenu"
                 id="collapsible-nav-dropdown"
-                title={activeUser.username}
+                title={activeUser?.username || user}
                 align="end"
               >
-                <NavDropdown.Item onClick={handleLogout} href="/login">
+                <NavDropdown.Item onClick={handleLogout}>
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>

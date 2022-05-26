@@ -1,0 +1,25 @@
+.container {
+  margin-bottom: 40px !important;
+  width: 480px !important;
+}
+
+.textBox {
+  margin-bottom: 4%;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .container {
+    max-width: 362px;
+  }
+}
+
+@media (max-width: 362px) {
+  .btn {
+    min-width: 100px !important;
+  }
+  .container {
+    padding-right: 20px !important;
+    max-width: 348px !important;
+  }
+}

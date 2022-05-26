@@ -49,7 +49,7 @@ const MockHeader = ({ activeUser }) => {
                 title={activeUser}
                 align="end"
               >
-                <NavDropdown.Item onClick={handleLogout} href="/login">
+                <NavDropdown.Item onClick={() => handleLogout()} href="/login">
                   Logout
                 </NavDropdown.Item>
               </NavDropdown>
@@ -60,6 +60,8 @@ const MockHeader = ({ activeUser }) => {
     </Navbar>
   );
 };
+
+console.error = jest.fn();
 
 describe("Header component", () => {
   console.warn = jest.fn();
@@ -82,27 +84,8 @@ describe("Header component", () => {
     expect(getByText(/welcome/i)).toBeInTheDocument();
   });
 
-  it("should call window.onpopstate to simulate user pressing back btn in browser", async () => {
-    jest.spyOn(React, "useEffect").mockImplementation((e) => e());
-    jest.spyOn(window, "onpopstate");
-    console.error = jest.fn();
-
-    render(<MockAppRoutes isUser="true" />);
-    window.onpopstate();
-    expect(window.onpopstate).toHaveBeenCalledTimes(1);
-  });
-
-  it("should render logout button and be truthy upon click", async () => {
-    const { getByText } = render(<MockHeader activeUser="test1000" />);
-    fireEvent.click(getByText(/test1000/i));
-    const clickLogout = fireEvent.click(getByText(/logout/i));
-
-    await waitFor(() => {
-      expect(clickLogout).toBeTruthy();
-    });
-  });
-
   it("should throw and log error on console with message", async () => {
+    console.log = jest.fn();
     server.use(
       rest.get("http://localhost:8080/api/logout", (req, res, ctx) => {
         return res.networkError();
@@ -110,7 +93,7 @@ describe("Header component", () => {
     );
     const { getByText } = render(<MockHeader activeUser="test1000" />);
     fireEvent.click(getByText(/test1000/i));
-    const clickLogout = fireEvent.click(getByText(/logout/i));
+    fireEvent.click(getByText(/logout/i));
     console.log = jest.fn();
 
     await waitFor(() => {

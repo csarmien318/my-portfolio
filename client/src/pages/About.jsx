@@ -5,11 +5,9 @@ import Card from "react-bootstrap/Card";
 import Page from "../components/Page";
 import ResumeModal from "../components/ResumeModal";
 import styles from "../css/About.module.css";
-import useAuth from "../hooks/useAuth";
 
 const About = () => {
   const [modalShow, setModalShow] = useState(false);
-  const {} = useAuth();
 
   const handleClick = () => {
     setModalShow(true);
@@ -30,9 +28,11 @@ const About = () => {
                   Personal Statement
                 </Card.Title>
                 <Card.Text className={styles.cardText}>
-                  If it involves problem solving, exploring logical approaches,
-                  learning new systems, and working on a team of people as eager
-                  as I am to find solutions, count me in!
+                  If it involves <strong>problem solving</strong>, exploring{" "}
+                  <strong>logical approaches</strong>, <strong>learning</strong>{" "}
+                  new systems, and <strong>working on a team</strong> of people
+                  as eager as I am to <strong>find solutions</strong>, count me
+                  in!
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -46,15 +46,13 @@ const About = () => {
                   Professional Experience
                 </Card.Title>
                 <div className={styles.cardText}>
-                  <strong>Mater Academy Charter High School</strong>
+                  <strong>Advanced Placement Chemistry Teacher</strong>
                   <ul>
-                    <li>Advanced Placement Chemistry Teacher</li>
-                    <li>August 2019 - August 2021</li>
+                    <li>Mater Academy Charter High: Aug '19 - Aug '21</li>
                   </ul>
-                  <strong>HomeDepot</strong>
+                  <strong>Contractor Services Manager</strong>
                   <ul>
-                    <li>Contractor Services Manager</li>
-                    <li>May 2013 - February 2015</li>
+                    <li>The Home Depot: May '13 - Feb '15</li>
                   </ul>
                 </div>
               </Card.Body>
@@ -74,8 +72,13 @@ const About = () => {
                   <strong>University of Florida</strong>
                   <ul>
                     <li>Bachelor of Science in Chemistry</li>
-                    <li>Awarded Cum Laude - GPA: 3.81 of 4.00</li>
-                    <li>Graduation Date: December 2018</li>
+                    <li>
+                      Awarded <em>Cum Laude</em> -{" "}
+                      <em>
+                        GPA: <strong>3.81</strong> of 4.00
+                      </em>
+                    </li>
+                    <li>Graduated December 2018</li>
                   </ul>
                 </div>
               </Card.Body>
@@ -91,12 +94,18 @@ const About = () => {
                 </Card.Title>
                 <div className={styles.cardText}>
                   <ul>
-                    <li>Strong analytical and problem-solving skills</li>
                     <li>
-                      Effective verbal communication and interpretation of
-                      abstract data
+                      Strong <strong>analytical</strong> and{" "}
+                      <strong>problem-solving</strong> skills
                     </li>
-                    <li>Fluent in Spanish</li>
+                    <li>
+                      Effective verbal <strong>communication</strong> and{" "}
+                      <strong>interpretation</strong> of abstract data
+                    </li>
+                    <li>
+                      <strong>Bilingual</strong> proficiency in{" "}
+                      <strong>Spanish</strong>
+                    </li>
                   </ul>
                 </div>
               </Card.Body>
